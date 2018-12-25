@@ -67,11 +67,16 @@ VoteArc.oncreate = function(vn) {
 	var pie = d3.pie()
 		.startAngle(-Math.PI/2)
 		.endAngle(Math.PI/2)
+		.value(function (d) {
+			return d[vn.attrs.attribute || 'seats'] || 0;
+		})
+		(options)
 		;
 	var arcs = d3.arc()
 		.innerRadius(r/3)
 		.outerRadius(r)
 		;
+
 	var chart = d3.select(vn.dom)
 		.append('g')
 			.attr('transform', 'translate('+bbox.width/2+' '+bbox.height+')')
@@ -84,10 +89,9 @@ VoteArc.oncreate = function(vn) {
 		.attr('font-size', '120%')
 		.text(vn.attrs.label)
 		;
+
 	chart.selectAll('path')
-		.data(pie(options.map(function(d) {
-			return d[vn.attrs.attribute || 'seats'] || 0;
-		})))
+		.data(pie)
 		.enter()
 		.append('path')
 			.attr('d', arcs)
@@ -118,7 +122,20 @@ VoteArc.oncreate = function(vn) {
 					;
 			})
 		;
+
+	chart.selectAll('text.sectorlabel')
+		.data(pie)
+		.enter()
+		.filter(function(d) {console.log(d); return d.endAngle-d.startAngle>1*Math.PI/180;})
+		.append("text")
+		.classed("sectorlabel", true)
+		.attr('text-anchor', 'middle')
+		.attr("transform", function(d,i) { return "translate(" + arcs.centroid(d) + ")"; })
+		.text(function(d,i) { console.log(d.data.id); return d.data.id;})
+		.style("fill", "#fff")
+		;
 };
+
 VoteArc.view = function(vn) {
 	return m('svg.votingarc', {
 		'viewBox': '0 0 600 300',
