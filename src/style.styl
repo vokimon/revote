@@ -131,12 +131,10 @@ box()
 
 hbox()
 	box()
-	width: 100%
 	flex-direction: row
 
 vbox()
 	box()
-	height: 100%
 	flex-direction: column
 
 input
@@ -144,7 +142,9 @@ button
 select
 	background: white
 	color: #333
-
+.stretch
+	flex: 4 1 auto
+	border: 1pt red solid
 .vbox
 	vbox()
 .hbox
@@ -163,7 +163,7 @@ select
 	align-items: flex-start
 	align-content: flex-start
 	> *
-		flex: none
+		flex: auto
 
 .votingarcs
 	vbox()
@@ -173,7 +173,7 @@ select
 	margin: 0px
 	min-width: 150px
 	max-width: 400px
-	background-color: #eef
+	//background-color: #eef
 	flex: 0 1 auto
 
 

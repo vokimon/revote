@@ -147,6 +147,26 @@ Table.view = function(vn) {
 	return m('.hondttable');
 };
 
+var ScenaryChooser = {};
+ScenaryChooser.current = 0;
+ScenaryChooser.view = function(vn) {
+	var options = [
+	];
+	return m('.scenariochooser', [
+		m('', [
+			m('h3', _("Scenario")),
+			m('select', {
+				value: ScenaryChooser.fromCandidature,
+				onchanged: function(ev) {
+					ScenaryChooser.fromCandidature=ev.target.value;
+				},
+			}, options.map(function(option, i) {
+				return m('option', {value: i}, option.name);
+			})),
+		]),
+	]);
+};
+
 var TransferWidget = {};
 TransferWidget.fromCandidature=0;
 TransferWidget.toCandidature=1;
@@ -195,18 +215,18 @@ TransferWidget.view = function(vn) {
 	]);
 };
 
-var Examples = {
+var App = {
 	view: function(vn) {
 		return m('.app.mdc-typography', [
 			m('.votingarcs', [
+				m(ScenaryChooser),
 				m(VoteArc, { attribute: 'votes', shownovote: true, label: _("Opción Electoral")}),
 				m(VoteArc, { attribute: 'votes', label: _("Votos a Candidaturas")}),
 				m(VoteArc, { attribute: 'hamiltonseats', label: _("Reparto Hamilton")}),
 				m(VoteArc, { attribute: 'seats', label: _("Reparto D'Hondt")}),
 			]),
-			m('.vbox', [
+			m('.vbox.stretch', [
 				m(TransferWidget),
-				m('', 'Hola'),
 			]),
 		]);
 	},
@@ -215,7 +235,7 @@ var Examples = {
 
 window.onload = function() {
 	var element = document.getElementById("mithril-target");
-	m.mount(element, Examples);
+	m.mount(element, App);
 	//traceFocus();
 };
 
