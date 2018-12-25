@@ -36,15 +36,15 @@ function generateOptions(poll, shownovote) {
 	if (shownovote) {
 		options = options.concat([{
 			id: 'abstention',
-			name: 'abstention',
+			name: _("Abstención"),
 			votes: poll.abstention,
 		},{
 			id: 'blank',
-			name: 'blank',
+			name: _("En blanco"),
 			votes: poll.blank,
 		},{
 			id: 'null',
-			name: 'null',
+			name: _("Nulos"),
 			votes: poll.null,
 		}]);
 	}
