@@ -1,0 +1,85 @@
+name: Congreso Barcelona 1979
+call: Congreso Diputados Español
+circumscription: Barcelona
+date: 1977
+real: true
+seats: 33
+census: 3004988
+participation: 2392774
+abstention: 612214
+nullvotes: 29657
+blankvotes: 4279
+candidatures:
+- id: PSC-PSOE
+  votes: 721880
+  seats: 11
+  name: PARTIT DELS SOCIALISTES DE CATALUNYA
+- id: PSUC-PCE
+  votes: 469361
+  seats: 7
+  name: PARTIT SOCIALIST UNIFICAT DE CATALUNYA
+- id: PDPC
+  votes: 364798
+  seats: 6
+  name: COALICION ELECT.PACTE DEMOCRATIC PER CATALUNYA
+- id: UCD
+  votes: 355857
+  seats: 5
+  name: UNION DE CENTRO DEMOCRATICO
+- id: UDC-IDCC
+  votes: 127679
+  seats: 2
+  name: UNIO DEL CENTRE I LA DEM. CRISTIANA DE CATALUNYA
+- id: EC-FED
+  votes: 112794
+  seats: 1
+  name: COALICION ELECTORAL ESQUERRA DE CATALUÑA
+- id: CC-AP
+  votes: 75097
+  seats: 1
+  name: COALICION ELECTORAL CONVIVENCIA CATALANA
+- id: PSP-US
+  votes: 41356
+  seats: 0
+  name: PARTIDO SOCIALISTA POPULAR - UNIDAD SOCIALISTA
+- id: FUT
+  votes: 13559
+  seats: 0
+  name: FRENTE UNIDAD DE LOS TRABAJADORES
+- id: CUPS
+  votes: 12040
+  seats: 0
+  name: UNITAT POPULAR PER SOCIALISME
+- id: AET
+  votes: 10017
+  seats: 0
+  name: AGRUPACION ELECTORAL DE TRABAJADORES
+- id: LLIGA
+  votes: 9203
+  seats: 0
+  name: LLIGA DE CATALUNYA PARTIT LIBERAL CATALA
+- id: DSCC
+  votes: 9157
+  seats: 0
+  name: DEMOCRACIA SOCIAL CRISTIANA DE CATALUÑA
+- id: AN18
+  votes: 8895
+  seats: 0
+  name: ALIANZA NACIONAL 18 DE JULIO
+- id: ASDCI
+  votes: 8738
+  seats: 0
+  name: ALIANZA SOCIALISTA DEMOCRATICA
+- id: RSC
+  votes: 7900
+  seats: 0
+  name: REFORMA SOCIAL CATALANA
+- id: FJONSA
+  votes: 6395
+  seats: 0
+  name: FALANGE ESPAÑOLA DE LAS JONS AUTENTICA
+- id: PPROV
+  votes: 4112
+  seats: 0
+  name: PARTIDO PROVERISTA
+

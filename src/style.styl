@@ -1,0 +1,180 @@
+body, html {
+	background: white;
+	color: black;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+#mithril-target {
+	height: 100%;
+	margin: 0 auto;
+}
+
+.loading {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	vertical-align: middle;
+	position: relative;
+	top: 30%;
+	bottom: 0;
+}
+.hidden {
+	display: none;
+}
+
+// Theming
+* {
+	--mdc-theme-primary: #8bc34a;
+	--mdc-theme-secondary: #a62;
+	--mdc-theme-secondary: #ee6420;
+	--mdc-theme-error: #dd4433;
+	--mdc-theme-on-error: #ffa;
+}
+// Fixes focused floating label color not taking custom theme's colors
+.mdc-select:not(.mdc-select--disabled) .mdc-select__native-control:focus ~ .mdc-floating-label,
+.mdc-text-field--focused:not(.mdc-text-field--disabled) label.mdc-floating-label,
+.mdc-text-field--focused:not(.mdc-text-field--disabled) input::placeholder
+{
+	color: var(--mdc-theme-primary) !important;
+}
+// Fixes select's helper-text looking like text-field's
+.mdc-select:not(.mdc-select--disabled) + .mdc-text-field-helper-text {
+    color: rgba(0, 0, 0, 0.6);
+}
+.mdc-select + .mdc-text-field-helper-text {
+    margin-right: 12px;
+    margin-left: 12px;
+}
+.mdc-select + .mdc-text-field-helper-text {
+    margin-bottom: 8px;
+}
+
+// Fixes select's 'required' marker looking like for text-field's
+.mdc-select__native-control:required + .mdc-floating-label::after {
+    margin-left: 3px;
+    content: "*";
+}
+
+// Fixes firefox focus ring
+// TODO: @-moz-document url-prefix() {
+.mdc-select, select, select:-moz-focusring, select::-moz-focus-inner {
+   color: transparent !important;
+   text-shadow: 0 0 0 #000 !important;
+   background-image: none !important;
+   border:0;
+}
+
+// Tab panels
+[role="tabpanel"][aria-hidden='true'] {
+    display: none;
+}
+
+// Still seeing the current tab in showall mode
+[role="tabpanel"][aria-hidden='false']:not(.active) {
+    opacity: .5;
+}
+
+// Debugging aid
+.inspector:hover,
+.inspector.shown {
+    background-color: #eef;
+    width: 20em;
+    opacity: .7;
+}
+.inspector pre {
+    position: absolute;
+    bottom: 4ex;
+    padding: 1ex;
+    background-color: #fafaff;
+}
+.inspector {
+    z-index: 1000;
+    background-color: #fafaaa;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    opacity: .1;
+    color: #002;
+    width: 1px;
+    overflow: visible;
+    margin: 5px;
+    vertical-align: bottom;
+    transition: width 1s, opacity 1s;
+}
+
+h1, h2 {
+	color: var(--mdc-theme-primary);
+}
+
+.orange {
+    color: #aa4 !important;
+}
+.red {
+    color: red !important;
+}
+.green {
+    color: green !important;
+}
+
+box()
+	display: inline-flex
+	flex-wrap: no-wrap
+	align-items: stretch // Items in main dir
+	align-content: stretch // Wrap direction
+	> *
+		display: block
+		flex: 0 0 auto
+
+hbox()
+	box()
+	width: 100%
+	flex-direction: row
+
+vbox()
+	box()
+	height: 100%
+	flex-direction: column
+
+input
+button
+select
+	background: white
+	color: #333
+
+.vbox
+	vbox()
+.hbox
+	hbox()
+
+.app
+	hbox()
+	width: 100%
+	height: 100%
+	margin: 0
+	padding: 0
+
+.transferwidget
+	vbox()
+	background: #fee
+	align-items: flex-start
+	align-content: flex-start
+	> *
+		flex: none
+
+.votingarcs
+	vbox()
+	justify-content: space-between
+
+.votingarc
+	margin: 0px
+	min-width: 150px
+	max-width: 400px
+	background-color: #eef
+	flex: 0 1 auto
+
+
+

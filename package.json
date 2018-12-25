@@ -1,0 +1,51 @@
+{
+  "name": "envote",
+  "version": "2.0.0",
+  "description": "Simulator of electoral flows",
+  "main": "app.js",
+  "scripts": {
+    "deploy": "webpack --mode production --color --progress -p",
+    "build": "webpack --mode development --color --progress -d",
+    "server": "webpack-dev-server --mode development --open --watch -d",
+    "test": "ospec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vokimon/envote.git"
+  },
+  "keywords": [
+    "hondt",
+    "elections",
+    "simulator"
+  ],
+  "author": "David García Garzón",
+  "license": "AGPL-3.0+",
+  "bugs": {
+    "url": "https://github.com/vokimon/envote/issues"
+  },
+  "homepage": "https://github.com/vokimon/envote#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "jsdoc-webpack4-plugin": "0.0.2",
+    "material-components-web": "^0.42.1",
+    "mini-css-extract-plugin": "^0.4.5",
+    "ospec": "^3.0.1",
+    "webpack": "^4.26.1",
+    "webpack-bundle-analyzer": "^3.0.3",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "webpack-server": "^0.1.2"
+  },
+  "dependencies": {
+    "css-loader": "^2.0.2",
+    "d3": "^5.7.0",
+    "i18n4v": "^0.2.2",
+    "json-loader": "^0.5.7",
+    "mithril": "^1.1.6",
+    "moment": "^2.23.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "yaml-loader": "^0.5.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+	"directory": "jsdoc/",
+	"opts": {
+		"encoding": "utf8",
+		"access": "all",
+		"destination": "./jsdoc/",
+		"verbose": true,
+		"recurse": true
+	},
+	"recursiveDepth": 5,
+	"source": {
+        "includePattern": ".+\\.js(doc|x)?$",
+		"include": [
+			"src/"
+		]
+	},
+    "plugins": [
+		"plugins/summarize",
+		"plugins/markdown"
+	]
+}
+
