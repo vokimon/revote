@@ -9,8 +9,6 @@ require('@material/typography/dist/mdc.typography.css').default;
 
 var poll = require('./congresoBarcelona-1977-06.yaml')
 var transferStep = 10000;
-var fromCandidature = 0;
-var toCandidature = 1;
 function hamilton(poll) {
 	var remainingSeats = poll.seats;
 	var votesToCandidatures = poll.participation - poll.nullvotes - poll.blankvotes;
@@ -99,15 +97,15 @@ VoteArc.oncreate = function(vn) {
 			.attr('fill', function(d,i) {return color(i);} )
 			.on('click', function(d,i) {
 				console.log("Selected origin:", options[i].id);
-				fromCandidature = i;
-				m.redraw();
+				TransferWidget.fromCandidature = i;
 				d3.event.preventDefault();
+				m.redraw();
 			})
 			.on('contextmenu', function(d,i) {
 				console.log("Selected target:", options[i].id);
-				toCandidature = i;
-				m.redraw();
+				TransferWidget.toCandidature = i;
 				d3.event.preventDefault();
+				m.redraw();
 			})
 		.append('title')
 			.text(function(d,i) {
@@ -149,22 +147,25 @@ Table.view = function(vn) {
 };
 
 var TransferWidget = {};
+TransferWidget.fromCandidature=0;
+TransferWidget.toCandidature=1;
 TransferWidget.view = function(vn) {
 	var opcions = generateOptions(poll, true);
 	return m('.transferwidget', [
 		m('', [
+			m('h3', _("Transfer among options")),
 			m('select', {
-				value: fromCandidature,
+				value: TransferWidget.fromCandidature,
 				onchanged: function(ev) {
-					fromCandidature=ev.target.value;
+					TransferWidget.fromCandidature=ev.target.value;
 				},
 			}, opcions.map(function(option, i) {
 				return m('option', {value: i}, option.name);
 			})),
 			m('select', {
-				value: toCandidature,
+				value: TransferWidget.toCandidature,
 				onchanged: function(ev) {
-					toCandidature=ev.target.value;
+					TransferWidget.toCandidature=ev.target.value;
 				},
 			}, opcions.map(function(option, i) {
 				return m('option', {value: i}, option.name);
@@ -180,12 +181,12 @@ TransferWidget.view = function(vn) {
 			}),
 			m('button', {
 				onclick: function(ev) {
-					var toTransfer = Math.min(
-						transferStep, poll.candidatures[fromCandidature]).votes;
-					poll.candidatures[fromCandidature].votes -= toTransfer;
-					poll.candidatures[toCandidature].votes += toTransfer;
-					hamilton(poll);
-					console.log(poll);
+					// Ensure we are not transferring more than the origin has
+					console.log("From", TransferWidget.fromCandidature, 'to', TransferWidget.toCandidature);
+					var nTransferred = Math.min(transferStep,
+						poll.candidatures[TransferWidget.fromCandidature].votes);
+					poll.candidatures[TransferWidget.fromCandidature].votes -= nTransferred;
+					poll.candidatures[TransferWidget.toCandidature].votes += nTransferred;
 					m.redraw();
 				},	
 			}, _('Transfer')),
