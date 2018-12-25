@@ -92,6 +92,7 @@ VoteArc.oncreate = function(vn) {
 		.data(pie)
 		.enter()
 		.append('path')
+			.classed('arc', true)
 			.attr('d', arcs)
 			.attr('stroke', 'white')
 			.attr('fill', function(d,i) {return color(i);} )
