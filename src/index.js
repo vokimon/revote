@@ -8,7 +8,6 @@ var d3 = require('d3');
 require('@material/typography/dist/mdc.typography.css').default;
 
 var poll = require('./congresoBarcelona-1977-06.yaml')
-var transferStep = 10000;
 function hamilton(poll) {
 	var remainingSeats = poll.seats;
 	var votesToCandidatures = poll.participation - poll.nullvotes - poll.blankvotes;
@@ -48,7 +47,69 @@ function generateOptions(poll, shownovote) {
 	return options;
 }
 
-hamilton(poll);
+function optionDescription(i) {
+	var c = poll.options[i];
+	return c.id 
+		+ ' (' + c.name + ')'
+		+ '\nVotes: ' + c.votes
+		+ (c.seats === undefined ? '' :
+			'\nSeats: ' + c.seats )
+		+  (c.seats === undefined ? '' :
+			'\nHamilton: ' + c.hamiltonseats )
+		+  (c.seats === undefined ? '' :
+			'\nFull: ' + c.fullseats )
+		+  (c.seats === undefined ? '' :
+			'\nRemainder: ' + d3.format('.4f')(c.remainder) )
+		;
+}
+
+function recompute(poll) {
+	hamilton(poll);
+	poll.options = generateOptions(poll, true)
+}
+
+function _optionAttribute(scenario, option) {
+	if (scenario.candidatures[option]!==undefined)
+		return undefined;
+	return scenario.options[option].id;
+}
+
+function decreaseOption(scenario, option, nvotes) {
+	// Ensure we are not transferring more than the origin has
+	var attribute = _optionAttribute(scenario, option);
+	var currentValue = attribute?
+		scenario[attribute]:
+		scenario.candidatures[option].votes;
+	if (nvotes>currentValue)
+		nvotes = currentValue;
+	console.log("Decreasing", attribute || scenario.candidatures[option].id,
+		'by', nvotes);
+	if (attribute)
+		scenario[attribute] -= nvotes;
+	else
+		scenario.candidatures[option].votes -= nvotes;
+	return nvotes;
+}
+function increaseOption(scenario, option, nvotes) {
+	var attribute = _optionAttribute(scenario, option);
+	console.log("Increasing", attribute || scenario.candidatures[option].id,
+		'by', nvotes);
+	if (attribute)
+		scenario[attribute] += nvotes;
+	else
+		scenario.candidatures[option].votes += nvotes;
+}
+
+function transfer(scenario, fromOption, toOption, nvotes) {
+	console.log("From", fromOption, 'to', toOption, 'by', nvotes);
+	nvotes = decreaseOption(scenario, fromOption, nvotes);
+	increaseOption(scenario, toOption, nvotes);
+	recompute(scenario);
+}
+
+
+
+recompute(poll);
 
 
 var skip = function (c) { return []; }
@@ -60,7 +121,7 @@ VoteArc.oncreate = function(vn) {
 	var bbox = {width: 600, height: 300};
 	var r = Math.min(bbox.width/2, bbox.height);
 
-	var options = generateOptions(poll, vn.attrs.shownovote);
+	var options = poll.options;
 	var pie = d3.pie()
 		.startAngle(-Math.PI/2)
 		.endAngle(Math.PI/2)
@@ -95,29 +156,24 @@ VoteArc.oncreate = function(vn) {
 			.attr('d', arcs)
 			.attr('stroke', 'white')
 			.attr('fill', function(d,i) {return color(i);} )
+			.each(function(d) {
+				this._current = d;
+			})
 			.on('click', function(d,i) {
 				console.log("Selected origin:", options[i].id);
-				TransferWidget.fromCandidature = i;
+				TransferWidget.from = i;
 				d3.event.preventDefault();
 				m.redraw();
 			})
 			.on('contextmenu', function(d,i) {
 				console.log("Selected target:", options[i].id);
-				TransferWidget.toCandidature = i;
+				TransferWidget.to = i;
 				d3.event.preventDefault();
 				m.redraw();
 			})
 		.append('title')
 			.text(function(d,i) {
-				var c = options[i];
-				return c.id 
-					+ ' (' + c.name + ')'
-					+ '\nVotes: ' + c.votes
-					+ '\nSeats: ' + c.seats
-					+ '\nHamilton: ' + c.hamiltonseats
-					+ '\nFull: ' + c.fullseats
-					+ '\nRemainder: ' + c.remainder
-					;
+				return optionDescription(i);
 			})
 		;
 
@@ -136,6 +192,39 @@ VoteArc.oncreate = function(vn) {
 		.text(function(d,i) { return d.data.id;})
 		.style("fill", "#fff")
 		;
+
+	this.updateSizes = function() {
+		console.log('updateSizes');
+		var pie = d3.pie()
+			.startAngle(-Math.PI/2)
+			.endAngle(Math.PI/2)
+			.value(function (d) {
+				return d[vn.attrs.attribute || 'seats'] || 0;
+			})
+			(options)
+			;
+		chart.selectAll('path.sector')
+			.data(pie)
+			.transition()
+				.duration(1000)
+				.attrTween('d', function(d) {
+					var interpolator = d3.interpolate(
+						this._current, d);
+					this._current = interpolator(0);
+					return function(t) {
+						return arcs(interpolator(t));
+					}
+				})
+		;
+		chart.selectAll('text.sectorlabel')
+			.data(pie)
+			.transition()
+				.duration(1000)
+				.attr('transform', function(d) {
+					return 'translate('+arcs.centroid(d)+')';
+				})
+		;
+	}
 };
 
 VoteArc.view = function(vn) {
@@ -159,9 +248,9 @@ ScenaryChooser.view = function(vn) {
 		m('', [
 			m('h3', _("Scenario")),
 			m('select', {
-				value: ScenaryChooser.fromCandidature,
+				value: ScenaryChooser.current,
 				onchanged: function(ev) {
-					ScenaryChooser.fromCandidature=ev.target.value;
+					ScenaryChooser.current=ev.target.value;
 				},
 			}, options.map(function(option, i) {
 				return m('option', {value: i}, option.name);
@@ -171,49 +260,61 @@ ScenaryChooser.view = function(vn) {
 };
 
 var TransferWidget = {};
-TransferWidget.fromCandidature=0;
-TransferWidget.toCandidature=1;
+TransferWidget.from = 0;
+TransferWidget.to = 1;
+TransferWidget.transferStep = 100000;
 TransferWidget.view = function(vn) {
-	var opcions = generateOptions(poll, true);
+	console.log('TransferWidget::view', vn.state);
 	return m('.transferwidget', [
 		m('', [
 			m('h3', _("Transfer among options")),
-			m('select', {
-				value: TransferWidget.fromCandidature,
-				onchanged: function(ev) {
-					TransferWidget.fromCandidature=ev.target.value;
+			m('select#transferfrom', {
+				value: TransferWidget.from,
+				onchange: function(ev) {
+					TransferWidget.from=ev.target.value;
 				},
-			}, opcions.map(function(option, i) {
-				return m('option', {value: i}, option.name);
+			}, poll.options.map(function(option, i) {
+				return m('option', {
+					value: i,
+					selected: i===vn.state.value
+				}, option.name);
 			})),
-			m('select', {
-				value: TransferWidget.toCandidature,
-				onchanged: function(ev) {
-					TransferWidget.toCandidature=ev.target.value;
+			m('select#transferto', {
+				value: TransferWidget.to,
+				onchange: function(ev) {
+					TransferWidget.to=ev.target.value;
 				},
-			}, opcions.map(function(option, i) {
-				return m('option', {value: i}, option.name);
+			}, poll.options.map(function(option, i) {
+				return m('option', {
+					value: i,
+					selected: i===vn.state.value
+				}, option.name);
 			})),
 		]),
 		m('', [
+			m('button', {
+				onclick: function(ev) {
+					transfer(poll,
+						TransferWidget.to,
+						TransferWidget.from,
+						TransferWidget.transferStep);
+				},	
+			}, _('<< Transfer')),
 			m('input[type=number]', {
-				value: transferStep,
+				value: TransferWidget.transferStep,
 				oninput: function(ev) {
 					var newValue = (''+ev.target.value).replace(/[^0-9]/g, '');
-					transferStep = parseInt(newValue);
+					TransferWidget.transferStep = parseInt(newValue);
 				},
 			}),
 			m('button', {
 				onclick: function(ev) {
-					// Ensure we are not transferring more than the origin has
-					console.log("From", TransferWidget.fromCandidature, 'to', TransferWidget.toCandidature);
-					var nTransferred = Math.min(transferStep,
-						poll.candidatures[TransferWidget.fromCandidature].votes);
-					poll.candidatures[TransferWidget.fromCandidature].votes -= nTransferred;
-					poll.candidatures[TransferWidget.toCandidature].votes += nTransferred;
-					m.redraw();
+					transfer(poll,
+						TransferWidget.from,
+						TransferWidget.to,
+						TransferWidget.transferStep);
 				},	
-			}, _('Transfer')),
+			}, _('Transfer >>')),
 		]),
 	]);
 };
