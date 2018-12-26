@@ -26,7 +26,6 @@ function hamilton(poll) {
 	candidaturesWithRemainders.map(function(v) {
 		var c = poll.candidatures[v];
 		c.hamiltonseats++;
-		console.log("Adding to ", c.name, c.remainder);
 	});
 }
 function generateOptions(poll, shownovote) {
@@ -92,7 +91,7 @@ VoteArc.oncreate = function(vn) {
 		.data(pie)
 		.enter()
 		.append('path')
-			.classed('arc', true)
+			.classed('sector', true)
 			.attr('d', arcs)
 			.attr('stroke', 'white')
 			.attr('fill', function(d,i) {return color(i);} )
@@ -125,12 +124,16 @@ VoteArc.oncreate = function(vn) {
 	chart.selectAll('text.sectorlabel')
 		.data(pie)
 		.enter()
-		.filter(function(d) {console.log(d); return d.endAngle-d.startAngle>1*Math.PI/180;})
+		.filter(function(d) {
+			return d.endAngle-d.startAngle>1*Math.PI/180;
+		})
 		.append("text")
 		.classed("sectorlabel", true)
 		.attr('text-anchor', 'middle')
-		.attr("transform", function(d,i) { return "translate(" + arcs.centroid(d) + ")"; })
-		.text(function(d,i) { console.log(d.data.id); return d.data.id;})
+		.attr("transform", function(d,i) {
+			return "translate(" + arcs.centroid(d) + ")";
+		})
+		.text(function(d,i) { return d.data.id;})
 		.style("fill", "#fff")
 		;
 };
