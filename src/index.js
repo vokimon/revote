@@ -16,6 +16,7 @@ function hamilton(poll) {
 		var fullseats = Math.floor(candidature.votes/seatPrice);
 		candidature.fullseats = fullseats;
 		candidature.hamiltonseats = fullseats;
+
 		candidature.remainder = candidature.votes % seatPrice / seatPrice;
 		remainingSeats -= fullseats;
 	});
@@ -26,6 +27,9 @@ function hamilton(poll) {
 		var c = poll.candidatures[v];
 		c.hamiltonseats++;
 	});
+}
+function dHondt(poll) {
+	// TODO
 }
 function generateOptions(poll, shownovote) {
 	var options = poll.candidatures.slice();
@@ -68,6 +72,7 @@ function optionDescription(i) {
 
 function recompute(poll) {
 	hamilton(poll);
+	dHondt(poll);
 	poll.options = generateOptions(poll, true)
 }
 
