@@ -110,7 +110,6 @@ function transfer(scenario, fromOption, toOption, nvotes) {
 	nvotes = decreaseOption(scenario, fromOption, nvotes);
 	increaseOption(scenario, toOption, nvotes);
 	recompute(scenario);
-	console.log("Updaters:",updaters);
 	updaters.map(function (f) { f(); });
 	m.redraw();
 }
@@ -122,6 +121,8 @@ recompute(poll);
 var skip = function (c) { return []; }
 
 var Hemicycle = {};
+Hemicycle.color = d3.scaleOrdinal(d3.schemeSet3);
+Hemicycle.color = d3.scaleOrdinal(d3.schemeCategory10);
 Hemicycle.view = function(vn) {
 	return m('svg.hemicycle', {
 		'viewBox': '0 0 600 300',
@@ -134,11 +135,10 @@ Hemicycle.oninit = function(vn) {
 	})
 };
 Hemicycle.onupdate = function(vn) {
-	console.log("Updating");
+	//console.log("Updating");
 };
 Hemicycle.oncreate = function(vn) {
-	console.log("Creating");
-	var color = d3.scaleOrdinal(d3.schemeCategory10);
+	//console.log("Creating");
 	var bbox = vn.dom.getBoundingClientRect();
 	var bbox = {width: 600, height: 300};
 	var r = Math.min(bbox.width/2, bbox.height);
@@ -185,19 +185,19 @@ Hemicycle.oncreate = function(vn) {
 			;
 		var sectors = vn.state.chart.selectAll('path.sector').data(pie);
 		sectors
-			.each(function(d) { console.log('updating:', d.data.id); })
+			//.each(function(d) { console.log('updating:', d.data.id); })
 			.transition()
 				.duration(1000)
 				.attr('d', arcs)
 			;
 		sectors
 			.enter()
-			.each(function(d) { console.log('adding:', d.data.id); })
+			//.each(function(d) { console.log('adding:', d.data.id); })
 			.append('path')
 				.classed('sector', true)
 				.attr('d', arcs)
 				.attr('stroke', 'white')
-				.attr('fill', function(d,i) {return color(i);} )
+				.attr('fill', function(d,i) {return Hemicycle.color(i);} )
 				.each(function(d) {
 					this._current = d;
 				})
