@@ -188,9 +188,7 @@ Hemicycle.oncreate = function(vn) {
 			.each(function(d) { console.log('updating:', d.data.id); })
 			.transition()
 				.duration(1000)
-				.attr('d', function(d) {
-					return arcs(d);
-				})
+				.attr('d', arcs)
 			;
 		sectors
 			.enter()
