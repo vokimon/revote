@@ -36,14 +36,14 @@ function generateOptions(poll, shownovote) {
 			votes: poll.abstention,
 			nocandidature: true,
 		},{
-			id: 'blank',
+			id: 'blankvotes',
 			name: _("En blanco"),
-			votes: poll.blank,
+			votes: poll.blankvotes,
 			nocandidature: true,
 		},{
-			id: 'null',
+			id: 'nullvotes',
 			name: _("Nulos"),
-			votes: poll.null,
+			votes: poll.nullvotes,
 			nocandidature: true,
 		}]);
 	}
@@ -103,13 +103,17 @@ function increaseOption(scenario, option, nvotes) {
 		scenario.candidatures[option].votes += nvotes;
 }
 
+var updaters = [];
+
 function transfer(scenario, fromOption, toOption, nvotes) {
 	console.log("From", fromOption, 'to', toOption, 'by', nvotes);
 	nvotes = decreaseOption(scenario, fromOption, nvotes);
 	increaseOption(scenario, toOption, nvotes);
 	recompute(scenario);
+	console.log("Updaters:",updaters);
+	updaters.map(function (f) { f(); });
+	m.redraw();
 }
-
 
 
 recompute(poll);
@@ -118,11 +122,22 @@ recompute(poll);
 var skip = function (c) { return []; }
 
 var Hemicycle = {};
+Hemicycle.view = function(vn) {
+	return m('svg.hemicycle', {
+		'viewBox': '0 0 600 300',
+		'preserveAspectRatio': 'xMidYMid meet'
+	});
+};
+Hemicycle.oninit = function(vn) {
+	updaters.push(function() {
+		vn.state.updateSizes && vn.state.updateSizes();
+	})
+};
 Hemicycle.onupdate = function(vn) {
 	console.log("Updating");
-	this.updateSizes();
 };
 Hemicycle.oncreate = function(vn) {
+	console.log("Creating");
 	var color = d3.scaleOrdinal(d3.schemeCategory10);
 	var bbox = vn.dom.getBoundingClientRect();
 	var bbox = {width: 600, height: 300};
@@ -142,11 +157,11 @@ Hemicycle.oncreate = function(vn) {
 		.outerRadius(r)
 		;
 
-	var chart = d3.select(vn.dom)
+	vn.state.chart = d3.select(vn.dom)
 		.append('g')
 			.attr('transform', 'translate('+bbox.width/2+' '+bbox.height+')')
 		;
-	chart.append('text')
+	vn.state.chart.append('text')
 		.attr('x', 0)
 		.attr('y', -20)
 		.attr('text-anchor', 'middle')
@@ -155,90 +170,88 @@ Hemicycle.oncreate = function(vn) {
 		.text(vn.attrs.label)
 		;
 
-	chart.selectAll('path')
-		.data(pie)
-		.enter()
-		.append('path')
-			.classed('sector', true)
-			.attr('d', arcs)
-			.attr('stroke', 'white')
-			.attr('fill', function(d,i) {return color(i);} )
-			.each(function(d) {
-				this._current = d;
-			})
-			.on('click', function(d,i) {
-				console.log("Selected origin:", options[i].id);
-				TransferWidget.from = i;
-				d3.event.preventDefault();
-				m.redraw();
-			})
-			.on('contextmenu', function(d,i) {
-				console.log("Selected target:", options[i].id);
-				TransferWidget.to = i;
-				d3.event.preventDefault();
-				m.redraw();
-			})
-		.append('title')
-			.text(function(d,i) {
-				return optionDescription(i);
-			})
-		;
-
-	chart.selectAll('text.sectorlabel')
-		.data(pie)
-		.enter()
-		.filter(function(d) {
-			return d.endAngle-d.startAngle>1*Math.PI/180;
-		})
-		.append("text")
-		.classed("sectorlabel", true)
-		.attr('text-anchor', 'middle')
-		.attr("transform", function(d,i) {
-			return "translate(" + arcs.centroid(d) + ")";
-		})
-		.text(function(d,i) { return d.data.id;})
-		.style("fill", "#fff")
-		;
-
 	this.updateSizes = function() {
-		console.log('updateSizes');
+		console.log('updateSizes', vn.attrs.label);
+		var options = poll.options;
 		var pie = d3.pie()
 			.startAngle(-Math.PI/2)
 			.endAngle(Math.PI/2)
 			.value(function (d) {
+				if (!vn.attrs.shownovote && d.nocandidature)
+					return 0;
 				return d[vn.attrs.attribute || 'seats'] || 0;
 			})
 			(options)
 			;
-		chart.selectAll('path.sector')
-			.data(pie)
+		var sectors = vn.state.chart.selectAll('path.sector').data(pie);
+		sectors
+			.each(function(d) { console.log('updating:', d.data.id); })
 			.transition()
 				.duration(1000)
-				.attrTween('d', function(d) {
-					var interpolator = d3.interpolate(
-						this._current, d);
-					this._current = interpolator(0);
-					return function(t) {
-						return arcs(interpolator(t));
-					}
+				.attr('d', function(d) {
+					return arcs(d);
 				})
-		;
-		chart.selectAll('text.sectorlabel')
-			.data(pie)
+			;
+		sectors
+			.enter()
+			.each(function(d) { console.log('adding:', d.data.id); })
+			.append('path')
+				.classed('sector', true)
+				.attr('d', arcs)
+				.attr('stroke', 'white')
+				.attr('fill', function(d,i) {return color(i);} )
+				.each(function(d) {
+					this._current = d;
+				})
+				.on('click', function(d,i) {
+					console.log("Selected origin:", options[i].id);
+					TransferWidget.from = i;
+					d3.event.preventDefault();
+					m.redraw();
+				})
+				.on('contextmenu', function(d,i) {
+					console.log("Selected target:", options[i].id);
+					TransferWidget.to = i;
+					d3.event.preventDefault();
+					m.redraw();
+				})
+			.append('title')
+				.text(function(d,i) {
+					return optionDescription(i);
+				})
+			;
+		sectors.exit()
+			//.each(function(d) { console.log('removing:', d.data.id); })
+			.remove();
+
+		var labels = vn.state.chart.selectAll('text.sectorlabel').data(pie);
+		labels
 			.transition()
 				.duration(1000)
 				.attr('transform', function(d) {
 					return 'translate('+arcs.centroid(d)+')';
 				})
-		;
+				.attr('visibility', function(d,i) {return d.endAngle-d.startAngle<2*Math.PI/180?'hidden':'';})
+			;
+		labels.enter()
+			.append("text")
+				.classed("sectorlabel", true)
+				.attr('text-anchor', 'middle')
+				.text(function(d,i) { return d.data.id;})
+				.style("fill", "#fff")
+				.attr("transform", function(d,i) {
+					return "translate(" + arcs.centroid(d) + ")";
+				})
+				.attr('visibility', function(d,i) {return d.endAngle-d.startAngle<2*Math.PI/180?'hidden':'';})
+			.append('title')
+				.text(function(d,i) {
+					return optionDescription(i);
+				})
+			;
+		labels.exit().remove();
 	}
-};
+	this.updateSizes();
 
-Hemicycle.view = function(vn) {
-	return m('svg.hemicycle', {
-		'viewBox': '0 0 600 300',
-		'preserveAspectRatio': 'xMidYMid meet'
-	});
 };
 
 var Table = {};

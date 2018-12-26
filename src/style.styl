@@ -127,15 +127,17 @@ box()
 	align-content: stretch // Wrap direction
 	> *
 		display: block
-		flex: 0 0 auto
+		flex: 1 1 auto
 
 hbox()
 	box()
 	flex-direction: row
+	//outline: 1pt dashed red;
 
 vbox()
 	box()
 	flex-direction: column
+	//outline: 1pt dashed green;
 
 input
 button
@@ -143,8 +145,8 @@ select
 	background: white
 	color: #333
 .stretch
-	flex: 4 1 auto
-	border: 1pt red solid
+	flex: 1 1 auto
+	//outline: 1pt red solid
 .vbox
 	vbox()
 .hbox
@@ -157,24 +159,33 @@ select
 	margin: 0
 	padding: 0
 
-.transferwidget
-	vbox()
-	background: #fee
-	align-items: flex-start
-	align-content: flex-start
-	> *
-		flex: auto
-
 .hemicycles
 	vbox()
 	justify-content: space-between
 
 .hemicycle
 	margin: 0px
-	min-width: 150px
+	min-width: 350px
 	max-width: 400px
 	//background-color: #eef
+	flex: 1 1 auto
+
+.transferwidget
+	vbox()
+	//background: #fee
+	align-items: stretch
+	align-content: stretch
+	> *
+		flex: none
+
+.dhondttable
 	flex: 0 1 auto
+	background: red
+	min-height: 30px
+
+
+
+
 
 
 
