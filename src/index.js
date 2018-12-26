@@ -34,14 +34,17 @@ function generateOptions(poll, shownovote) {
 			id: 'abstention',
 			name: _("Abstención"),
 			votes: poll.abstention,
+			nocandidature: true,
 		},{
 			id: 'blank',
 			name: _("En blanco"),
 			votes: poll.blank,
+			nocandidature: true,
 		},{
 			id: 'null',
 			name: _("Nulos"),
 			votes: poll.null,
+			nocandidature: true,
 		}]);
 	}
 	return options;

@@ -4,6 +4,7 @@ circumscription: Barcelona
 date: 1977
 real: true
 seats: 33
+threshold_percent: 3
 census: 3004988
 participation: 2392774
 abstention: 612214
