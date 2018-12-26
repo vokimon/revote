@@ -117,8 +117,12 @@ recompute(poll);
 
 var skip = function (c) { return []; }
 
-var VoteArc = {};
-VoteArc.oncreate = function(vn) {
+var Hemicycle = {};
+Hemicycle.onupdate = function(vn) {
+	console.log("Updating");
+	this.updateSizes();
+};
+Hemicycle.oncreate = function(vn) {
 	var color = d3.scaleOrdinal(d3.schemeCategory10);
 	var bbox = vn.dom.getBoundingClientRect();
 	var bbox = {width: 600, height: 300};
@@ -230,8 +234,8 @@ VoteArc.oncreate = function(vn) {
 	}
 };
 
-VoteArc.view = function(vn) {
-	return m('svg.votingarc', {
+Hemicycle.view = function(vn) {
+	return m('svg.hemicycle', {
 		'viewBox': '0 0 600 300',
 		'preserveAspectRatio': 'xMidYMid meet'
 	});
@@ -325,12 +329,12 @@ TransferWidget.view = function(vn) {
 var App = {
 	view: function(vn) {
 		return m('.app.mdc-typography', [
-			m('.votingarcs', [
+			m('.hemicycles', [
 				m(ScenaryChooser),
-				m(VoteArc, { attribute: 'votes', shownovote: true, label: _("Opción Electoral")}),
-				m(VoteArc, { attribute: 'votes', label: _("Votos a Candidaturas")}),
-				m(VoteArc, { attribute: 'hamiltonseats', label: _("Reparto Hamilton")}),
-				m(VoteArc, { attribute: 'seats', label: _("Reparto D'Hondt")}),
+				m(Hemicycle, { attribute: 'votes', shownovote: true, label: _("Opción Electoral")}),
+				m(Hemicycle, { attribute: 'votes', label: _("Votos a Candidaturas")}),
+				m(Hemicycle, { attribute: 'hamiltonseats', label: _("Reparto Hamilton")}),
+				m(Hemicycle, { attribute: 'seats', label: _("Reparto D'Hondt")}),
 			]),
 			m('.vbox.stretch', [
 				m(TransferWidget),
