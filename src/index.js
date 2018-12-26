@@ -270,7 +270,7 @@ Table.view = function(vn) {
 var ScenaryChooser = {};
 ScenaryChooser.current = 0;
 ScenaryChooser.view = function(vn) {
-	var options = [
+	var scenarios = [
 	];
 	return m('.scenariochooser', [
 		m('', [
@@ -280,7 +280,7 @@ ScenaryChooser.view = function(vn) {
 				onchanged: function(ev) {
 					ScenaryChooser.current=ev.target.value;
 				},
-			}, options.map(function(option, i) {
+			}, scenarios.map(function(option, i) {
 				return m('option', {value: i}, option.name);
 			})),
 		]),
