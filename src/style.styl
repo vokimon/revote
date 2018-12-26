@@ -122,7 +122,7 @@ h1, h2 {
 
 box()
 	display: inline-flex
-	flex-wrap: no-wrap
+	flex-wrap: nowrap
 	align-items: stretch // Items in main dir
 	align-content: stretch // Wrap direction
 	> *
@@ -172,20 +172,40 @@ select
 
 .transferwidget
 	vbox()
+	width: 100%
 	//background: #fee
 	align-items: stretch
 	align-content: stretch
 	> *
-		flex: none
+		flex: 0 0 auto
+		text-align: center
 
 .dhondttable
-	flex: 0 1 auto
-	background: red
-	min-height: 30px
+	width: 100%
+	flex: 0 0 none
+	overflow-x: auto
+	> table
+		display: block
+	> table > tr:hover
+		outline: 1pt solid yellow
+		background: yellow
+	> table > tr > th
+		background: #eee
+	table > tr > th.party
+		color: white
+		white-space: nowrap
+		padding: 0 5pt
+	table > tr > td
+		text-align: right
+	table > tr > td.taken
+		background: #abf
+		color: white
+	table > tr > td.fit
+		background: #abf
+		color: black
 
 
 
 
 
-
-
+//vim: noet

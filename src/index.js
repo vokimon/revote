@@ -262,9 +262,41 @@ Hemicycle.oncreate = function(vn) {
 
 };
 
-var Table = {};
-Table.view = function(vn) {
-	return m('.hondttable');
+var DHondtTable = {};
+DHondtTable.view = function(vn) {
+	const ndivisors=20;
+	return m('.dhondttable', m('table', [
+		m('tr', [
+			[...Array(ndivisors).keys()].map(function(i) {
+				if (i===0) return m('td');
+				return m('th', i);
+			}),
+		]),
+		poll.options.map(function(option, optionIdx) {
+			if (option.nocandidature) return [];
+			return m('tr', {
+					title: optionDescription(optionIdx),
+						onclick: function(ev) {
+							TransferWidget.from=optionIdx;
+						},
+						oncontextmenu: function(ev) {
+							TransferWidget.to=optionIdx;
+							ev.preventDefault();
+						},
+				}, [
+				[...Array(ndivisors).keys()].map(function(i) {
+					if (i===0)
+						return m('th.party', {
+							style: { background: Hemicycle.color(optionIdx) },
+						}, option.id);
+					return m('td'
+						+(i<=option.seats? '.taken':'')
+						, d3.format('d')(option.votes/i));
+				}),
+			]);
+		}),
+			
+	]));
 };
 
 var ScenaryChooser = {};
@@ -295,7 +327,6 @@ TransferWidget.view = function(vn) {
 	console.log('TransferWidget::view', vn.state);
 	return m('.transferwidget', [
 		m('', [
-			m('h3', _("Transfer among options")),
 			m('select#transferfrom', {
 				value: TransferWidget.from,
 				onchange: function(ev) {
@@ -357,7 +388,10 @@ var App = {
 				m(Hemicycle, { attribute: 'hamiltonseats', label: _("Reparto Hamilton")}),
 				m(Hemicycle, { attribute: 'seats', label: _("Reparto D'Hondt")}),
 			]),
-			m('.vbox.stretch', [
+			m('.vbox.badstretch', [
+				m('h3', _("D'Hont")),
+				m(DHondtTable),
+				m('h3', _("Transfer among options")),
 				m(TransferWidget),
 			]),
 		]);
