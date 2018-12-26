@@ -223,13 +223,21 @@ Hemicycle.oncreate = function(vn) {
 			.remove();
 
 		var labels = vn.state.chart.selectAll('text.sectorlabel').data(pie);
-		labels
-			.transition()
-				.duration(1000)
+
+		function placeLabel(sectorlabel, d) {
+			sectorlabel
 				.attr('transform', function(d) {
 					return 'translate('+arcs.centroid(d)+')';
 				})
-				.attr('visibility', function(d,i) {return d.endAngle-d.startAngle<2*Math.PI/180?'hidden':'';})
+				.attr('visibility', function(d,i) {
+					return d.endAngle-d.startAngle<2*Math.PI/180?'hidden':'';
+				})
+			;
+		}
+		labels
+			.transition()
+				.duration(1000)
+				.call(placeLabel)
 			;
 		labels.enter()
 			.append("text")
@@ -237,10 +245,7 @@ Hemicycle.oncreate = function(vn) {
 				.attr('text-anchor', 'middle')
 				.text(function(d,i) { return d.data.id;})
 				.style("fill", "#fff")
-				.attr("transform", function(d,i) {
-					return "translate(" + arcs.centroid(d) + ")";
-				})
-				.attr('visibility', function(d,i) {return d.endAngle-d.startAngle<2*Math.PI/180?'hidden':'';})
+				.call(placeLabel)
 			.append('title')
 				.text(function(d,i) {
 					return optionDescription(i);
