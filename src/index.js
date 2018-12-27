@@ -127,7 +127,15 @@ var skip = function (c) { return []; }
 
 var Hemicycle = {};
 Hemicycle.color = d3.scaleOrdinal(d3.schemeSet3);
-Hemicycle.color = d3.scaleOrdinal(d3.schemeCategory10);
+Hemicycle.color = d3.scaleOrdinal([].concat(
+	['#000000','#aaaaaa','#f0f0f0'],
+	d3.schemeCategory10,
+	d3.schemeCategory10
+));
+// Preallocate non-votes
+Hemicycle.color('abstention');
+Hemicycle.color('nullvotes');
+Hemicycle.color('blankvotes');
 Hemicycle.view = function(vn) {
 	return m('svg.hemicycle', {
 		'viewBox': '0 0 600 300',
@@ -202,7 +210,7 @@ Hemicycle.oncreate = function(vn) {
 				.classed('sector', true)
 				.attr('d', arcs)
 				.attr('stroke', 'white')
-				.attr('fill', function(d,i) {return Hemicycle.color(i);} )
+				.attr('fill', function(d,i) {return Hemicycle.color(d.data.id);} )
 				.each(function(d) {
 					this._current = d;
 				})
@@ -293,7 +301,7 @@ DHondtTable.view = function(vn) {
 				[...Array(ndivisors).keys()].map(function(i) {
 					if (i===0)
 						return m('th.party', {
-							style: { background: Hemicycle.color(optionIdx) },
+							style: { background: Hemicycle.color(option.id) },
 						}, option.id);
 					return m('td'
 						+(i<=option.seats? '.taken':'')
