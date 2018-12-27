@@ -381,6 +381,62 @@ TransferWidget.view = function(vn) {
 	]);
 };
 
+var Info = {};
+Info.view = function(vn) {
+	var percent = function(some, all) { return d3.format('.2%')(some/all);};
+	var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
+	var seatPrice = Math.min.apply(null, poll.candidatures
+		.filter(function(c) { return c.seats!==0; })
+		.map(function(c) { return c.votes/c.seats; })
+	);
+
+	var seatNext = Math.max.apply(null, poll.candidatures
+		.filter(function(c) { return c.seats!==0; })
+		.map(function(c) { return c.votes/(c.seats+1); })
+	);
+
+	var candidatureVotes = poll.participation-poll.nullvotes-poll.blankvotes;
+
+	return m('.info', [
+		{label: _("Census"),
+			value: votes(poll.census)},
+		{label: _("Participation"),
+			value: votes(poll.participation)+
+				" ("+percent(poll.participation,poll.census)+")"},
+		{label: _("Abstention"),
+			value: votes(poll.abstention)+
+				" ("+percent(poll.abstention, poll.census)+")"},
+		{label: _("Null"),
+			value: votes(poll.nullvotes)+
+				" ("+percent(poll.nullvotes, poll.census)+")"},
+		{label: _("Blank"),
+			value: votes(poll.blankvotes)+
+				" ("+percent(poll.blankvotes, poll.census)+")"},
+		{label: _("Threshold"),
+			value: percent(poll.threshold_percent,100)+
+				" ("+votes(poll.threshold_percent*(poll.participation-poll.nullvotes)/100)+")"},
+		{label: _("Max price"),
+			value: votes(candidatureVotes/poll.seats)+
+				" ("+percent(candidatureVotes/poll.seats, poll.participation)+")"},
+		{label: _("Min price"),
+			value: votes(candidatureVotes/(poll.seats+poll.candidatures.length))+
+				" ("+percent(candidatureVotes/(poll.seats+poll.candidatures.length), poll.participation)+")"},
+		{label: _("Seat price"),
+			value: votes(seatPrice)+
+				" ("+percent(seatPrice, poll.participation-poll.nullvotes)+")"},
+		{label: _("Next price"),
+			value: votes(seatNext)+
+				" ("+percent(seatNext, poll.participation-poll.nullvotes)+")"},
+		].map(function(v, i) {
+			return m('', [
+				m('b', v.label, ":"),
+				m.trust('&nbsp'),
+				v.value
+			]);
+		})
+	);
+};
+
 var App = {
 	view: function(vn) {
 		return m('.app.mdc-typography', [
@@ -392,6 +448,8 @@ var App = {
 				m(Hemicycle, { attribute: 'seats', label: _("Reparto D'Hondt")}),
 			]),
 			m('.vbox.badstretch', [
+				m('h3', _("Scenario")),
+				m(Info),
 				m('h3', _("D'Hont")),
 				m(DHondtTable),
 				m('h3', _("Transfer among options")),
