@@ -267,7 +267,10 @@ Hemicycle.oncreate = function(vn) {
 
 var DHondtTable = {};
 DHondtTable.view = function(vn) {
-	const ndivisors=20;
+	const ndivisors = Math.max.apply(null, poll.options
+		.filter(function(v) { return v.seats!==undefined; })
+		.map(function(v) { return v.seats; })
+		) + 3;
 	return m('.dhondttable', m('table', [
 		m('tr', [
 			[...Array(ndivisors).keys()].map(function(i) {
