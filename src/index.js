@@ -258,7 +258,7 @@ Hemicycle.oncreate = function(vn) {
 			.append("text")
 				.classed("sectorlabel", true)
 				.attr('text-anchor', 'middle')
-				.text(function(d,i) { return d.data.id;})
+				.text(function(d,i) { return d.data.nocandidature===true?d.data.name:d.data.id;})
 				.call(placeLabel)
 				.attr("fill", "white")
 				.attr("stroke", "#777")
