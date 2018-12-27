@@ -1,0 +1,419 @@
+body,
+html {
+  background: #fff;
+  color: #000;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+#mithril-target {
+  height: 100%;
+  margin: 0 auto;
+}
+.loading {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  top: 30%;
+  bottom: 0;
+}
+.hidden {
+  display: none;
+}
+* {
+  --mdc-theme-primary: #8bc34a;
+  --mdc-theme-secondary: #a62;
+  --mdc-theme-secondary: #ee6420;
+  --mdc-theme-error: #d43;
+  --mdc-theme-on-error: #ffa;
+}
+.mdc-select:not(.mdc-select--disabled) .mdc-select__native-control:focus ~ .mdc-floating-label,
+.mdc-text-field--focused:not(.mdc-text-field--disabled) label.mdc-floating-label,
+.mdc-text-field--focused:not(.mdc-text-field--disabled) input::placeholder {
+  color: var(--mdc-theme-primary) !important;
+}
+.mdc-select:not(.mdc-select--disabled) + .mdc-text-field-helper-text {
+  color: rgba(0,0,0,0.6);
+}
+.mdc-select + .mdc-text-field-helper-text {
+  margin-right: 12px;
+  margin-left: 12px;
+}
+.mdc-select + .mdc-text-field-helper-text {
+  margin-bottom: 8px;
+}
+.mdc-select__native-control:required + .mdc-floating-label::after {
+  margin-left: 3px;
+  content: "*";
+}
+.mdc-select,
+select,
+select:-moz-focusring,
+select::-moz-focus-inner {
+  color: transparent !important;
+  text-shadow: 0 0 0 #000 !important;
+  background-image: none !important;
+  border: 0;
+}
+[role="tabpanel"][aria-hidden='true'] {
+  display: none;
+}
+[role="tabpanel"][aria-hidden='false']:not(.active) {
+  opacity: 0.5;
+}
+.inspector:hover,
+.inspector.shown {
+  background-color: #eef;
+  width: 20em;
+  opacity: 0.7;
+}
+.inspector pre {
+  position: absolute;
+  bottom: 4ex;
+  padding: 1ex;
+  background-color: #fafaff;
+}
+.inspector {
+  z-index: 1000;
+  background-color: #fafaaa;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  opacity: 0.1;
+  color: #002;
+  width: 1px;
+  overflow: visible;
+  margin: 5px;
+  vertical-align: bottom;
+  transition: width 1s, opacity 1s;
+}
+h1,
+h2 {
+  color: var(--mdc-theme-primary);
+}
+.orange {
+  color: #aa4 !important;
+}
+.red {
+  color: #f00 !important;
+}
+.green {
+  color: #008000 !important;
+}
+input,
+button,
+select {
+  background: #fff;
+  color: #333;
+}
+.stretch {
+  flex: 1 1 auto;
+}
+.vbox {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  flex-direction: column;
+}
+.vbox > * {
+  overflow: auto;
+  display: block;
+  flex: 1 1 auto;
+}
+.hbox {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  flex-direction: row;
+}
+.hbox > * {
+  overflow: auto;
+  display: block;
+  flex: 1 1 auto;
+}
+.app {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  flex-direction: row;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  max-width: 100vw;
+  width: 100vw;
+  max-height: 100vh;
+  min-height: 100vh;
+  height: 100vh;
+}
+.app > * {
+  overflow: auto;
+  display: block;
+  flex: 1 1 auto;
+}
+.hemicycles {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  flex-direction: column;
+  min-width: 350px;
+  overflow-x: none;
+  justify-content: space-between;
+}
+.hemicycles > * {
+  overflow: auto;
+  display: block;
+  flex: 1 1 auto;
+}
+.hemicycle {
+  margin: 0px;
+  min-width: 350px;
+  max-width: 400px;
+  background-color: #fafaff;
+  flex: 1 1 auto;
+}
+.transferwidget {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  flex-direction: column;
+  width: 100%;
+  align-items: stretch;
+  align-content: stretch;
+}
+.transferwidget > * {
+  overflow: auto;
+  display: block;
+  flex: 1 1 auto;
+}
+.transferwidget > * {
+  flex: 1 1 auto;
+  text-align: center;
+}
+.dhondttable {
+  flex: 1 1 none !important;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.dhondttable > table {
+  display: block;
+}
+.dhondttable > table > tr:hover {
+  outline: 1pt solid #ff0;
+  background: #ff0;
+}
+.dhondttable > table > tr > th {
+  background: #eee;
+}
+.dhondttable > table > tr > th.party {
+  color: #fff;
+  white-space: nowrap;
+  padding: 0 5pt;
+}
+.dhondttable > table > tr > td {
+  text-align: right;
+}
+.dhondttable > table > tr > td.taken {
+  background: #abf;
+  color: #fff;
+}
+.dhondttable > table > tr.under {
+  color: #808080;
+}
+.info {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.info > * {
+  overflow: auto;
+  display: block;
+  flex: 1 1 auto;
+}
+.info > div {
+  display: flex;
+  margin: 0 1em;
+}
+
+/*!
+ Material Components for the Web
+ Copyright (c) 2018 Google Inc.
+ License: MIT
+*/
+.mdc-typography {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mdc-typography--headline1 {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 6rem;
+  line-height: 6rem;
+  font-weight: 300;
+  letter-spacing: -0.015625em;
+  text-decoration: inherit;
+  text-transform: inherit;
+}
+
+.mdc-typography--headline2 {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 3.75rem;
+  line-height: 3.75rem;
+  font-weight: 300;
+  letter-spacing: -0.0083333333em;
+  text-decoration: inherit;
+  text-transform: inherit;
+}
+
+.mdc-typography--headline3 {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 3rem;
+  line-height: 3.125rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-decoration: inherit;
+  text-transform: inherit;
+}
+
+.mdc-typography--headline4 {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 2.125rem;
+  line-height: 2.5rem;
+  font-weight: 400;
+  letter-spacing: 0.0073529412em;
+  text-decoration: inherit;
+  text-transform: inherit;
+}
+
+.mdc-typography--headline5 {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-decoration: inherit;
+  text-transform: inherit;
+}
+
+.mdc-typography--headline6 {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.0125em;
+  text-decoration: inherit;
+  text-transform: inherit;
+}
+
+.mdc-typography--subtitle1 {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  font-weight: 400;
+  letter-spacing: 0.009375em;
+  text-decoration: inherit;
+  text-transform: inherit;
+}
+
+.mdc-typography--subtitle2 {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 500;
+  letter-spacing: 0.0071428571em;
+  text-decoration: inherit;
+  text-transform: inherit;
+}
+
+.mdc-typography--body1 {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.03125em;
+  text-decoration: inherit;
+  text-transform: inherit;
+}
+
+.mdc-typography--body2 {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.0178571429em;
+  text-decoration: inherit;
+  text-transform: inherit;
+}
+
+.mdc-typography--caption {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.0333333333em;
+  text-decoration: inherit;
+  text-transform: inherit;
+}
+
+.mdc-typography--button {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 0.875rem;
+  line-height: 2.25rem;
+  font-weight: 500;
+  letter-spacing: 0.0892857143em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.mdc-typography--overline {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 0.75rem;
+  line-height: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.1666666667em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
