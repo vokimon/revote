@@ -41,7 +41,7 @@ function generateOptions(poll, shownovote) {
 			nocandidature: true,
 		},{
 			id: 'blankvotes',
-			name: _("En blanco"),
+			name: _("Blanco"),
 			votes: poll.blankvotes,
 			nocandidature: true,
 		},{
