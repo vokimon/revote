@@ -403,6 +403,8 @@ Info.view = function(vn) {
 	var candidatureVotes = poll.participation-poll.nullvotes-poll.blankvotes;
 
 	return m('.info', [
+		{label: _("Seats"),
+			value: poll.seats},
 		{label: _("Census"),
 			value: votes(poll.census)},
 		{label: _("Participation"),
