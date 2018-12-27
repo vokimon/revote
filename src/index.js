@@ -111,6 +111,8 @@ function increaseOption(scenario, option, nvotes) {
 var updaters = [];
 
 function transfer(scenario, fromOption, toOption, nvotes) {
+	nvotes=parseInt(nvotes);
+	if (isNaN(nvotes)) return;
 	console.log("From", fromOption, 'to', toOption, 'by', nvotes);
 	nvotes = decreaseOption(scenario, fromOption, nvotes);
 	increaseOption(scenario, toOption, nvotes);
@@ -361,11 +363,15 @@ TransferWidget.view = function(vn) {
 						TransferWidget.transferStep);
 				},	
 			}, _('<<')),
-			m('input[type=number]', {
+			m('input[type=number][step=100]', {
 				value: TransferWidget.transferStep,
 				oninput: function(ev) {
+					if (ev.target.value === undefined) {
+						ev.target.value = TransferWidget.transferStep;
+						return false;
+					}
 					var newValue = (''+ev.target.value).replace(/[^0-9]/g, '');
-					TransferWidget.transferStep = parseInt(newValue);
+					TransferWidget.transferStep = newValue;
 				},
 			}),
 			m('button', {
