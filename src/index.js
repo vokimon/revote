@@ -340,7 +340,6 @@ TransferWidget.from = 0;
 TransferWidget.to = 1;
 TransferWidget.transferStep = 100000;
 TransferWidget.view = function(vn) {
-	console.log('TransferWidget::view', vn.state);
 	return m('.transferwidget', [
 		m('', [
 			m('select#transferfrom', {
