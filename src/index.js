@@ -249,8 +249,11 @@ Hemicycle.oncreate = function(vn) {
 				.classed("sectorlabel", true)
 				.attr('text-anchor', 'middle')
 				.text(function(d,i) { return d.data.id;})
-				.style("fill", "#fff")
 				.call(placeLabel)
+				.attr("fill", "white")
+				.attr("stroke", "#777")
+				.attr('font-weight', 'bold')
+				.attr('font-size', '160%')
 			.append('title')
 				.text(function(d,i) {
 					return optionDescription(i);
