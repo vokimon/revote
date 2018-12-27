@@ -399,40 +399,55 @@ Info.view = function(vn) {
 	);
 
 	var candidatureVotes = poll.participation-poll.nullvotes-poll.blankvotes;
+	var validVotes = poll.participation-poll.nullvotes;
 
-	return m('.info', [
-		{label: _("Seats"),
-			value: poll.seats},
-		{label: _("Census"),
-			value: votes(poll.census)},
-		{label: _("Participation"),
+	return m('.info', [{
+			label: _("Seats"),
+			value: poll.seats,
+		},{
+			label: _("Census"),
+			value: votes(poll.census),
+		},{
+			label: _("Participation"),
 			value: votes(poll.participation)+
-				" ("+percent(poll.participation,poll.census)+")"},
-		{label: _("Abstention"),
+				" ("+percent(poll.participation,poll.census)+")",
+		},{
+			label: _("Abstention"),
 			value: votes(poll.abstention)+
-				" ("+percent(poll.abstention, poll.census)+")"},
-		{label: _("Null"),
+				" ("+percent(poll.abstention, poll.census)+")",
+		},{
+			label: _("Null"),
 			value: votes(poll.nullvotes)+
-				" ("+percent(poll.nullvotes, poll.census)+")"},
-		{label: _("Blank"),
+				" ("+percent(poll.nullvotes, poll.census)+")",
+		},{
+			label: _("Blank"),
 			value: votes(poll.blankvotes)+
-				" ("+percent(poll.blankvotes, poll.census)+")"},
-		{label: _("Threshold"),
+				" ("+percent(poll.blankvotes, poll.census)+")",
+		},{
+			label: _("Threshold"),
 			value: percent(poll.threshold_percent,100)+
-				" ("+votes(poll.threshold_percent*(poll.participation-poll.nullvotes)/100)+")"},
-		{label: _("Max price"),
+				" ("+votes(poll.threshold_percent*(validVotes)/100)+")",
+		},{
+			label: _("Max price"),
 			value: votes(candidatureVotes/poll.seats)+
-				" ("+percent(candidatureVotes/poll.seats, poll.participation)+")"},
-		{label: _("Min price"),
+				" ("+percent(candidatureVotes/poll.seats, validVotes)+")",
+		},{
+			label: _("Min price"),
 			value: votes(candidatureVotes/(poll.seats+poll.candidatures.length))+
-				" ("+percent(candidatureVotes/(poll.seats+poll.candidatures.length), poll.participation)+")"},
-		{label: _("Seat price"),
+				" ("+percent(candidatureVotes/(poll.seats+poll.candidatures.length), validVotes)+")",
+		},{
+			label: _("Seat price"),
 			value: votes(seatPrice)+
-				" ("+percent(seatPrice, poll.participation-poll.nullvotes)+")"},
-		{label: _("Next price"),
+				" ("+percent(seatPrice, validVotes)+ " of valid)",
+		},{
+			label: _("Next price"),
 			value: votes(seatNext)+
-				" ("+percent(seatNext, poll.participation-poll.nullvotes)+")"},
-		].map(function(v, i) {
+				" ("+percent(seatNext, poll.participation-poll.nullvotes)+")",
+		},{
+			label: _("Factor"),
+			value: percent((validVotes/seatPrice-poll.seats)/poll.candidatures.length,1),
+		}]
+			.map(function(v, i) {
 			return m('', [
 				m('b', v.label, ":"),
 				m.trust('&nbsp'),
