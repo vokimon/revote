@@ -358,13 +358,14 @@ TransferWidget.view = function(vn) {
 		]),
 		m('', [
 			m('button', {
+				title: _("Transfer to the left option"),
 				onclick: function(ev) {
 					transfer(poll,
 						TransferWidget.to,
 						TransferWidget.from,
 						TransferWidget.transferStep);
 				},	
-			}, _('<< Transfer')),
+			}, _('<<')),
 			m('input[type=number]', {
 				value: TransferWidget.transferStep,
 				oninput: function(ev) {
@@ -373,13 +374,14 @@ TransferWidget.view = function(vn) {
 				},
 			}),
 			m('button', {
+				title: _("Transfer to the right option"),
 				onclick: function(ev) {
 					transfer(poll,
 						TransferWidget.from,
 						TransferWidget.to,
 						TransferWidget.transferStep);
 				},	
-			}, _('Transfer >>')),
+			}, _('>>')),
 		]),
 	]);
 };
