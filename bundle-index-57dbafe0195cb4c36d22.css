@@ -180,7 +180,6 @@ select {
   margin: 0px;
   min-width: 350px;
   max-width: 400px;
-  background-color: #fafaff;
   flex: 1 1 auto;
 }
 .transferwidget {
@@ -203,16 +202,13 @@ select {
   text-align: center;
 }
 .dhondttable {
-  flex: 1 1 none !important;
-  min-width: 0;
-  max-width: 100%;
   overflow-x: auto;
 }
 .dhondttable > table {
-  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 .dhondttable > table > tr:hover {
-  outline: 1pt solid #ff0;
   background: #ff0;
 }
 .dhondttable > table > tr > th {
