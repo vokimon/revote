@@ -46,7 +46,7 @@ function generateOptions(poll, shownovote) {
 			nocandidature: true,
 		},{
 			id: 'nullvotes',
-			name: _("Nulos"),
+			name: _("Nulo"),
 			votes: poll.nullvotes,
 			nocandidature: true,
 		}]);
@@ -342,21 +342,8 @@ TransferWidget.view = function(vn) {
 				return m('option', {
 					value: i,
 					selected: i===vn.state.value
-				}, option.name);
+				}, option.nocandidature?option.name:option.id);
 			})),
-			m('select#transferto', {
-				value: TransferWidget.to,
-				onchange: function(ev) {
-					TransferWidget.to=ev.target.value;
-				},
-			}, poll.options.map(function(option, i) {
-				return m('option', {
-					value: i,
-					selected: i===vn.state.value
-				}, option.name);
-			})),
-		]),
-		m('', [
 			m('button', {
 				title: _("Transfer to the left option"),
 				onclick: function(ev) {
@@ -382,6 +369,17 @@ TransferWidget.view = function(vn) {
 						TransferWidget.transferStep);
 				},	
 			}, _('>>')),
+			m('select#transferto', {
+				value: TransferWidget.to,
+				onchange: function(ev) {
+					TransferWidget.to=ev.target.value;
+				},
+			}, poll.options.map(function(option, i) {
+				return m('option', {
+					value: i,
+					selected: i===vn.state.value
+				}, option.nocandidature===true?option.name:option.id);
+			})),
 		]),
 	]);
 };
