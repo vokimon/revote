@@ -392,7 +392,6 @@ TransferWidget.view = function(vn) {
 				TransferWidget.from=ev.target.value;
 			},
 			required: true,
-			//outlined: true,
 			options: poll.options.map(function(option, i) {
 				return {
 					value: i,
@@ -402,7 +401,6 @@ TransferWidget.view = function(vn) {
 			})
 		}),
 		m(Button, {
-			//outlined: true,
 			raised: true,
 			title: _("Transfer to the left option"),
 			onclick: function(ev) {
@@ -427,7 +425,6 @@ TransferWidget.view = function(vn) {
 			},
 		}),
 		m(Button, {
-			//outlined: true,
 			raised: true,
 			title: _("Transfer to the right option"),
 			onclick: function(ev) {
@@ -438,7 +435,6 @@ TransferWidget.view = function(vn) {
 			},
 		}, _('A🡆B')),
 		m(Select, {
-			//outlined: true,
 			required: true,
 			id: 'transferto',
 			label: _('Opción B'),
@@ -541,12 +537,12 @@ var App = {
 				m(Hemicycle, { attribute: 'seats', label: _("Reparto D'Hondt")}),
 			]),
 			m('.vbox.badstretch', [
-				m('h3', _("Scenario")),
+				m('h3', _("Information")),
 				m(Info),
+				m('h3', _("Transfers")),
+				m(TransferWidget),
 				m('h3', _("D'Hont")),
 				m(DHondtTable),
-				m('h3', _("Transfer among options")),
-				m(TransferWidget),
 			]),
 		]);
 	},
