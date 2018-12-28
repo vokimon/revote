@@ -193,8 +193,9 @@ select {
   align-items: stretch;
   align-content: stretch;
   flex-direction: column;
-  min-width: 350px;
+  min-width: 390px;
   overflow-x: none;
+  overflow-y: auto;
   justify-content: space-between;
 }
 .hemicycles > * {
@@ -205,6 +206,7 @@ select {
 .hemicycle {
   margin: 0px;
   min-width: 350px;
+  min-height: 175px;
   max-width: 400px;
   flex: 1 1 auto;
 }
@@ -228,7 +230,8 @@ select {
 }
 .dhondttable {
   flex: 1 1 auto;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 .dhondttable > table {
   margin-left: auto;
