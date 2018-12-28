@@ -29,10 +29,42 @@ function hamilton(poll) {
 	});
 }
 function dHondt(poll) {
-	// TODO
+	var validVotes = poll.participation - poll.nullvotes;
+	var threshold = validVotes * poll.threshold_percent / 100;
+	poll.candidatures.map(function(c) {
+		c.dhondtseats=0;
+	});
+	var dividends = poll.candidatures
+		.filter(function(o) {
+			// TODO: menor o menor o igual?
+			return o.votes >= threshold;
+		})
+		.map(function(o) {
+			return [...Array(poll.seats).keys()].map(function(seats) {
+				return {
+					candidature: o,
+					dividend: o.votes/(seats+1),
+				};
+			});
+		})
+		.flat()
+		.sort(function(a,b) { return b.dividend>a.dividend; })
+		.slice(0,poll.seats)
+		;
+	console.log('dividents', dividends.length, poll.seats);
+	dividends.map(function(d) {
+		d.candidature.dhondtseats++;
+	});
+	poll.candidatures.map(function(c) {
+		if (c.dhondtseats !== c.seats)
+			console.log("D'hondt seats differ", c.id, c.dhondtseats, c.seats);
+	});
 }
 function generateOptions(poll, shownovote) {
 	var options = poll.candidatures.slice();
+	poll.candidatures.map(function(c) {
+		c.seats=c.hamiltonseats;
+	});
 	if (shownovote) {
 		options = options.concat([{
 			id: 'abstention',
