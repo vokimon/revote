@@ -113,6 +113,7 @@ var TextField = {
 					m('svg', m('path.mdc-notched-outline__path'))):[]),
 				(outlined? m('.mdc-notched-outline__idle'):''),
 			]),
+			vn.attrs.nohelp?[]:
 			m('.mdc-text-field-helper-text'+
 				'.mdc-text-field-helper-text--persistent'+
 				(errormessage?'.mdc-text-field-helper-text--validation-msg':'')+

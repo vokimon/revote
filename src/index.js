@@ -388,6 +388,7 @@ TransferWidget.view = function(vn) {
 		m(Select, {
 			id: 'transferfrom',
 			label: _("Option A"),
+			nohelp: true,
 			value: TransferWidget.from,
 			onchange: function(ev) {
 				TransferWidget.from=ev.target.value;
@@ -414,6 +415,7 @@ TransferWidget.view = function(vn) {
 		m(TextField, {
 			type: 'number',
 			label: _("Votes to transfer"),
+			nohelp: true,
 			step: 100,
 			value: TransferWidget.transferStep,
 			oninput: function(ev) {
@@ -439,6 +441,7 @@ TransferWidget.view = function(vn) {
 			required: true,
 			id: 'transferto',
 			label: _('Option B'),
+			nohelp: true,
 			value: TransferWidget.to,
 			onchange: function(ev) {
 				TransferWidget.to=ev.target.value;

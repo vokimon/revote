@@ -136,6 +136,7 @@ var Select = {
 				vn.attrs.outlined && m('.mdc-notched-outline__idle'),
 				*/
 			]),
+			vn.attrs.nohelp === true ? []:
 			m('.mdc-text-field-helper-text'+
 				'.mdc-text-field-helper-text--persistent'+
 				'.mdc-text-field-helper-text--validation-msg'+
