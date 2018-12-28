@@ -528,20 +528,25 @@ Info.view = function(vn) {
 var App = {
 	view: function(vn) {
 		return m('.app.mdc-typography', [
-			m('.hemicycles', [
-				m(ScenaryChooser),
-				m(Hemicycle, { attribute: 'votes', shownovote: true, label: _("Opción Electoral")}),
-				m(Hemicycle, { attribute: 'votes', label: _("Votos a Candidaturas")}),
-				m(Hemicycle, { attribute: 'hamiltonseats', label: _("Reparto Hamilton")}),
-				m(Hemicycle, { attribute: 'seats', label: _("Reparto D'Hondt")}),
+			m('.topbar', [
+				m('h1',_("reVote: Simulador de flujos electorales")),
 			]),
-			m('.vbox.badstretch', [
-				m('h3', _("Information")),
-				m(Info),
-				m('h3', _("Transfers")),
-				m(TransferWidget),
-				m('h3', _("D'Hont")),
-				m(DHondtTable),
+			m('.appbody', [
+				m('.hemicycles', [
+					m(ScenaryChooser),
+					m(Hemicycle, { attribute: 'votes', shownovote: true, label: _("Opción Electoral")}),
+					m(Hemicycle, { attribute: 'votes', label: _("Votos a Candidaturas")}),
+					m(Hemicycle, { attribute: 'hamiltonseats', label: _("Reparto Hamilton")}),
+					m(Hemicycle, { attribute: 'seats', label: _("Reparto D'Hondt")}),
+				]),
+				m('.vbox.badstretch', [
+					m('h3', _("Information")),
+					m(Info),
+					m('h3', _("Transfers")),
+					m(TransferWidget),
+					m('h3', _("D'Hont")),
+					m(DHondtTable),
+				]),
 			]),
 		]);
 	},
