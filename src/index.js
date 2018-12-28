@@ -380,7 +380,7 @@ ScenaryChooser.view = function(vn) {
 var TransferWidget = {};
 TransferWidget.from = 0;
 TransferWidget.to = 1;
-TransferWidget.transferStep = 100000;
+TransferWidget.transferStep = 10000;
 TransferWidget.view = function(vn) {
 	return m('.transferwidget', [
 		m(Select, {
