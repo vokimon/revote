@@ -4,6 +4,10 @@ var m = require('mithril');
 var _ = require('./translate');
 var css = require('./style.styl');
 var d3 = require('d3');
+var Select = require('./mdc/select');
+var TextField = require('./mdc/textfield');
+var Layout = require('./mdc/layout');
+var Button = require('./mdc/button');
 
 require('@material/typography/dist/mdc.typography.css').default;
 
@@ -379,59 +383,77 @@ TransferWidget.to = 1;
 TransferWidget.transferStep = 100000;
 TransferWidget.view = function(vn) {
 	return m('.transferwidget', [
-		m('', [
-			m('select#transferfrom', {
-				value: TransferWidget.from,
-				onchange: function(ev) {
-					TransferWidget.from=ev.target.value;
-				},
-			}, poll.options.map(function(option, i) {
-				return m('option', {
+		m(Select, {
+			id: 'transferfrom',
+			label: _("Opción A"),
+			help: _("Clicka con el botón derecho"),
+			value: TransferWidget.from,
+			onchange: function(ev) {
+				TransferWidget.from=ev.target.value;
+			},
+			required: true,
+			//outlined: true,
+			options: poll.options.map(function(option, i) {
+				return {
 					value: i,
-					selected: i===vn.state.value
-				}, option.nocandidature?option.name:option.id);
-			})),
-			m('button', {
-				title: _("Transfer to the left option"),
-				onclick: function(ev) {
-					transfer(poll,
-						TransferWidget.to,
-						TransferWidget.from,
-						TransferWidget.transferStep);
-				},	
-			}, _('<<')),
-			m('input[type=number][step=100]', {
-				value: TransferWidget.transferStep,
-				oninput: function(ev) {
-					if (ev.target.value === undefined) {
-						ev.target.value = TransferWidget.transferStep;
-						return false;
-					}
-					var newValue = (''+ev.target.value).replace(/[^0-9]/g, '');
-					TransferWidget.transferStep = newValue;
-				},
+					selected: i===TransferWidget.from,
+					text: option.nocandidature===true?option.name:option.id,
+				};
+			})
+		}),
+		m(Button, {
+			//outlined: true,
+			raised: true,
+			title: _("Transfer to the left option"),
+			onclick: function(ev) {
+				transfer(poll,
+					TransferWidget.to,
+					TransferWidget.from,
+					TransferWidget.transferStep);
+			},
+		}, _('A🡄B')),
+		m(TextField, {
+			type: 'number',
+			label: _("Votes to transfer"),
+			step: 100,
+			value: TransferWidget.transferStep,
+			oninput: function(ev) {
+				if (ev.target.value === undefined) {
+					ev.target.value = TransferWidget.transferStep;
+					return false;
+				}
+				var newValue = (''+ev.target.value).replace(/[^0-9]/g, '');
+				TransferWidget.transferStep = newValue;
+			},
+		}),
+		m(Button, {
+			//outlined: true,
+			raised: true,
+			title: _("Transfer to the right option"),
+			onclick: function(ev) {
+				transfer(poll,
+					TransferWidget.from,
+					TransferWidget.to,
+					TransferWidget.transferStep);
+			},
+		}, _('A🡆B')),
+		m(Select, {
+			//outlined: true,
+			required: true,
+			id: 'transferto',
+			label: _('Opción B'),
+			value: TransferWidget.to,
+			onchange: function(ev) {
+				TransferWidget.to=ev.target.value;
+			},
+			options: poll.options.map(function(option, i) {
+				return {
+					value: i,
+					selected: i===TransferWidget.to,
+					text: option.nocandidature===true?option.name:option.id,
+				};
 			}),
-			m('button', {
-				title: _("Transfer to the right option"),
-				onclick: function(ev) {
-					transfer(poll,
-						TransferWidget.from,
-						TransferWidget.to,
-						TransferWidget.transferStep);
-				},	
-			}, _('>>')),
-			m('select#transferto', {
-				value: TransferWidget.to,
-				onchange: function(ev) {
-					TransferWidget.to=ev.target.value;
-				},
-			}, poll.options.map(function(option, i) {
-				return m('option', {
-					value: i,
-					selected: i===vn.state.value
-				}, option.nocandidature===true?option.name:option.id);
-			})),
-		]),
+		}),
 	]);
 };
 
