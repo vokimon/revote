@@ -210,6 +210,22 @@ select {
   max-width: 400px;
   flex: 1 1 auto;
 }
+.leftpane {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  flex-direction: column;
+  overflow-y: none;
+}
+.leftpane > * {
+  overflow: auto;
+  display: block;
+  flex: 1 1 auto;
+}
+.leftpane > * {
+  flex: 1 0 auto;
+}
 .transferwidget {
   display: inline-flex;
   flex-wrap: nowrap;
@@ -219,6 +235,7 @@ select {
   width: 100%;
   align-items: stretch;
   align-content: stretch;
+  flex-wrap: wrap;
 }
 .transferwidget > * {
   overflow: auto;
@@ -226,9 +243,13 @@ select {
   flex: 1 1 auto;
 }
 .transferwidget > * {
-  flex: 1 1 auto;
+  flex: 1 0 auto;
+}
+.transferwidget > .transferbuttons {
+  flex: 0 0 auto;
 }
 .dhondttable {
+  min-height: 8em;
   flex: 1 1 auto;
   overflow-x: auto;
   overflow-y: auto;
