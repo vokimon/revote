@@ -385,8 +385,7 @@ TransferWidget.view = function(vn) {
 	return m('.transferwidget', [
 		m(Select, {
 			id: 'transferfrom',
-			label: _("Opción A"),
-			help: _("Clicka con el botón derecho"),
+			label: _("Option A"),
 			value: TransferWidget.from,
 			onchange: function(ev) {
 				TransferWidget.from=ev.target.value;
@@ -437,7 +436,7 @@ TransferWidget.view = function(vn) {
 		m(Select, {
 			required: true,
 			id: 'transferto',
-			label: _('Opción B'),
+			label: _('Option B'),
 			value: TransferWidget.to,
 			onchange: function(ev) {
 				TransferWidget.to=ev.target.value;
