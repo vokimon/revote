@@ -108,10 +108,10 @@ var Select = {
 						return m('option', Object.assign({},v), v.text);
 					})
 				),
-				m('label'
+				(vn.attrs.outlined?[]:m('label'
 					+'.mdc-floating-label'
 					+(floating?'.mdc-floating-label--float-above':''),
-					vn.attrs.label),
+					vn.attrs.label)),
 				vn.attrs.icon &&
 					m('i.mdc-select__icon.material-icons',
 						vn.attrs.iconaction && {
@@ -121,10 +121,20 @@ var Select = {
 						},
 						vn.attrs.icon),
 				(vn.attrs.outlined? []: m('.mdc-line-ripple')),
+				(vn.attrs.outlined?
+					m('.mdc-notched-outline', [
+						m('.mdc-notched-outline__leading'),
+						m('.mdc-notched-outline__notch',
+							m('label.mdc-floating-label',
+								vn.attrs.label)),
+						m('.mdc-notched-outline__trailing')
+					]):''),
+				/* Old version
 				vn.attrs.outlined && m('.mdc-notched-outline'
 					+(floating?'.mdc-notched-outline--notched':''),
 					m('svg', m('path.mdc-notched-outline__path'))),
 				vn.attrs.outlined && m('.mdc-notched-outline__idle'),
+				*/
 			]),
 			m('.mdc-text-field-helper-text'+
 				'.mdc-text-field-helper-text--persistent'+
