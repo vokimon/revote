@@ -106,6 +106,7 @@ function recompute(poll) {
 	hamilton(poll);
 	dHondt(poll);
 	poll.options = generateOptions(poll, true)
+	poll.participation = poll.census - poll.abstention;
 }
 
 function _optionAttribute(scenario, option) {
