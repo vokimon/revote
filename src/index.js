@@ -402,41 +402,28 @@ TransferWidget.view = function(vn) {
 				};
 			})
 		}),
+		m('.transferbuttons', [
 		m(Button, {
 			raised: true,
-			title: _("Transfer to the left option"),
+			title: _("Transfer from B to A"),
 			onclick: function(ev) {
 				transfer(poll,
 					TransferWidget.to,
 					TransferWidget.from,
 					TransferWidget.transferStep);
 			},
-		}, _('A🡄B')),
-		m(TextField, {
-			type: 'number',
-			label: _("Votes to transfer"),
-			nohelp: true,
-			step: 100,
-			value: TransferWidget.transferStep,
-			oninput: function(ev) {
-				if (ev.target.value === undefined) {
-					ev.target.value = TransferWidget.transferStep;
-					return false;
-				}
-				var newValue = (''+ev.target.value).replace(/[^0-9]/g, '');
-				TransferWidget.transferStep = newValue;
-			},
-		}),
+		}, _('🡄')),
 		m(Button, {
 			raised: true,
-			title: _("Transfer to the right option"),
+			title: _("Transfer from A to B"),
 			onclick: function(ev) {
 				transfer(poll,
 					TransferWidget.from,
 					TransferWidget.to,
 					TransferWidget.transferStep);
 			},
-		}, _('A🡆B')),
+		}, _('🡆')),,
+		]),
 		m(Select, {
 			required: true,
 			id: 'transferto',
@@ -454,6 +441,22 @@ TransferWidget.view = function(vn) {
 				};
 			}),
 		}),
+		m('', {style: {'max-width': '8em'}},
+		m(TextField, {
+			type: 'number',
+			label: _("Votes to transfer"),
+			nohelp: true,
+			step: 100,
+			value: TransferWidget.transferStep,
+			oninput: function(ev) {
+				if (ev.target.value === undefined) {
+					ev.target.value = TransferWidget.transferStep;
+					return false;
+				}
+				var newValue = (''+ev.target.value).replace(/[^0-9]/g, '');
+				TransferWidget.transferStep = newValue;
+			},
+		})),
 	]);
 };
 
@@ -544,7 +547,7 @@ var App = {
 					m(Hemicycle, { attribute: 'hamiltonseats', label: _("Reparto Hamilton")}),
 					m(Hemicycle, { attribute: 'seats', label: _("Reparto D'Hondt")}),
 				]),
-				m('.vbox.badstretch', [
+				m('.leftpane', [
 					m('h3', _("Information")),
 					m(Info),
 					m('h3', _("Transfers")),
