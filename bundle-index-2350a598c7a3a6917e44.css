@@ -164,12 +164,16 @@ select {
 .topbar {
   background: var(--mdc-theme-primary);
   color: #fff;
-  max-height: 6ex;
+  flex: 0 0 auto;
 }
 .topbar h1 {
+  font-size: 140%;
   color: #fff;
   padding: 0 1ex;
   margin: 0 0;
+}
+.scenariochooser {
+  flex: 0 0 auto;
 }
 .appbody {
   display: inline-flex;
@@ -223,7 +227,8 @@ select {
   flex: 1 1 auto;
 }
 .dhondttable {
-  overflow-x: auto;
+  flex: 1 1 auto;
+  overflow: auto;
 }
 .dhondttable > table {
   margin-left: auto;
