@@ -48,22 +48,18 @@ function dHondt(poll) {
 			});
 		})
 		.flat()
-		.sort(function(a,b) { return b.dividend>a.dividend; })
-		.slice(0,poll.seats)
+		.sort(function(a,b) { return b.dividend-a.dividend; })
 		;
-	console.log('dividents', dividends.length, poll.seats);
-	dividends.map(function(d) {
-		d.candidature.dhondtseats++;
-	});
-	poll.candidatures.map(function(c) {
-		if (c.dhondtseats !== c.seats)
-			console.log("D'hondt seats differ", c.id, c.dhondtseats, c.seats);
-	});
+	dividends
+		.slice(0,poll.seats)
+		.map(function(d) {
+			d.candidature.dhondtseats++;
+		});
 }
 function generateOptions(poll, shownovote) {
 	var options = poll.candidatures.slice();
 	poll.candidatures.map(function(c) {
-		c.seats=c.hamiltonseats;
+		c.seats=c.dhondtseats;
 	});
 	if (shownovote) {
 		options = options.concat([{
