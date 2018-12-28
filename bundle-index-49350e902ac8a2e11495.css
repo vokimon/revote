@@ -182,6 +182,10 @@ select {
   max-width: 400px;
   flex: 1 1 auto;
 }
+.colorbox {
+  padding: 2em 1ex;
+  display: block;
+}
 .transferwidget {
   display: inline-flex;
   flex-wrap: nowrap;
