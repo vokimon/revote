@@ -231,6 +231,11 @@ Hemicycle.oncreate = function(vn) {
 			(options)
 			;
 		var sectors = vn.state.chart.selectAll('path.sector').data(pie);
+		sectors.select('title')
+			.text(function(d,i) {
+				return optionDescription(i);
+			})
+			;
 		sectors
 			//.each(function(d) { console.log('updating:', d.data.id); })
 			.transition()
@@ -281,6 +286,11 @@ Hemicycle.oncreate = function(vn) {
 				})
 			;
 		}
+		labels.select('title')
+			.text(function(d,i) {
+				return optionDescription(i);
+			})
+			;
 		labels
 			.transition()
 				.duration(1000)
