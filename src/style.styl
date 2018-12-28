@@ -172,14 +172,19 @@ select
 .topbar
 	background: var(--mdc-theme-primary)
 	color: white
-	max-height: 6ex
+	flex: 0 0 auto
 	h1
+		font-size: 140%
 		color: white
 		padding: 0 1ex
 		margin: 0 0
 
+.scenariochooser
+	flex: 0 0 auto
+
 .appbody
 	hbox()
+
 
 .hemicycles
 	vbox()
@@ -206,7 +211,8 @@ select
 
 
 .dhondttable
-	overflow-x: auto
+	flex: 1 1 auto
+	overflow: auto
 	> table
 		margin-left: auto
 		margin-right: auto

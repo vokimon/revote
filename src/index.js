@@ -361,20 +361,21 @@ DHondtTable.view = function(vn) {
 var ScenaryChooser = {};
 ScenaryChooser.current = 0;
 ScenaryChooser.view = function(vn) {
-	var scenarios = [
-	];
+	var scenarios = [{
+			text: poll.name,
+			value: 0,
+	}];
 	return m('.scenariochooser', [
-		m('', [
-			m('h3', _("Scenario")),
-			m('select', {
-				value: ScenaryChooser.current,
-				onchanged: function(ev) {
-					ScenaryChooser.current=ev.target.value;
-				},
-			}, scenarios.map(function(option, i) {
-				return m('option', {value: i}, option.name);
-			})),
-		]),
+		m(Select, {
+			id: 'scenariochooser',
+			label: _("Scenario"),
+			nohelp: true,
+			value: ScenaryChooser.current,
+			onchanged: function(ev) {
+				ScenaryChooser.current=ev.target.value;
+			},
+			options: scenarios,
+		}),
 	]);
 };
 
@@ -532,9 +533,9 @@ var App = {
 			m('.topbar', [
 				m('h1',_("reVote: Simulador de flujos electorales")),
 			]),
+			m(ScenaryChooser),
 			m('.appbody', [
 				m('.hemicycles', [
-					m(ScenaryChooser),
 					m(Hemicycle, { attribute: 'votes', shownovote: true, label: _("Opción Electoral")}),
 					m(Hemicycle, { attribute: 'votes', label: _("Votos a Candidaturas")}),
 					m(Hemicycle, { attribute: 'hamiltonseats', label: _("Reparto Hamilton")}),
