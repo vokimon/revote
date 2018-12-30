@@ -331,6 +331,9 @@ DHondtTable.view = function(vn) {
 		.filter(function(c) { return c.seats!==0; })
 		.map(function(c) { return c.votes/c.seats; })
 	);
+	const nextPrice = Math.max.apply(null, poll.candidatures
+		.map(function(c) { return c.votes/(c.seats+1); })
+	);
 	const validVotes = poll.participation - poll.nullvotes;
 	const threshold = validVotes*poll.threshold_percent/100;
 	return m('.dhondttable', m('table', [
@@ -364,6 +367,8 @@ DHondtTable.view = function(vn) {
 						+(i<=option.seats? '.taken':'')
 						+(option.votes<=threshold?'.under':'')
 						+(option.votes<=threshold && option.votes/i>=seatPrice?'.thresholded':'')
+						+(option.votes/i===seatPrice?'.last':'')
+						+(option.votes/i===nextPrice?'.last':'')
 						, votes(option.votes/i));
 				}),
 			]);
