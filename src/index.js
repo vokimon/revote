@@ -324,6 +324,12 @@ DHondtTable.view = function(vn) {
 		.filter(function(v) { return v.seats!==undefined; })
 		.map(function(v) { return v.seats; })
 		) + 3;
+	const seatPrice = Math.min.apply(null, poll.candidatures
+		.filter(function(c) { return c.seats!==0; })
+		.map(function(c) { return c.votes/c.seats; })
+	);
+	const validVotes = poll.participation - poll.nullvotes;
+	const threshold = validVotes*poll.threshold_percent/100;
 	return m('.dhondttable', m('table', [
 		m('tr', [
 			[...Array(ndivisors).keys()].map(function(i) {
@@ -345,11 +351,13 @@ DHondtTable.view = function(vn) {
 				}, [
 				[...Array(ndivisors).keys()].map(function(i) {
 					if (i===0)
-						return m('th.party', {
+						return m('th.candidature', {
 							style: { background: Hemicycle.color(option.id) },
 						}, option.id);
 					return m('td'
 						+(i<=option.seats? '.taken':'')
+						+(option.votes<=threshold?'.under':'')
+						+(option.votes<=threshold && option.votes/i>=seatPrice?'.thresholded':'')
 						, d3.format('d')(option.votes/i));
 				}),
 			]);
