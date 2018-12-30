@@ -334,7 +334,7 @@ DHondtTable.view = function(vn) {
 	const validVotes = poll.participation - poll.nullvotes;
 	const threshold = validVotes*poll.threshold_percent/100;
 	return m('.dhondttable', m('table', [
-		m('tr', [
+		m('tr', m('td'), [
 			[...Array(ndivisors).keys()].map(function(i) {
 				if (i===0) return m('td');
 				return m('th', i);
@@ -351,7 +351,10 @@ DHondtTable.view = function(vn) {
 							TransferWidget.to=optionIdx;
 							ev.preventDefault();
 						},
-				}, [
+				}, m('td.selection', [
+					(TransferWidget.from===optionIdx?"A":""),
+					(TransferWidget.to===optionIdx?"B":""),
+				]) , [
 				[...Array(ndivisors).keys()].map(function(i) {
 					if (i===0)
 						return m('th.candidature', {
