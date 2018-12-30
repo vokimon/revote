@@ -230,22 +230,25 @@ select
 		margin-right: auto
 
 		> tr:hover
-			background: yellow
-		> tr > th
-			background: #eee
-		> tr > th.candidature
-			color: white
-			white-space: nowrap
-			padding: 0 5pt
-		> tr > td
-			text-align: right
-		> tr > td.taken
-			background: #abf
-			color: white
-		> tr > td.under
-			color: grey
-		> tr > td.thresholded.under
-			color: blue
+			outline: 1pt yellow solid
+			background: #ff05
+		> tr
+			> th
+				background: #eee
+			> th.candidature
+				color: white
+				white-space: nowrap
+				padding: 0 5pt
+			> td
+				text-align: right
+			> td.taken
+				background: #abf
+				color: white
+			> td.under
+				color: grey
+			> td.thresholded.under
+				background: #ddd
+				color: white
 .info
 	hbox()
 	flex-wrap: wrap
