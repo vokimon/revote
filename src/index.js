@@ -11,6 +11,9 @@ var Button = require('./mdc/button');
 
 require('@material/typography/dist/mdc.typography.css').default;
 
+var percent = function(some, all) { return d3.format('.2%')(some/all);};
+var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
+
 var poll = require('./congresoBarcelona-1977-06.yaml')
 function hamilton(poll) {
 	var remainingSeats = poll.seats;
@@ -358,7 +361,7 @@ DHondtTable.view = function(vn) {
 						+(i<=option.seats? '.taken':'')
 						+(option.votes<=threshold?'.under':'')
 						+(option.votes<=threshold && option.votes/i>=seatPrice?'.thresholded':'')
-						, d3.format('d')(option.votes/i));
+						, votes(option.votes/i));
 				}),
 			]);
 		}),
@@ -470,8 +473,6 @@ TransferWidget.view = function(vn) {
 
 var Info = {};
 Info.view = function(vn) {
-	var percent = function(some, all) { return d3.format('.2%')(some/all);};
-	var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 	var seatPrice = Math.min.apply(null, poll.candidatures
 		.filter(function(c) { return c.seats!==0; })
 		.map(function(c) { return c.votes/c.seats; })
