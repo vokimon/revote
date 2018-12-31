@@ -344,7 +344,6 @@ DHondtTable.view = function(vn) {
 			}),
 		]),
 		poll.options.map(function(option, optionIdx) {
-			if (option.nocandidature) return [];
 			return m('tr', {
 					title: optionDescription(optionIdx),
 						onclick: function(ev) {
@@ -366,7 +365,9 @@ DHondtTable.view = function(vn) {
 					return m('td'
 						+(i<=option.seats? '.taken':'')
 						+(option.votes<=threshold?'.under':'')
+						+(option.nocandidature?'.under':'')
 						+(option.votes<=threshold && option.votes/i>=seatPrice?'.thresholded':'')
+						+(option.nocandidature && option.votes/i>=seatPrice?'.thresholded':'')
 						+(option.votes/i===seatPrice?'.last':'')
 						+(option.votes/i===nextPrice?'.last':'')
 						, votes(option.votes/i));
