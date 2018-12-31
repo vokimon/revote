@@ -551,6 +551,160 @@ Info.view = function(vn) {
 	);
 };
 
+const DHondtPriceBar = {};
+DHondtPriceBar.view = function(vn) {
+	return m('.dhondtbars',m('svg', {
+		'height': 600,
+		'viewBox': '0 0 1000 600',
+		//'preserveAspectRatio': 'xMidYMid meet'
+	}));
+};
+DHondtPriceBar.oninit = function(vn) {
+	updaters.push(function() {
+		vn.state.updateData && vn.state.updateData();
+	})
+};
+DHondtPriceBar.oncreate = function(vn) {
+	var bbox = vn.dom.getBoundingClientRect();
+	var margin = { left: 90, top: 24, bottom: 0, right: 24 };
+	var height = Math.max(600, bbox.height) - margin.top - margin.bottom;
+	var width = bbox.width - margin.left -margin.right;
+
+	var svg = d3.select(vn.dom).select('svg');
+
+	var seatPrice = Math.min.apply(null, poll.candidatures
+		.filter(function(c) { return c.seats!==0; })
+		.map(function(c) { return c.votes/c.seats; })
+	);
+	var maxSeats = Math.max.apply(null, poll.candidatures
+		.map(function(c) { return c.seats; })
+	);
+
+	var optionsScale = d3.scaleBand()
+		.range([margin.top, height])
+		.domain(poll.options.map(function(o) {return o.id;}))
+		;
+	var optionAxis = d3.axisLeft(optionsScale);
+	var voteScale = d3.scaleLinear()
+		.range([0, width])
+		.domain([0,seatPrice*(maxSeats+3)])
+		;
+	var voteAxis = d3.axisBottom()
+		.scale(voteScale)
+		;
+	var chart = svg.append('g')
+		.attr('class', 'chart')
+		.attr('transform', 'translate('+margin.left+' '+(-margin.bottom)+')')
+		;
+	chart.append('g')
+		.attr('class', 'y axis')
+		.call(optionAxis)
+		;
+	chart.append('g')
+		.attr('class', 'x axis')
+		.attr('transform', 'translate(0,'+height+')')
+		.call(voteAxis)
+		;
+	chart.append('g')
+		.attr('class', 'bars');
+
+	var seatScale = d3.scaleLinear()
+		.range([0,width])
+		.domain([0,maxSeats+3])
+		;
+
+    var seatAxis = d3.axisTop()
+        .scale(seatScale)
+        .tickSize(-height+margin.top, 0, 0)
+        ;
+    chart.append("g")
+        .attr("class", "grid seats")
+        .attr("transform", "translate(0," + (margin.top) + ")")
+        .call(seatAxis)
+        ;
+	var validVotes = poll.participation - poll.nullvotes;
+	var threshold = validVotes * poll.threshold_percent / 100;
+	var thresholdLine = chart.append('line')
+		.attr('x1',voteScale(threshold))
+		.attr('y1',margin.top)
+		.attr('x2',voteScale(threshold))
+		.attr('y2',height)
+		.attr('stroke', 'red')
+		;
+
+
+	this.updateData=function() {
+		var validVotes = poll.participation - poll.nullvotes;
+		var threshold = validVotes * poll.threshold_percent / 100;
+		thresholdLine.transition()
+			.attr('x1',voteScale(threshold))
+			.attr('x2',voteScale(threshold))
+			;
+		var seatPrice = Math.min.apply(null, poll.candidatures
+			.filter(function(c) { return c.seats!==0; })
+			.map(function(c) { return c.votes/c.seats; })
+		);
+		seatScale.domain([0,maxSeats+3])
+		seatScale.range([0,voteScale(seatPrice*(maxSeats+3))])
+		chart.select('.grid.seats')
+			.transition()
+				.call(seatAxis)
+			;
+
+		function fullbar(bar) {
+			bar
+				.attr('y', (s) => optionsScale(s.id))
+				.attr('height', optionsScale.bandwidth())
+				.attr('x', (s) => voteScale(0))
+				.attr('width', (s) => voteScale(s.seats*seatPrice))
+				.attr('fill', (s) => Hemicycle.color(s.id))
+			;
+		}
+		function remainderbar(bar) {
+			bar
+				.attr('y', (s) => optionsScale(s.id)+1)
+				.attr('height', optionsScale.bandwidth()-2)
+				.attr('x', (s) => voteScale(s.seats!==undefined?s.seats*seatPrice:0))
+				.attr('width', (s) => voteScale(s.votes-(s.seats!==undefined?s.seats*seatPrice:0)))
+				.attr('fill', (s) => Hemicycle.color(s.id)+'77')
+				.attr('stroke', (s) => Hemicycle.color(s.id))
+				.attr('stroke-width', 2)
+			;
+		}
+	
+		var fullbars = chart.select('.bars')
+			.selectAll('.fullbar')
+			.data(poll.options)
+			;
+		fullbars
+			.transition()
+			.call(fullbar)
+			;
+		fullbars
+			.enter()
+			.append("rect")
+				.attr('class','fullbar')
+				.call(fullbar)
+			;
+		var reminders = chart.select('.bars')
+			.selectAll('.remainderbar')
+			.data(poll.options)
+			;
+		reminders
+			.transition()
+			.call(remainderbar)
+			;
+		reminders
+			.enter()
+			.append("rect")
+				.attr('class','remainderbar')
+				.call(remainderbar)
+			;
+	};
+	this.updateData();
+};
+
+
 var App = {
 	view: function(vn) {
 		return m('.app.mdc-typography', [
@@ -570,8 +724,8 @@ var App = {
 					m(Info),
 					m('h3', _("Transfers")),
 					m(TransferWidget),
-					m('h3', _("D'Hont")),
 					m(DHondtTable),
+					m(DHondtPriceBar),
 				]),
 			]),
 		]);
