@@ -288,6 +288,11 @@ Hemicycle.oncreate = function(vn) {
 				.attr('visibility', function(d,i) {
 					return d.endAngle-d.startAngle<2*Math.PI/180?'hidden':'';
 				})
+				.text(function(d,i) {
+					return (
+						d.data.nocandidature===true?d.data.name:d.data.id)+
+						"\n"+percent((d.endAngle-d.startAngle),Math.PI);
+				})
 			;
 		}
 		labels.select('title')
