@@ -437,6 +437,22 @@ TransferWidget.view = function(vn) {
 					TransferWidget.transferStep);
 			},
 		}, _('🡄')),
+		m('', {style: {'max-width': '8em'}},
+		m(TextField, {
+			type: 'number',
+			label: _("Votes to transfer"),
+			nohelp: true,
+			step: 100,
+			value: TransferWidget.transferStep,
+			oninput: function(ev) {
+				if (ev.target.value === undefined) {
+					ev.target.value = TransferWidget.transferStep;
+					return false;
+				}
+				var newValue = (''+ev.target.value).replace(/[^0-9]/g, '');
+				TransferWidget.transferStep = newValue;
+			},
+		})),
 		m(Button, {
 			raised: true,
 			title: _("Transfer from A to B"),
@@ -465,22 +481,6 @@ TransferWidget.view = function(vn) {
 				};
 			}),
 		}),
-		m('', {style: {'max-width': '8em'}},
-		m(TextField, {
-			type: 'number',
-			label: _("Votes to transfer"),
-			nohelp: true,
-			step: 100,
-			value: TransferWidget.transferStep,
-			oninput: function(ev) {
-				if (ev.target.value === undefined) {
-					ev.target.value = TransferWidget.transferStep;
-					return false;
-				}
-				var newValue = (''+ev.target.value).replace(/[^0-9]/g, '');
-				TransferWidget.transferStep = newValue;
-			},
-		})),
 	]);
 };
 
