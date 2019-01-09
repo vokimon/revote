@@ -294,6 +294,11 @@ select {
 .dhondtbars svg .grid.votes .domain {
   stroke: none;
 }
+.dhondtbars svg .grid.seats line {
+  stroke: #90ee90;
+  opacity: 50%;
+  stroke-dasharray: 2, 2;
+}
 .dhondtbars svg .label.price {
   fill: #008000;
 }
@@ -303,20 +308,15 @@ select {
 .dhondtbars svg .label.price .domain {
   stroke: none;
 }
-.dhondtbars svg .grid.seats line {
-  stroke: #90ee90;
-  opacity: 50%;
-  stroke-dasharray: 2, 2;
-}
-.dhondtbars svg .grid.seats .domain {
-  stroke: #00f;
-}
-.dhondtbars svg .label.threshold {
-  stroke: #f00;
-  fill: #f00;
-}
 .dhondtbars svg line.threshold {
   stroke: #f00;
+}
+.dhondtbars svg .label.threshold {
+  fill: #f00;
+}
+.dhondtbars svg .label.threshold line {
+  stroke: #f00;
+  fill: #f00;
 }
 .dhondttable {
   min-height: 8em;
