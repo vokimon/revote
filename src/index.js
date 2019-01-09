@@ -557,9 +557,15 @@ Info.view = function(vn) {
 
 const DHondtPriceBar = {};
 DHondtPriceBar.view = function(vn) {
+	var width = vn.dom?vn.dom.scrollWidth:500;
+	var height = vn.dom?vn.dom.scrollHeight:400;
+	var parentHeight = vn.dom?vn.dom.getParent().scrollHeight:500;
+	var parentWidth = vn.dom?vn.dom.getParent().scrollWidth:400;
+	console.log("parentHeight",parentHeight);
 	return m('.dhondtbars',m('svg', {
-		'height': 600,
-		'viewBox': '0 0 1000 600',
+		height: parentHeight,
+		width: parentWidth,
+		//'viewBox': '0 0 '+width+' '+height,
 		//'preserveAspectRatio': 'xMidYMid meet'
 	}));
 };
@@ -567,12 +573,21 @@ DHondtPriceBar.oninit = function(vn) {
 	updaters.push(function() {
 		vn.state.updateData && vn.state.updateData();
 	})
+	window.addEventListener('resize', function() {
+		console.log("onresize");
+		vn.state.updateData && vn.state.updateData();
+	});
+};
+DHondtPriceBar.onupdate = function(vn) {
+	console.log("updating");
+	this.updateData();
 };
 DHondtPriceBar.oncreate = function(vn) {
 	var bbox = vn.dom.getBoundingClientRect();
-	var margin = { left: 90, top: 24, bottom: 0, right: 24 };
-	var height = Math.max(600, bbox.height) - margin.top - margin.bottom;
-	var width = bbox.width - margin.left -margin.right;
+	// TODO: left should be computed from axis width
+	var margin = { left: 70, top: 48, bottom: 24, right: 24 };
+	var height = vn.dom.scrollHeight - margin.top - margin.bottom;
+	var width = vn.dom.scrollWidth - margin.left -margin.right;
 
 	var svg = d3.select(vn.dom).select('svg');
 
@@ -584,11 +599,22 @@ DHondtPriceBar.oncreate = function(vn) {
 		.map(function(c) { return c.seats; })
 	);
 
+	var chart = svg.append('g')
+		.attr('class', 'chart')
+		.attr('transform', 'translate('+margin.left+' '+margin.top+')')
+		;
+
 	var optionsScale = d3.scaleBand()
-		.range([margin.top, height])
+		.range([0, height])
 		.domain(poll.options.map(function(o) {return o.id;}))
 		;
-	var optionAxis = d3.axisLeft(optionsScale);
+	var optionAxis = d3.axisLeft()
+		.scale(optionsScale);
+	chart.append('g')
+		.attr('class', 'y axis')
+		.call(optionAxis)
+		;
+
 	var voteScale = d3.scaleLinear()
 		.range([0, width])
 		.domain([0,seatPrice*(maxSeats+3)])
@@ -596,19 +622,13 @@ DHondtPriceBar.oncreate = function(vn) {
 	var voteAxis = d3.axisBottom()
 		.scale(voteScale)
 		;
-	var chart = svg.append('g')
-		.attr('class', 'chart')
-		.attr('transform', 'translate('+margin.left+' '+(-margin.bottom)+')')
-		;
-	chart.append('g')
-		.attr('class', 'y axis')
-		.call(optionAxis)
-		;
 	chart.append('g')
 		.attr('class', 'x axis')
 		.attr('transform', 'translate(0,'+height+')')
+		.attr('stroke', 'red')
 		.call(voteAxis)
 		;
+
 	chart.append('g')
 		.attr('class', 'bars');
 
@@ -616,43 +636,106 @@ DHondtPriceBar.oncreate = function(vn) {
 		.range([0,width])
 		.domain([0,maxSeats+3])
 		;
-
-    var seatAxis = d3.axisTop()
+    var seatGrid = d3.axisTop()
         .scale(seatScale)
-        .tickSize(-height+margin.top, 0, 0)
+        .tickSize(-height, 0, 0)
         ;
     chart.append("g")
         .attr("class", "grid seats")
-        .attr("transform", "translate(0," + (margin.top) + ")")
-        .call(seatAxis)
+        .attr("transform", "translate(0,0)")
+		.attr('stroke', 'green')
+        .call(seatGrid)
         ;
+
+	var votesGrid = d3.axisTop()
+		.scale(voteScale)
+		.tickSize(-height-margin.top/2, 0, 0)
+		;
+	chart.append("g")
+		.attr("class", "grid votes")
+        .attr("transform", "translate(0," + -margin.top/2 + ")")
+        .call(votesGrid)
+		;
+
 	var validVotes = poll.participation - poll.nullvotes;
 	var threshold = validVotes * poll.threshold_percent / 100;
 	var thresholdLine = chart.append('line')
-		.attr('x1',voteScale(threshold))
-		.attr('y1',margin.top)
-		.attr('x2',voteScale(threshold))
+		.attr('class', 'threshold')
+		.attr('y1',0)
 		.attr('y2',height)
-		.attr('stroke', 'red')
+		.attr('x1',voteScale(threshold))
+		.attr('x2',voteScale(threshold))
+		;
+	var thresholdLabel = chart.append('text')
+		.attr('class', 'label threshold')
+		.attr('transform','translate('+voteScale(threshold)+' '+(3*height/4)+') ')
+		.text(_("Threshold: ")+votes(threshold))
 		;
 
+	var priceLabel = chart.append('g')
+		.attr('transform','translate('+voteScale(seatPrice)+' '+(height/2)+')')
+		.attr('class', 'label price')
+		;
+	priceLabel
+		.append('text')
+		.text(_("Seat price: ")+votes(seatPrice))
+		.attr('dx', 10)
+		;
+	priceLabel
+		.append('circle')
+		.attr('cx', 0)
+		.attr('cy', 20)
+		.attr('r', 5)
+		;
+	priceLabel
+		.append('line')
+		.attr('x1', 0)
+		.attr('x2', 30)
+		.attr('y1', 20)
+		.attr('y2', 5)
+		;
+		
 
 	this.updateData=function() {
+		var width = vn.dom.scrollWidth - margin.left -margin.right;
+		var height = vn.dom.scrollHeight - margin.top - margin.bottom;
 		var validVotes = poll.participation - poll.nullvotes;
 		var threshold = validVotes * poll.threshold_percent / 100;
-		thresholdLine.transition()
-			.attr('x1',voteScale(threshold))
-			.attr('x2',voteScale(threshold))
-			;
 		var seatPrice = Math.min.apply(null, poll.candidatures
 			.filter(function(c) { return c.seats!==0; })
 			.map(function(c) { return c.votes/c.seats; })
 		);
-		seatScale.domain([0,maxSeats+3])
-		seatScale.range([0,voteScale(seatPrice*(maxSeats+3))])
+
+		voteScale
+			.range([0, width])
+			;
+		seatScale
+			.domain([0,maxSeats+3])
+			.range([0,voteScale(seatPrice*(maxSeats+3))])
+			;
+		optionsScale
+			.range([0, height])
+			;
+		thresholdLine.transition()
+			.attr('x1',voteScale(threshold))
+			.attr('x2',voteScale(threshold))
+			;
 		chart.select('.grid.seats')
 			.transition()
-				.call(seatAxis)
+				.call(seatGrid)
+			;
+		chart.select('.grid.votes')
+			.transition()
+				.call(votesGrid)
+			;
+		chart.select('.x.axis')
+			.transition()
+			.attr('transform', 'translate(0,'+height+')')
+			.call(voteAxis)
+			;
+		chart.select('.y.axis')
+			.transition()
+				.call(optionAxis)
 			;
 
 		function fullbar(bar) {
@@ -660,7 +743,7 @@ DHondtPriceBar.oncreate = function(vn) {
 				.attr('y', (s) => optionsScale(s.id))
 				.attr('height', optionsScale.bandwidth())
 				.attr('x', (s) => voteScale(0))
-				.attr('width', (s) => voteScale(s.seats*seatPrice))
+				.attr('width', (s) => voteScale(s.seats===undefined?0:s.seats*seatPrice))
 				.attr('fill', (s) => Hemicycle.color(s.id))
 			;
 		}
@@ -670,7 +753,8 @@ DHondtPriceBar.oncreate = function(vn) {
 				.attr('height', optionsScale.bandwidth()-2)
 				.attr('x', (s) => voteScale(s.seats!==undefined?s.seats*seatPrice:0))
 				.attr('width', (s) => voteScale(s.votes-(s.seats!==undefined?s.seats*seatPrice:0)))
-				.attr('fill', (s) => Hemicycle.color(s.id)+'77')
+				.attr('fill', (s) => Hemicycle.color(s.id))
+				.attr('fill-opacity', 0.4)
 				.attr('stroke', (s) => Hemicycle.color(s.id))
 				.attr('stroke-width', 2)
 			;
@@ -704,6 +788,18 @@ DHondtPriceBar.oncreate = function(vn) {
 				.attr('class','remainderbar')
 				.call(remainderbar)
 			;
+		thresholdLabel
+			.transition()
+			.attr('transform','translate('+voteScale(threshold)+' '+(3*height/4)+') ')
+			.text(_("Threshold: ")+votes(threshold))
+			;
+
+		priceLabel
+			.transition()
+			.attr('transform','translate('+voteScale(seatPrice)+' '+(height/2)+')')
+			.select('text')
+				.text(_("Seat price: ")+votes(seatPrice))
+			;
 	};
 	this.updateData();
 };
@@ -718,6 +814,8 @@ var App = {
 			m(ScenaryChooser),
 			m('.appbody', [
 				m('.hemicycles', [
+					m('h3', _("Transfers")),
+					m(TransferWidget),
 					m(Hemicycle, { attribute: 'votes', shownovote: true, label: _("Opción Electoral")}),
 					m(Hemicycle, { attribute: 'votes', label: _("Votos a Candidaturas")}),
 					m(Hemicycle, { attribute: 'hamiltonseats', label: _("Reparto Hamilton")}),
@@ -726,8 +824,6 @@ var App = {
 				m('.leftpane', [
 					m('h3', _("Information")),
 					m(Info),
-					m('h3', _("Transfers")),
-					m(TransferWidget),
 					m(DHondtTable),
 					m(DHondtPriceBar),
 				]),
