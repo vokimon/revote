@@ -210,6 +210,9 @@ select {
   max-width: 400px;
   flex: 1 1 auto;
 }
+.hemicycle .sectorlabel {
+  white-space: pre-line;
+}
 .leftpane {
   display: inline-flex;
   flex-wrap: nowrap;
@@ -240,6 +243,7 @@ select {
   align-content: stretch;
   flex-wrap: wrap;
   flex: 0 0 auto;
+  overflow: hidden;
 }
 .transferwidget > * {
   overflow: auto;
@@ -251,13 +255,68 @@ select {
 }
 .transferwidget > .transferbuttons {
   flex: 0 0 auto;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+}
+.transferwidget > .transferbuttons > * {
+  overflow: auto;
+  display: block;
+  flex: 1 1 auto;
+}
+.transferwidget > .transferbuttons > div {
+  flex: 1 0 auto;
 }
 .dhondtbars {
   margin: 0;
-  min-height: 20em;
+  padding: 0;
+  min-height: 12em;
   flex: 1 1 auto;
   overflow-x: auto;
   overflow-y: auto;
+}
+.dhondtbars svg {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 99%;
+  min-height: 500px;
+  min-width: 400px;
+}
+.dhondtbars svg .grid.votes line {
+  stroke: #d3d3d3;
+  opacity: 50%;
+}
+.dhondtbars svg .grid.votes .domain {
+  stroke: none;
+}
+.dhondtbars svg .label.price {
+  fill: #008000;
+}
+.dhondtbars svg .label.price line {
+  stroke: #008000;
+}
+.dhondtbars svg .label.price .domain {
+  stroke: none;
+}
+.dhondtbars svg .grid.seats line {
+  stroke: #90ee90;
+  opacity: 50%;
+  stroke-dasharray: 2, 2;
+}
+.dhondtbars svg .grid.seats .domain {
+  stroke: none;
+}
+.dhondtbars svg .label.threshold {
+  stroke: #f00;
+  fill: #f00;
+}
+.dhondtbars svg line.threshold {
+  stroke: #f00;
 }
 .dhondttable {
   min-height: 8em;
