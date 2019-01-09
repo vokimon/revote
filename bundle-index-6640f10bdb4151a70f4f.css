@@ -309,7 +309,7 @@ select {
   stroke-dasharray: 2, 2;
 }
 .dhondtbars svg .grid.seats .domain {
-  stroke: none;
+  stroke: #00f;
 }
 .dhondtbars svg .label.threshold {
   stroke: #f00;
