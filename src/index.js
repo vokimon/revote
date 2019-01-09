@@ -666,15 +666,33 @@ DHondtPriceBar.oncreate = function(vn) {
 		.attr('x1',voteScale(threshold))
 		.attr('x2',voteScale(threshold))
 		;
-	var thresholdLabel = chart.append('text')
+	var thresholdLabel = chart.append('g')
 		.attr('class', 'label threshold')
 		.attr('transform','translate('+voteScale(threshold)+' '+(3*height/4)+') ')
+		;
+	thresholdLabel
+		.append('text')
 		.text(_("Threshold: ")+votes(threshold))
+		.attr('dx', 10)
+		;
+
+	thresholdLabel
+		.append('circle')
+		.attr('cx', 0)
+		.attr('cy', 20)
+		.attr('r', 5)
+		;
+	thresholdLabel
+		.append('line')
+		.attr('x1', 0)
+		.attr('x2', 30)
+		.attr('y1', 20)
+		.attr('y2', 5)
 		;
 
 	var priceLabel = chart.append('g')
-		.attr('transform','translate('+voteScale(seatPrice)+' '+(height/2)+')')
 		.attr('class', 'label price')
+		.attr('transform','translate('+voteScale(seatPrice)+' '+(height/2)+')')
 		;
 	priceLabel
 		.append('text')
@@ -791,7 +809,8 @@ DHondtPriceBar.oncreate = function(vn) {
 		thresholdLabel
 			.transition()
 			.attr('transform','translate('+voteScale(threshold)+' '+(3*height/4)+') ')
-			.text(_("Threshold: ")+votes(threshold))
+			.select('text')
+				.text(_("Threshold: ")+votes(threshold))
 			;
 
 		priceLabel
