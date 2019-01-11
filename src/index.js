@@ -679,7 +679,7 @@ DHondtPriceBar.oncreate = function(vn) {
 		.append('circle')
 		.attr('cx', 0)
 		.attr('cy', 20)
-		.attr('r', 5)
+		.attr('r', 2)
 		;
 	thresholdLabel
 		.append('line')
@@ -702,7 +702,7 @@ DHondtPriceBar.oncreate = function(vn) {
 		.append('circle')
 		.attr('cx', 0)
 		.attr('cy', 20)
-		.attr('r', 5)
+		.attr('r', 2)
 		;
 	priceLabel
 		.append('line')
