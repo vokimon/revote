@@ -24,7 +24,7 @@ Revote.currentScenario = function(index) {
 	Revote.scenarioIndex=index;
 	poll = scenarios[index];
 	recompute(poll);
-	updaters.map(function (f) { f(); });
+	Revote.notify();
 };
 
 Revote.transfer = function(scenario, fromOption, toOption, nvotes) {
@@ -34,9 +34,16 @@ Revote.transfer = function(scenario, fromOption, toOption, nvotes) {
 	nvotes = decreaseOption(scenario, fromOption, nvotes);
 	increaseOption(scenario, toOption, nvotes);
 	recompute(scenario);
-	updaters.map(function (f) { f(); });
+	Revote.notify();
 	m.redraw();
-}
+};
+
+Revote.notify = function() {
+	updaters.map(function (f) { f(); });
+};
+Revote.subscribe = function(callback) {
+	updaters.push(callback);
+};
 
 var context = require.context('./data/', true, /\.(yaml)$/);
 var scenarios = context.keys().map(function(filename) {
