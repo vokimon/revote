@@ -14,7 +14,7 @@ require('@material/typography/dist/mdc.typography.css').default;
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
-var poll = require('./congresoBarcelona-1977-06.yaml')
+var poll = require('./data/congresoBarcelona-1977-06.yaml')
 function hamilton(poll) {
 	var remainingSeats = poll.seats;
 	var votesToCandidatures = poll.participation - poll.nullvotes - poll.blankvotes;
