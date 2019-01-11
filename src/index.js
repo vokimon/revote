@@ -17,11 +17,15 @@ var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
 var scenarioIndex = 0;
-var scenarios = [
-	require('./data/congresoBarcelona-1977-06.yaml'),
-	require('./data/theory-maxprice.yaml'),
-	require('./data/theory-minprice.yaml'),
-];
+
+var context = require.context('./data/', true, /\.(yaml)$/);
+var scenarios = context.keys().map(function(filename) {
+	var scenario = context(filename);
+	scenario.filename = filename.split('/').pop();
+	return scenario;
+});
+console.log('Scenarios', scenarios);
+
 
 var poll = null;
 
