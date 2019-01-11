@@ -17,7 +17,15 @@ var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
 var Revote = {};
+
 Revote._updaters = [];
+Revote.notify = function() {
+	Revote._updaters.map(function (f) { f(); });
+};
+Revote.subscribe = function(callback) {
+	Revote._updaters.push(callback);
+};
+
 Revote.scenarioIndex = undefined;
 Revote.currentScenario = function(index) {
 	if (index===undefined)
@@ -37,13 +45,6 @@ Revote.transfer = function(scenario, fromOption, toOption, nvotes) {
 	recompute(scenario);
 	Revote.notify();
 	m.redraw();
-};
-
-Revote.notify = function() {
-	Revote._updaters.map(function (f) { f(); });
-};
-Revote.subscribe = function(callback) {
-	Revote._updaters.push(callback);
 };
 
 var context = require.context('./data/', true, /\.(yaml)$/);
