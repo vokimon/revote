@@ -42,7 +42,7 @@ function _optionAttribute(scenario, option) {
 	return scenario.options[option].id;
 }
 
-function decreaseOption(scenario, option, nvotes) {
+function _decreaseOption(scenario, option, nvotes) {
 	// Ensure we are not transferring more than the origin has
 	var attribute = _optionAttribute(scenario, option);
 	var currentValue = attribute?
@@ -58,7 +58,7 @@ function decreaseOption(scenario, option, nvotes) {
 		scenario.candidatures[option].votes -= nvotes;
 	return nvotes;
 }
-function increaseOption(scenario, option, nvotes) {
+function _increaseOption(scenario, option, nvotes) {
 	var attribute = _optionAttribute(scenario, option);
 	console.log("Increasing", attribute || scenario.candidatures[option].id,
 		'by', nvotes);
@@ -72,8 +72,8 @@ Revote.transfer = function(scenario, fromOption, toOption, nvotes) {
 	nvotes=parseInt(nvotes);
 	if (isNaN(nvotes)) return;
 	console.log("From", fromOption, 'to', toOption, 'by', nvotes);
-	nvotes = decreaseOption(scenario, fromOption, nvotes);
-	increaseOption(scenario, toOption, nvotes);
+	nvotes = _decreaseOption(scenario, fromOption, nvotes);
+	_increaseOption(scenario, toOption, nvotes);
 	recompute(scenario);
 	Revote.notify();
 	m.redraw();
