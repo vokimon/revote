@@ -19,7 +19,12 @@ var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 var Revote = {};
 Revote.scenarioIndex = 0;
 Revote.currentScenario = function(index) {
-	currentScenario(index);
+	if (index===undefined)
+		return Revote.scenarioIndex;
+	Revote.scenarioIndex=index;
+	poll = scenarios[index];
+	recompute(poll);
+	updaters.map(function (f) { f(); });
 };
 
 var context = require.context('./data/', true, /\.(yaml)$/);
@@ -173,16 +178,6 @@ function transfer(scenario, fromOption, toOption, nvotes) {
 	recompute(scenario);
 	updaters.map(function (f) { f(); });
 	m.redraw();
-}
-
-
-function currentScenario(index) {
-	if (index===undefined)
-		return Revote.scenarioIndex;
-	Revote.scenarioIndex=index;
-	poll = scenarios[index];
-	recompute(poll);
-	updaters.map(function (f) { f(); });
 }
 
 Revote.currentScenario(0);
