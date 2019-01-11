@@ -660,6 +660,7 @@ DHondtPriceBar.oncreate = function(vn) {
 	var maxSeats = Math.max.apply(null, poll.candidatures
 		.map(function(c) { return c.seats; })
 	);
+	var shownVotes = poll.census/2;
 
 	var chart = svg.append('g')
 		.attr('class', 'chart')
@@ -679,7 +680,7 @@ DHondtPriceBar.oncreate = function(vn) {
 
 	var voteScale = d3.scaleLinear()
 		.range([0, width])
-		.domain([0,seatPrice*(maxSeats+3)])
+		.domain([0,shownVotes])
 		;
 	var voteAxis = d3.axisBottom()
 		.scale(voteScale)
@@ -695,7 +696,7 @@ DHondtPriceBar.oncreate = function(vn) {
 
 	var seatScale = d3.scaleLinear()
 		.range([0,width])
-		.domain([0,maxSeats+3])
+		.domain([0,shownVotes/seatPrice])
 		;
     var seatGrid = d3.axisTop()
         .scale(seatScale)
@@ -794,7 +795,7 @@ DHondtPriceBar.oncreate = function(vn) {
 		var height = vn.dom.scrollHeight - margin.top - margin.bottom;
 		var validVotes = poll.participation - poll.nullvotes;
 		var threshold = validVotes * poll.threshold_percent / 100;
-		var shownVotes = validVotes*2/3;
+		var shownVotes = poll.census/2;
 		var seatPrice = Math.min.apply(null, poll.candidatures
 			.filter(function(c) { return c.seats!==0; })
 			.map(function(c) { return c.votes/c.seats; })
