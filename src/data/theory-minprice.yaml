@@ -31,4 +31,30 @@ candidatures:
   votes: 166666
   seats: 1
   name: Candidatura E
+description: >
+  Ejemplo de reparto D'Hondt con un precio de escaño mínimo.
+
+  Dado un número de votos a candidaturas,
+  el número de candidaturas y
+  el número de escaños, se puede acotar el 
+  precio por escaño mínimo que podría dar un reparto D'Hondt.
+
+  $$ Precio_{minimo} = { Votos + Candidaturas - 1 \over Escaños + Candidaturas -1 } $$
+
+  Se alcalza en el extraño caso en que a todas las candidaturas
+  menos a una le falta un voto para alcanzar el siguiente escaño.
+  
+  Cuando el precio es mínimo,
+  es cuando hay más votos sin representación,
+  el sector translúcido de la gráfica de barras,
+  y por tanto más posibilidad de tener desproporción
+  entre los votos y los escaños obtenidos.
+  Aún así no tiene porqué.
+  La desproporción depende también de la diferencia entre las opciones.
+ 
+  Existe tambien un precio máximo que no depende
+  del número de candidaturas,
+  y se ilustra en otro [escenario](#theory-maxprice)
+
+
 

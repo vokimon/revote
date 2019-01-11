@@ -1,4 +1,4 @@
-name: "Fundamentos: Escenario ajustado"
+name: "Fundamentos: Escenario de precio máximo"
 call: Ninguna
 circumscription: Ninguna
 date: None
@@ -31,4 +31,22 @@ candidatures:
   votes: 100000
   seats: 1
   name: Candidatura E
+description: >
+  Ejemplo de reparto D'Hondt con un precio de escaño máximo.
+
+  Dado un número de votos a candidaturas
+  y un número de escaños, el máximo precio
+  por escaño que se podría obtener es el cociente entre dichas cantidades.
+  Se alcalza en el extraño caso en que los votos de
+  todas las candidatura son un múltiplo de dicho precio.
+
+  Cuando el precio es máximo, 
+  existe una proporción perfecta
+  entre los votos y los escaños obtenidos.
+ 
+  Existe tambien un precio mínimo que depende
+  además de los votos y los escaños,
+  del número de candidaturas,
+  y se ilustra en otro [escenario](#theory-maxprice)
+
 
