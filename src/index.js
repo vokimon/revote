@@ -26,11 +26,11 @@ Revote.subscribe = function(callback) {
 	Revote._updaters.push(callback);
 };
 
-Revote.scenarioIndex = undefined;
-Revote.currentScenario = function(index) {
+Revote._scenarioIndex = undefined;
+Revote.scenarioIndex = function(index) {
 	if (index===undefined)
-		return Revote.scenarioIndex;
-	Revote.scenarioIndex=index;
+		return Revote._scenarioIndex;
+	Revote._scenarioIndex=index;
 	poll = scenarios[index];
 	recompute(poll);
 	Revote.notify();
@@ -187,7 +187,7 @@ function recompute(poll) {
 	poll.participation = poll.census - poll.abstention;
 }
 
-Revote.currentScenario(0);
+Revote.scenarioIndex(0);
 
 
 var skip = function (c) { return []; }
@@ -428,9 +428,9 @@ ScenaryChooser.view = function(vn) {
 			label: _("Scenario"),
 			nohelp: true,
 			required: true,
-			value: Revote.currentScenario(),
+			value: Revote.scenarioIndex(),
 			onchange: function(ev) {
-				Revote.currentScenario(ev.target.value);
+				Revote.scenarioIndex(ev.target.value);
 			},
 			options: options,
 		}),
