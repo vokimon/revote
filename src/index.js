@@ -585,17 +585,19 @@ const DHondtPriceBar = {};
 DHondtPriceBar.view = function(vn) {
 	var width = vn.dom?vn.dom.scrollWidth:500;
 	var height = vn.dom?vn.dom.scrollHeight:400;
-	var parentHeight = vn.dom?vn.dom.getParent().scrollHeight:500;
 	var parentWidth = vn.dom?vn.dom.getParent().scrollWidth:400;
-	console.log("parentHeight",parentHeight);
 	return m('.dhondtbars',m('svg', {
-		height: parentHeight,
 		width: parentWidth,
+		height: this.margin.top + this.margin.bottom + this.barwidth*poll.options.length,
+		//height: parentHeight,
 		//'viewBox': '0 0 '+width+' '+height,
 		//'preserveAspectRatio': 'xMidYMid meet'
 	}));
 };
 DHondtPriceBar.oninit = function(vn) {
+	// TODO: left should be computed from axis width
+	this.margin = { left: 70, top: 48, bottom: 24, right: 24 };
+	this.barwidth = 24;
 	updaters.push(function() {
 		vn.state.updateData && vn.state.updateData();
 	})
@@ -610,8 +612,7 @@ DHondtPriceBar.onupdate = function(vn) {
 };
 DHondtPriceBar.oncreate = function(vn) {
 	var bbox = vn.dom.getBoundingClientRect();
-	// TODO: left should be computed from axis width
-	var margin = { left: 70, top: 48, bottom: 24, right: 24 };
+	var margin = this.margin;
 	var height = vn.dom.scrollHeight - margin.top - margin.bottom;
 	var width = vn.dom.scrollWidth - margin.left -margin.right;
 
