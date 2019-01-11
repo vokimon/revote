@@ -36,6 +36,38 @@ Revote.currentScenario = function(index) {
 	Revote.notify();
 };
 
+function _optionAttribute(scenario, option) {
+	if (scenario.candidatures[option]!==undefined)
+		return undefined;
+	return scenario.options[option].id;
+}
+
+function decreaseOption(scenario, option, nvotes) {
+	// Ensure we are not transferring more than the origin has
+	var attribute = _optionAttribute(scenario, option);
+	var currentValue = attribute?
+		scenario[attribute]:
+		scenario.candidatures[option].votes;
+	if (nvotes>currentValue)
+		nvotes = currentValue;
+	console.log("Decreasing", attribute || scenario.candidatures[option].id,
+		'by', nvotes);
+	if (attribute)
+		scenario[attribute] -= nvotes;
+	else
+		scenario.candidatures[option].votes -= nvotes;
+	return nvotes;
+}
+function increaseOption(scenario, option, nvotes) {
+	var attribute = _optionAttribute(scenario, option);
+	console.log("Increasing", attribute || scenario.candidatures[option].id,
+		'by', nvotes);
+	if (attribute)
+		scenario[attribute] += nvotes;
+	else
+		scenario.candidatures[option].votes += nvotes;
+}
+
 Revote.transfer = function(scenario, fromOption, toOption, nvotes) {
 	nvotes=parseInt(nvotes);
 	if (isNaN(nvotes)) return;
@@ -153,38 +185,6 @@ function recompute(poll) {
 	dHondt(poll);
 	poll.options = generateOptions(poll, true)
 	poll.participation = poll.census - poll.abstention;
-}
-
-function _optionAttribute(scenario, option) {
-	if (scenario.candidatures[option]!==undefined)
-		return undefined;
-	return scenario.options[option].id;
-}
-
-function decreaseOption(scenario, option, nvotes) {
-	// Ensure we are not transferring more than the origin has
-	var attribute = _optionAttribute(scenario, option);
-	var currentValue = attribute?
-		scenario[attribute]:
-		scenario.candidatures[option].votes;
-	if (nvotes>currentValue)
-		nvotes = currentValue;
-	console.log("Decreasing", attribute || scenario.candidatures[option].id,
-		'by', nvotes);
-	if (attribute)
-		scenario[attribute] -= nvotes;
-	else
-		scenario.candidatures[option].votes -= nvotes;
-	return nvotes;
-}
-function increaseOption(scenario, option, nvotes) {
-	var attribute = _optionAttribute(scenario, option);
-	console.log("Increasing", attribute || scenario.candidatures[option].id,
-		'by', nvotes);
-	if (attribute)
-		scenario[attribute] += nvotes;
-	else
-		scenario.candidatures[option].votes += nvotes;
 }
 
 Revote.currentScenario(0);
