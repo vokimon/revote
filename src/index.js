@@ -17,7 +17,8 @@ var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
 var Revote = {};
-Revote.scenarioIndex = 0;
+Revote._updaters = [];
+Revote.scenarioIndex = undefined;
 Revote.currentScenario = function(index) {
 	if (index===undefined)
 		return Revote.scenarioIndex;
@@ -39,10 +40,10 @@ Revote.transfer = function(scenario, fromOption, toOption, nvotes) {
 };
 
 Revote.notify = function() {
-	updaters.map(function (f) { f(); });
+	Revote._updaters.map(function (f) { f(); });
 };
 Revote.subscribe = function(callback) {
-	updaters.push(callback);
+	Revote._updaters.push(callback);
 };
 
 var context = require.context('./data/', true, /\.(yaml)$/);
@@ -185,8 +186,6 @@ function increaseOption(scenario, option, nvotes) {
 		scenario.candidatures[option].votes += nvotes;
 }
 
-var updaters = [];
-
 Revote.currentScenario(0);
 
 
@@ -213,7 +212,7 @@ Hemicycle.view = function(vn) {
 	});
 };
 Hemicycle.oninit = function(vn) {
-	updaters.push(function() {
+	Revote.subscribe(function() {
 		vn.state.updateSizes && vn.state.updateSizes();
 	})
 };
@@ -608,7 +607,7 @@ DHondtPriceBar.oninit = function(vn) {
 	// TODO: left should be computed from axis width
 	this.margin = { left: 70, top: 48, bottom: 24, right: 24 };
 	this.barwidth = 24;
-	updaters.push(function() {
+	Revote.subscribe(function() {
 		vn.state.updateData && vn.state.updateData();
 	})
 	window.addEventListener('resize', function() {
