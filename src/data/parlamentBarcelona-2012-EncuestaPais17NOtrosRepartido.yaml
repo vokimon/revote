@@ -1,0 +1,77 @@
+name: parlamentBarcelona-2012-EncuestaPais17NOtrosRepartido
+call: parlament
+circumscription: Barcelona
+date: '2012'
+real: false
+seats: 85
+threshold_percent: 3
+census: 3916104
+participation: 2350000
+abstention: 1566104
+nullvotes: 0
+blankvotes: 68241
+candidatures:
+- id: CiU
+  votes: 834250
+  name: Convergència i Unió
+  seats: 0
+- id: P.P.
+  votes: 324300
+  name: Partit Popular
+  seats: 0
+- id: PSC-PSOE
+  votes: 298450
+  name: Partit dels Socialistes de Catalunya
+  seats: 0
+- id: ERC-CAT SI
+  votes: 279650
+  name: Esquerra Republicana de Catalunya-Catalunya Si
+  seats: 0
+- id: ICV-EUiA
+  votes: 197400
+  name: Iniciativa per Catalunya Verds-Esquerra Unida i Alternativa
+  seats: 0
+- id: C's
+  votes: 143350
+  name: Ciutadans-Partido de la Ciudadanía
+  seats: 0
+- id: CUP-AE
+  votes: 72850
+  name: Candidatura d'Unitat Popular - Alternativa d'Esquerres
+  seats: 0
+- id: SI
+  votes: 32900
+  name: Solidaritat Catalana per la Independència
+  seats: 0
+- id: FARTS.cat
+  votes: 12327
+  name: Hartos.org i Ciutadans en Blanc
+  seats: 0
+- id: vD
+  votes: 12326
+  name: Via Democrática
+  seats: 0
+- id: PIRATA.CAT
+  votes: 12326
+  name: Pirates de Catalunya
+  seats: 0
+- id: Eb-CenB
+  votes: 12326
+  name: Escons en blanc-Ciudadanos en Blanco
+  seats: 0
+- id: PACMA
+  votes: 12326
+  name: Partit Antitaurí Contra el Maltractament Animal
+  seats: 0
+- id: U.C.E.
+  votes: 12326
+  name: Unificació Comunista d'Espanya
+  seats: 0
+- id: PxC
+  votes: 12326
+  name: Plataforma per Catalunya
+  seats: 0
+- id: UPyD
+  votes: 12326
+  name: Unión, Progreso y Democracia
+  seats: 0

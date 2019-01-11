@@ -1,0 +1,89 @@
+name: congresoBarcelona-1993-06
+call: congreso
+circumscription: Barcelona
+date: 1993-06
+real: true
+seats: 32
+threshold_percent: 3
+census: 3752461
+participation: 2842551
+abstention: 909910
+nullvotes: 10291
+blankvotes: 18229
+candidatures:
+- id: PSC-PSOE
+  votes: 1030053
+  name: PARTIT DELS SOCIALISTES DE CATALUNYA
+  seats: 12
+- id: CIU
+  votes: 851105
+  name: CONVERGENCIA I UNIO
+  seats: 10
+- id: PP
+  votes: 480204
+  name: PARTIDO POPULAR
+  seats: 6
+- id: IC
+  votes: 240019
+  name: INICIATIVA PER CATALUNYA
+  seats: 3
+- id: ERC
+  votes: 122530
+  name: ESQUERRA REPUBLICANA DE CATALUNYA
+  seats: 1
+- id: EV-CEC
+  votes: 30188
+  name: ELS VERDS-CONFEDERACIO ECOLOGISTA DE CATALUNYA
+  seats: 0
+- id: CDS
+  votes: 22446
+  name: CENTRO DEMOCRATICO Y SOCIAL
+  seats: 0
+- id: LE
+  votes: 9495
+  name: LOS ECOLOGISTAS
+  seats: 0
+- id: PEC-VERDE
+  votes: 8179
+  name: PARTIT ECOLOGISTA DE CATALUNYA
+  seats: 0
+- id: PST
+  votes: 6813
+  name: PARTIT SOCIALISTA DELS TREBALLADORS
+  seats: 0
+- id: ADE
+  votes: 4958
+  name: AGRUPACION RUIZ-MATEOS-ALIANZA DEMOCR. EUROPEA
+  seats: 0
+- id: POR
+  votes: 2557
+  name: PARTIDO OBRERO REVOLUCIONARIO
+  seats: 0
+- id: PH
+  votes: 1181
+  name: PARTIDO HUMANISTA
+  seats: 0
+- id: FE-JONS
+  votes: 1132
+  name: FALANGE ESPAÑOLA DE LAS J.O.N.S.
+  seats: 0
+- id: PLN
+  votes: 1118
+  name: PARTIDO DE LA LEY NATURAL
+  seats: 0
+- id: FE (A)
+  votes: 747
+  name: FALANGE ESPAÑOLA AUTENTICA
+  seats: 0
+- id: NPS
+  votes: 712
+  name: COALICION POR UN NUEVO PARTIDO SOCIALISTA
+  seats: 0
+- id: UDLA
+  votes: 594
+  name: UNION DE AUTONOMIAS
+  seats: 0
+- id: UCE
+  votes: 0
+  name: UNIFICACION COMUNISTA DE ESPAÑA
+  seats: 0

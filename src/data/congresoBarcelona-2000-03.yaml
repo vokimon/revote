@@ -1,0 +1,101 @@
+name: congresoBarcelona-2000-03
+call: congreso
+circumscription: Barcelona
+date: 2000-03
+real: true
+seats: 31
+threshold_percent: 3
+census: 4033017
+participation: 2572428
+abstention: 1460589
+nullvotes: 10920
+blankvotes: 36486
+candidatures:
+- id: PSC-PSOE
+  votes: 909601
+  name: PARTIT DELS SOCIALISTES DE CATALUNYA
+  seats: 12
+- id: CIU
+  votes: 673558
+  name: CONVERGENCIA I UNIO
+  seats: 9
+- id: PP
+  votes: 602777
+  name: PARTIDO POPULAR
+  seats: 8
+- id: ERC
+  votes: 131114
+  name: ESQUERRA REPUBLICANA DE CATALUNYA
+  seats: 1
+- id: IC-V
+  votes: 103778
+  name: INICIATIVA PER CATALUNYA-VERDS
+  seats: 1
+- id: EUIA
+  votes: 64111
+  name: ESQUERRA UNIDA I ALTERNATIVA
+  seats: 0
+- id: EV-GV
+  votes: 14922
+  name: ELS VERDS-GRUP VERD
+  seats: 0
+- id: EV-AV
+  votes: 7685
+  name: ELS VERDS-ALTERNATIVA VERDA
+  seats: 0
+- id: POSI
+  votes: 3501
+  name: PARTIT OBRER SOCIALISTA INTERNACIONALISTA
+  seats: 0
+- id: GIL
+  votes: 2547
+  name: GRUPO INDEPENDIENTE LIBERAL
+  seats: 0
+- id: EC
+  votes: 1538
+  name: ESTAT CATALA
+  seats: 0
+- id: UC-CDS
+  votes: 1450
+  name: UNION CENTRISTA-CENTRO DEMOCRATICO Y SOCIAL
+  seats: 0
+- id: PH
+  votes: 1333
+  name: PARTIT HUMANISTA
+  seats: 0
+- id: IR-PRE
+  votes: 1275
+  name: IZQUIERDA REPUBLICANA-PARTIT REPUBLICA D'ESQUERRA
+  seats: 0
+- id: PLN
+  votes: 1048
+  name: PARTIT DE LA LLEI NATURAL
+  seats: 0
+- id: PNCA
+  votes: 861
+  name: PARTIDO NACIONALISTA CALO
+  seats: 0
+- id: FEI-FE 2000
+  votes: 826
+  name: FALANGE ESPAÑOLA INDEPENDIENTE-FALANGE 2000
+  seats: 0
+- id: FE
+  votes: 826
+  name: LA FALANGE
+  seats: 0
+- id: N
+  votes: 710
+  name: ESTADO NACIONAL EUROPEO
+  seats: 0
+- id: ES2000
+  votes: 613
+  name: PLATAFORMA ESPAÑA 2000
+  seats: 0
+- id: LI (LIT-CI)
+  votes: 518
+  name: LLUITA INTERNACIONALISTA
+  seats: 0
+- id: PADE
+  votes: 430
+  name: PARTIDO DEMOCRATA ESPAÑOL
+  seats: 0

@@ -1,0 +1,101 @@
+name: parlamentBarcelona-1988
+call: parlament
+circumscription: Barcelona
+date: '1988'
+real: true
+seats: 85
+threshold_percent: 3
+census: 3516800
+participation: 2060241
+abstention: 1456559
+nullvotes: 9465
+blankvotes: 12208
+candidatures:
+- id: CiU
+  votes: 894120
+  name: Convergència i Unió
+  seats: 39
+- id: PSC-PSOE
+  votes: 643535
+  name: Partit dels Socialistes de Catalunya-PSOE
+  seats: 28
+- id: IC
+  votes: 180872
+  name: Iniciativa per Catalunya
+  seats: 8
+- id: A.P.
+  votes: 107217
+  name: Alianza Popular
+  seats: 4
+- id: C.D.S.
+  votes: 78927
+  name: Centre Democràtic i Social
+  seats: 3
+- id: ERC
+  votes: 76099
+  name: Esquerra Republicana de Catalunya
+  seats: 3
+- id: A.V-M.E.C.
+  votes: 11589
+  name: Alternativa Verda-Moviment Ecologista Catalunya
+  seats: 0
+- id: E.V.E.
+  votes: 6526
+  name: Els Verds Ecologistes
+  seats: 0
+- id: E.V.
+  votes: 6096
+  name: Els Verds
+  seats: 0
+- id: P.E.C.VERDE
+  votes: 5017
+  name: Partit Ecologista de Catalunya VERDE
+  seats: 0
+- id: P.A.C.
+  votes: 4947
+  name: Partido Andaluz de Cataluña
+  seats: 0
+- id: P.S.T.
+  votes: 4031
+  name: Partido Socialista de los Trabajadores
+  seats: 0
+- id: P.S.D.C.
+  votes: 3731
+  name: Partit Socialdemòcrata de Catalunya
+  seats: 0
+- id: JJ.EE.
+  votes: 3729
+  name: Juntas Españolas
+  seats: 0
+- id: U.C.E.
+  votes: 2684
+  name: Unificació Comunista d'Espanya
+  seats: 0
+- id: FE-JONS
+  votes: 2009
+  name: Falange Española de las J.O.N.S.
+  seats: 0
+- id: P.O.R.E.
+  votes: 1938
+  name: Partit Obrer Revolucionari d'Espanya
+  seats: 0
+- id: PH
+  votes: 1679
+  name: Partit Humanista de Catalunya
+  seats: 0
+- id: LOC
+  votes: 1661
+  name: Liga Obrera Comunista
+  seats: 0
+- id: U.P.R.
+  votes: 788
+  name: Unitat Popular Republicana
+  seats: 0
+- id: A.R.
+  votes: 783
+  name: Aliança per la República
+  seats: 0
+- id: PED
+  votes: 590
+  name: Unidad Centrista
+  seats: 0

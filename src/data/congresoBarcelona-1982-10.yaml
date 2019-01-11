@@ -1,0 +1,97 @@
+name: congresoBarcelona-1982-10
+call: congreso
+circumscription: Barcelona
+date: 1982-10
+real: true
+seats: 33
+threshold_percent: 3
+census: 3331611
+participation: 2716289
+abstention: 615322
+nullvotes: 33875
+blankvotes: 10818
+candidatures:
+- id: PSC-PSOE
+  votes: 1292672
+  name: PARTIT DELS SOCIALISTES DE CATALUNYA
+  seats: 18
+- id: CIU
+  votes: 560555
+  name: CONVERGENCIA I UNIO
+  seats: 8
+- id: AP-PDP
+  votes: 385967
+  name: ALIANZA POPULAR - PARTIDO DEMOCRATA POPULAR
+  seats: 5
+- id: PSUC
+  votes: 131314
+  name: PARTIT SOCIALISTA UNIFICAT DE CATALUNYA
+  seats: 1
+- id: ERC
+  votes: 99852
+  name: ESQUERRA REPUBLICANA DE CATALUNYA
+  seats: 1
+- id: CDS
+  votes: 49772
+  name: CENTRO DEMOCRATICO Y SOCIAL
+  seats: 0
+- id: PCC
+  votes: 41371
+  name: PARTIT DELS COMUNISTES DE CATALUNYA
+  seats: 0
+- id: CC-UCD
+  votes: 40222
+  name: CENTRISTES DE CATALUNYA
+  seats: 0
+- id: NE
+  votes: 24382
+  name: NACIONALISTES D'ESQUERRA
+  seats: 0
+- id: PST
+  votes: 15462
+  name: PARTIDO SOCIALISTA DE LOS TRABAJADORES
+  seats: 0
+- id: FN
+  votes: 8724
+  name: ASOCIACION POLITICA FUERZA NUEVA
+  seats: 0
+- id: PSA-PA
+  votes: 6687
+  name: PARTIDO SOCIALISTA DE ANDALUCIA - PARTIDO ANDALUZ
+  seats: 0
+- id: CE-FCC
+  votes: 3937
+  name: COALICION ELECTORAL FRONT COMUNISTA DE CATALUNYA
+  seats: 0
+- id: PCOC
+  votes: 2699
+  name: PARTIT COMUNISTA OBRER DE CATALUNYA
+  seats: 0
+- id: SE
+  votes: 2391
+  name: SOLIDARIDAD ESPAÑOLA
+  seats: 0
+- id: PCE (M-L)
+  votes: 2011
+  name: PARTIDO COMUNISTA DE ESPAÑA (MARXISTA-LENINISTA)
+  seats: 0
+- id: CC
+  votes: 1889
+  name: CONSERVADORS DE CATALUNYA
+  seats: 0
+- id: UCE
+  votes: 1689
+  name: UNIFICACION COMUNISTA DE ESPAÑA
+  seats: 0
+- id: FE-JONS
+  votes: 0
+  name: FALANGE ESPAÑOLA DE LAS JONS
+  seats: 0
+- id: PS
+  votes: 0
+  name: PARTIDO SOCIALISTA
+  seats: 0
+- id: LC (COSI)
+  votes: 0
+  name: LIGA COMUNISTA (C.OBREROS SOCIAL.INTERNACIONALIS.)
+  seats: 0

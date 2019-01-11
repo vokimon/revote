@@ -1,0 +1,62 @@
+name: congresoBarcelona-2011-11
+call: congreso
+circumscription: Barcelona
+date: 2011-11
+real: true
+seats: 31
+threshold_percent: 3
+census: 4028117
+participation: 2654927
+abstention: 1373190
+nullvotes: 39462
+blankvotes: 46738
+candidatures:
+- id: PSC-PSOE
+  votes: 727220
+  name: PARTIT DELS SOCIALISTES DE CATALUNYA
+  seats: 10
+- id: CiU
+  votes: 710178
+  name: CONVERGÈNCIA I UNIÓ
+  seats: 9
+- id: PP
+  votes: 547376
+  name: PARTIT POPULAR
+  seats: 7
+- id: ICV-EUiA
+  votes: 237327
+  name: 'INICIATIVA PER CATALUNYA VERDS - ESQUERRA UNIDA I ALTERNATIVA: L''ESQUERRA
+    PLURAL'
+  seats: 3
+- id: ERC-RI.cat
+  votes: 169601
+  name: ESQUERRA REPLUBLICANA DE CATALUNYA - CATALUNYA SÍ
+  seats: 2
+- id: PxC
+  votes: 53142
+  name: PLATAFORMA PER CATALUNYA
+  seats: 0
+- id: Eb
+  votes: 40054
+  name: ESCONS EN BLANC
+  seats: 0
+- id: UPyD
+  votes: 33111
+  name: UNION PROGRESO Y DEMOCRÁCIA
+  seats: 0
+- id: PACMA
+  votes: 18638
+  name: PARTIDO ANIMALISTA CONTRA EL MALTRATO ANIMAL
+  seats: 0
+- id: PIRATA.CAT
+  votes: 17393
+  name: PIRATES DE CATALUNYA
+  seats: 0
+- id: ANTICAPITALISTES
+  votes: 11346
+  name: ANTICAPITALISTES
+  seats: 0
+- id: UCE
+  votes: 3341
+  name: UNIFICACION COMUNISTA DE ESPAÑA
+  seats: 0

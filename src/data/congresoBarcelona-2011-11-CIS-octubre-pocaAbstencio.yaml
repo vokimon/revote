@@ -1,0 +1,62 @@
+name: congresoBarcelona-2011-11-CIS-octubre-pocaAbstencio
+call: congreso
+circumscription: Barcelona
+date: 2011-11
+real: false
+seats: 31
+threshold_percent: 3
+census: 4027724
+participation: 3592300
+abstention: 435424
+nullvotes: 0
+blankvotes: 0
+candidatures:
+- id: PSC-PSOE
+  votes: 1200000
+  name: PARTIT DELS SOCIALISTES DE CATALUNYA
+  seats: 0
+- id: PP
+  votes: 900000
+  name: PARTIT POPULAR
+  seats: 0
+- id: CiU
+  votes: 800000
+  name: CONVERGÈNCIA I UNIÓ
+  seats: 0
+- id: ICV-EUiA
+  votes: 350000
+  name: 'INICIATIVA PER CATALUNYA VERDS - ESQUERRA UNIDA I ALTERNATIVA: L''ESQUERRA
+    PLURAL'
+  seats: 0
+- id: ERC-RI.cat
+  votes: 250000
+  name: ESQUERRA REPLUBLICANA DE CATALUNYA - CATALUNYA SÍ
+  seats: 0
+- id: UPyD
+  votes: 30000
+  name: UNION PROGRESO Y DEMOCRÁCIA
+  seats: 0
+- id: ANTICAPITALISTES
+  votes: 11600
+  name: ANTICAPITALISTES
+  seats: 0
+- id: Eb
+  votes: 11600
+  name: ESCONS EN BLANC
+  seats: 0
+- id: UCE
+  votes: 11600
+  name: UNIFICACION COMUNISTA DE ESPAÑA
+  seats: 0
+- id: PACMA
+  votes: 11600
+  name: PARTIDO ANIMALISTA CONTRA EL MALTRATO ANIMAL
+  seats: 0
+- id: PIRATA.CAT
+  votes: 11600
+  name: PIRATES DE CATALUNYA
+  seats: 0
+- id: PxC
+  votes: 4300
+  name: PLATAFORMA PER CATALUNYA
+  seats: 0

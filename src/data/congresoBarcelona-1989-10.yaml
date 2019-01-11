@@ -1,0 +1,101 @@
+name: congresoBarcelona-1989-10
+call: congreso
+circumscription: Barcelona
+date: 1989-10
+real: true
+seats: 32
+threshold_percent: 3
+census: 3617948
+participation: 2456966
+abstention: 1160982
+nullvotes: 13323
+blankvotes: 14241
+candidatures:
+- id: PSC-PSOE
+  votes: 903546
+  name: PARTIT DELS SOCIALISTES DE CATALUNYA
+  seats: 14
+- id: CIU
+  votes: 741682
+  name: CONVERGENCIA I UNIO
+  seats: 11
+- id: PP
+  votes: 257021
+  name: PARTIDO POPULAR
+  seats: 3
+- id: IC
+  votes: 200050
+  name: INICIATIVA PER CATALUNYA
+  seats: 3
+- id: CDS.
+  votes: 110681
+  name: CENTRE DEMOCRATIC I SOCIAL
+  seats: 1
+- id: ERC
+  votes: 60642
+  name: ESQUERRA REPUBLICANA DE CATALUNYA
+  seats: 0
+- id: RUIZ-MATEOS
+  votes: 29187
+  name: AGRUPACION RUIZ-MATEOS
+  seats: 0
+- id: PCC
+  votes: 27746
+  name: PARTIT DELS COMUNISTES DE CATALUNYA
+  seats: 0
+- id: EVE
+  votes: 19573
+  name: ELS VERDS ECOLOGISTES
+  seats: 0
+- id: AV-MEC
+  votes: 18518
+  name: ALTERNATIVA VERDA-MOVIMENT ECOLOG. DE CATALUNYA
+  seats: 0
+- id: EV-LV
+  votes: 18089
+  name: ELS VERDS-LLISTA VERDA
+  seats: 0
+- id: PTE-UC
+  votes: 10782
+  name: PARTIDO TRABAJADORES DE ESPAÑA-UNIDAD COMUNISTA
+  seats: 0
+- id: PST
+  votes: 9270
+  name: PARTIDO SOCIALISTA DE LOS TRABAJADORES
+  seats: 0
+- id: PEC-VERDE
+  votes: 8110
+  name: PARTIT ECOLOGISTA DE CATALUNYA-VERDE
+  seats: 0
+- id: CSD.
+  votes: 4996
+  name: COALICIO SOCIALDEMOCRATA
+  seats: 0
+- id: PORE.
+  votes: 2276
+  name: PARTIT DELS OBRERS REVOLUCIONARIS D'ESPANYA
+  seats: 0
+- id: PHC
+  votes: 2223
+  name: PARTIT HUMANISTA DE CATALUNYA
+  seats: 0
+- id: FE-JONS
+  votes: 2087
+  name: FALANGE ESPAÑOLA DE LAS J.O.N.S.
+  seats: 0
+- id: PED
+  votes: 1200
+  name: UNIDAD CENTRISTA-P.E.D.
+  seats: 0
+- id: AR
+  votes: 1127
+  name: ALIANZA POR LA REPUBLICA
+  seats: 0
+- id: ENV-URV
+  votes: 596
+  name: ESQUERRA NACIONALISTA VALENCIANA - URV
+  seats: 0
+- id: PCE-(M.L.)
+  votes: 0
+  name: PARTIDO COMUNISTA DE ESPAÑA (MARXISTA-LENINISTA)
+  seats: 0

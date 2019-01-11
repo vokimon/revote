@@ -1,0 +1,77 @@
+name: parlamentBarcelona-2012-mateixos-resultats-repartint-desaparescuts-per-afinitat
+call: parlament
+circumscription: Barcelona
+date: '2012'
+real: false
+seats: 85
+threshold_percent: 3
+census: 3916104
+participation: 2347056
+abstention: 1569048
+nullvotes: 14857
+blankvotes: 68241
+candidatures:
+- id: CiU
+  votes: 862010
+  name: Convergència i Unió
+  seats: 0
+- id: PSC-PSOE
+  votes: 449549
+  name: Partit dels Socialistes de Catalunya
+  seats: 0
+- id: P.P.
+  votes: 301440
+  name: Partit Popular
+  seats: 0
+- id: ICV-EUiA
+  votes: 193545
+  name: Iniciativa per Catalunya Verds-Esquerra Unida i Alternativa
+  seats: 0
+- id: ERC-CAT SI
+  votes: 160973
+  name: Esquerra Republicana de Catalunya-Catalunya Si
+  seats: 0
+- id: C's
+  votes: 89990
+  name: Ciutadans-Partido de la Ciudadanía
+  seats: 0
+- id: SI
+  votes: 72693
+  name: Solidaritat Catalana per la Independència
+  seats: 0
+- id: PxC
+  votes: 72381
+  name: Plataforma per Catalunya
+  seats: 0
+- id: PACMA
+  votes: 23593
+  name: Partit Antitaurí Contra el Maltractament Animal
+  seats: 0
+- id: Eb-CenB
+  votes: 14185
+  name: Escons en blanc-Ciudadanos en Blanco
+  seats: 0
+- id: CUP-AE
+  votes: 7313
+  name: Candidatura d'Unitat Popular - Alternativa d'Esquerres
+  seats: 0
+- id: PIRATA.CAT
+  votes: 5001
+  name: Pirates de Catalunya
+  seats: 0
+- id: UPyD
+  votes: 4634
+  name: Unión, Progreso y Democracia
+  seats: 0
+- id: FARTS.cat
+  votes: 4425
+  name: Hartos.org i Ciutadans en Blanc
+  seats: 0
+- id: vD
+  votes: 1500
+  name: Via Democrática
+  seats: 0
+- id: U.C.E.
+  votes: 726
+  name: Unificació Comunista d'Espanya
+  seats: 0

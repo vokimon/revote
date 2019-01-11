@@ -1,0 +1,93 @@
+name: congresoBarcelona-1986-06
+call: congreso
+circumscription: Barcelona
+date: 1986-06
+real: true
+seats: 33
+threshold_percent: 3
+census: 3576404
+participation: 2459692
+abstention: 1116712
+nullvotes: 19897
+blankvotes: 9905
+candidatures:
+- id: PSC-PSOE
+  votes: 1054135
+  name: PARTIT DELS SOCIALISTES DE CATALUNYA
+  seats: 16
+- id: CIU
+  votes: 728372
+  name: CONVERGENCIA I UNIO
+  seats: 11
+- id: AP-PDP-PL
+  votes: 261166
+  name: COALICION POPULAR
+  seats: 4
+- id: CDS
+  votes: 106434
+  name: CENTRO DEMOCRATICO Y SOCIAL
+  seats: 1
+- id: PSUC-ENE
+  votes: 101654
+  name: UNIO DE L'ESQUERRA CATALANA
+  seats: 1
+- id: ERC
+  votes: 62390
+  name: ESQUERRA REPUBLICANA DE CATALUNYA
+  seats: 0
+- id: PCC
+  votes: 44757
+  name: PARTIT DELS COMUNISTES DE CATALUNYA
+  seats: 0
+- id: MUC
+  votes: 15390
+  name: MESA PARA LA UNIDAD DE LOS COMUNISTAS
+  seats: 0
+- id: AV
+  votes: 14788
+  name: LISTA ALTERNATIVA VERDE
+  seats: 0
+- id: PEC-VERDE
+  votes: 11746
+  name: PARTIDO ECOLOGISTA DE CATALUÑA-VERDE
+  seats: 0
+- id: PST
+  votes: 7964
+  name: PARTIDO SOCIALISTA DE LOS TRABAJADORES
+  seats: 0
+- id: UCE
+  votes: 4411
+  name: UNIFICACION COMUNISTA DE ESPAÑA
+  seats: 0
+- id: PSDC
+  votes: 3137
+  name: PARTIT SOCIALDEMOCRATA DE CATALUNYA
+  seats: 0
+- id: FE-JONS
+  votes: 2999
+  name: FALANGE ESPAÑOLA DE LAS JONS
+  seats: 0
+- id: UPR
+  votes: 2658
+  name: UNIDAD POPULAR REPUBLICANA
+  seats: 0
+- id: POSI
+  votes: 2386
+  name: PARTIDO OBRERO SOCIALISTA INTERNACIONALISTA
+  seats: 0
+- id: LOC
+  votes: 1952
+  name: LIGA OBRERA COMUNISTA
+  seats: 0
+- id: PORE
+  votes: 1626
+  name: PARTIDO DE LOS OBREROS REVOLUCIONARIOS DE ESPAÑA
+  seats: 0
+- id: PED
+  votes: 1169
+  name: PARTIDO ESPAÑOL DEMOCRATA
+  seats: 0
+- id: PPC
+  votes: 756
+  name: PARTIDO PROVERISTA
+  seats: 0

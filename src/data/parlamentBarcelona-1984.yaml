@@ -1,0 +1,81 @@
+name: parlamentBarcelona-1984
+call: parlament
+circumscription: Barcelona
+date: '1984'
+real: true
+seats: 85
+threshold_percent: 3
+census: 3473051
+participation: 2217831
+abstention: 1255220
+nullvotes: 10627
+blankvotes: 10495
+candidatures:
+- id: CiU
+  votes: 978576
+  name: Convergència i Unió
+  seats: 41
+- id: PSC-PSOE
+  votes: 712278
+  name: Partit dels Socialistes de Catalunya-PSOE
+  seats: 29
+- id: AP-PDP-UL
+  votes: 166905
+  name: Alianza Popular-Partido Demócrata Popular-U.Libe
+  seats: 7
+- id: PSUC
+  votes: 134777
+  name: Partit Socialista Unificat de Catalunya
+  seats: 5
+- id: ERC
+  votes: 90255
+  name: Esquerra Republicana de Catalunya
+  seats: 3
+- id: PCC
+  votes: 60900
+  name: Partit dels Comunistes de Catalunya
+  seats: 0
+- id: ENTESA EC
+  votes: 24702
+  name: C.E. Entesa de l'Esquerra Catalana
+  seats: 0
+- id: VERDE
+  votes: 8714
+  name: Partido Verde (Vértice Esp. Reiv. Desr. Ecológico)
+  seats: 0
+- id: P.S.D.C.
+  votes: 5250
+  name: Partit Socialdemòcrata de Catalunya
+  seats: 0
+- id: P.S.T.
+  votes: 3930
+  name: Partido Socialista de los Trabajadores
+  seats: 0
+- id: POSI
+  votes: 2467
+  name: Partit Obrer Socialista Internacionalista
+  seats: 0
+- id: P.C.O.de C.
+  votes: 2131
+  name: Partit Comunista Obrer de Catalunya
+  seats: 0
+- id: P.O.R.E.
+  votes: 1920
+  name: Partit Obrer Revolucionari d'Espanya
+  seats: 0
+- id: PCE (ML)
+  votes: 1418
+  name: Partido Comunista de España (Marxista-Leninista)
+  seats: 0
+- id: LCR
+  votes: 1376
+  name: Liga Comunista Revolucionaria
+  seats: 0
+- id: P.E.D.
+  votes: 1110
+  name: Partido Español Demócrata
+  seats: 0
+- id: MCC
+  votes: 0
+  name: Moviment Comunista de Catalunya
+  seats: 0

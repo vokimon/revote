@@ -1,0 +1,73 @@
+name: congresoBarcelona-1996-03
+call: congreso
+circumscription: Barcelona
+date: 1996-03
+real: true
+seats: 31
+threshold_percent: 3
+census: 3905255
+participation: 2993424
+abstention: 911831
+nullvotes: 8710
+blankvotes: 20365
+candidatures:
+- id: PSC-PSOE
+  votes: 1203339
+  name: PARTIT DELS SOCIALISTES DE CATALUNYA
+  seats: 13
+- id: CIU
+  votes: 818832
+  name: CONVERGENCIA I UNIO
+  seats: 9
+- id: PP
+  votes: 548323
+  name: PARTIDO POPULAR
+  seats: 6
+- id: IC-EV
+  votes: 260881
+  name: INICIATIVA PER CATALUNYA-ELS VERDS
+  seats: 2
+- id: ERC
+  votes: 114195
+  name: ESQUERRA REPUBLICANA DE CATALUNYA
+  seats: 1
+- id: EVE-AEC
+  votes: 6241
+  name: ELS VERDS EUROPEUS-ALTER. ECOLOGISTA DE CATALUNYA
+  seats: 0
+- id: PEC
+  votes: 3980
+  name: PARTIT ECOLOGISTA DE CATALUNYA
+  seats: 0
+- id: UC
+  votes: 2221
+  name: UNION CENTRISTA
+  seats: 0
+- id: PRT
+  votes: 1936
+  name: PARTIT REVOLUCIONARI DELS TREBALLADORS
+  seats: 0
+- id: FEA
+  votes: 1296
+  name: FALANGE ESPAÑOLA AUTENTICA
+  seats: 0
+- id: PH
+  votes: 1060
+  name: PARTIDO HUMANISTA
+  seats: 0
+- id: PICC
+  votes: 895
+  name: PLATAFORMA INDEPENDENT CIUTADANA DE CATALUNYA
+  seats: 0
+- id: CR
+  votes: 655
+  name: COALICIO REPUBLICANA
+  seats: 0
+- id: N
+  votes: 495
+  name: ESTADO NACIONAL EUROPEO
+  seats: 0
+- id: POR
+  votes: 0
+  name: PARTIT OBRER REVOLUCIONARI
+  seats: 0

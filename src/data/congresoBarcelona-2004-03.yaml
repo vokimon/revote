@@ -1,0 +1,105 @@
+name: congresoBarcelona-2004-03
+call: congreso
+circumscription: Barcelona
+date: 2004-03
+real: true
+seats: 31
+threshold_percent: 3
+census: 4007330
+participation: 3052310
+abstention: 955020
+nullvotes: 8475
+blankvotes: 27979
+candidatures:
+- id: PSC-PSOE
+  votes: 1268028
+  name: PARTIT DELS SOCIALISTES DE CATALUNYA
+  seats: 14
+- id: CiU
+  votes: 586854
+  name: CONVERGENCIA I UNIO
+  seats: 6
+- id: PP
+  votes: 485504
+  name: PARTIT POPULAR DE CATANLUNYA
+  seats: 5
+- id: ERC
+  votes: 428986
+  name: ESQUERRA REPUBLICANA DE CATALUNYA
+  seats: 4
+- id: ICV-EUiA
+  votes: 198116
+  name: INIC. PER CATALUNYA VERDS-ESQUERRA UNIDA I ALTERN.
+  seats: 2
+- id: EV-AE
+  votes: 26739
+  name: ELS VERDS-L'ALTERNATIVA ECOLOGISTA
+  seats: 0
+- id: POSI
+  votes: 2691
+  name: PARTIDO OBRERO SOCIALISTA INTERNACIONALISTA
+  seats: 0
+- id: CENB
+  votes: 2686
+  name: CIUDADANOS EN BLANCO
+  seats: 0
+- id: CDS
+  votes: 2113
+  name: CENTRO DEMOCRATICO Y SOCIAL
+  seats: 0
+- id: IR-PRE
+  votes: 1889
+  name: IZQUIERDA REPUBLICANA-PARTIT REPUBLICA D'ESQUERRA
+  seats: 0
+- id: Ei
+  votes: 1812
+  name: ESCONS INSUBMISOS-ALT. DELS DEMOCRATES DESCONTENTS
+  seats: 0
+- id: PFiV
+  votes: 1586
+  name: PARTIT FAMILIA I VIDA
+  seats: 0
+- id: PCPC
+  votes: 1534
+  name: PARTIT COMUNISTA DEL POBLE DE CATALUNYA
+  seats: 0
+- id: FE de las JONS
+  votes: 1359
+  name: FALANGE ESPAÑOLA DE LAS JONS
+  seats: 0
+- id: PH
+  votes: 1141
+  name: PARTIDO HUMANISTA
+  seats: 0
+- id: DN
+  votes: 1029
+  name: DEMOCRACIA NACIONAL
+  seats: 0
+- id: FE
+  votes: 999
+  name: LA FALANGE
+  seats: 0
+- id: PADE
+  votes: 591
+  name: PARTIDO DEMOCRATA ESPAÑOL
+  seats: 0
+- id: PNCA
+  votes: 566
+  name: PARTIDO NACIONALISTA CALO
+  seats: 0
+- id: MSR
+  votes: 522
+  name: MOVIMENT SOCIAL REPUBLICA
+  seats: 0
+- id: N
+  votes: 410
+  name: ESTADO NACIONAL EUROPEO
+  seats: 0
+- id: FDE
+  votes: 377
+  name: FRENTE DEMOCRATICO ESPAÑOL
+  seats: 0
+- id: L.I. (LIT-CI)
+  votes: 324
+  name: LLUITA INTERNACIONALISTA
+  seats: 0

@@ -1,0 +1,81 @@
+name: parlamentBarcelona-1999
+call: parlament
+circumscription: Barcelona
+date: '1999'
+real: true
+seats: 85
+threshold_percent: 3
+census: 4037489
+participation: 2376050
+abstention: 1661439
+nullvotes: 5175
+blankvotes: 21926
+candidatures:
+- id: PSC-CpC
+  votes: 948202
+  name: PSC-Ciutadans pel Canvi
+  seats: 36
+- id: CiU
+  votes: 833168
+  name: Convergència i Unió
+  seats: 31
+- id: PP
+  votes: 234957
+  name: Partit Popular
+  seats: 8
+- id: ERC
+  votes: 183270
+  name: Esquerra Republicana de Catalunya
+  seats: 7
+- id: IC-V
+  votes: 78441
+  name: Iniciativa per Catalunya-Verds
+  seats: 3
+- id: EUiA
+  votes: 38836
+  name: Esquerra Unida i Alternativa
+  seats: 0
+- id: EV-CEC
+  votes: 17684
+  name: Els Verds-Confederació Ecologista de Catalunya
+  seats: 0
+- id: EV-AV
+  votes: 5000
+  name: Els Verds-Alternativa Verda
+  seats: 0
+- id: POSI
+  votes: 2784
+  name: Partit Obrer Socialista Internacionalista
+  seats: 0
+- id: FE-JONS
+  votes: 1281
+  name: Falange Española de las J.O.N.S.
+  seats: 0
+- id: UC-CDS
+  votes: 1161
+  name: Unión Centrista-Centro Democrático y Social
+  seats: 0
+- id: E.CAT
+  votes: 1137
+  name: Estat Català
+  seats: 0
+- id: PH
+  votes: 974
+  name: Partit Humanista de Catalunya
+  seats: 0
+- id: PLN
+  votes: 738
+  name: Partit de la Llei Natural
+  seats: 0
+- id: PE
+  votes: 546
+  name: Partit Espinaltià
+  seats: 0
+- id: UFD
+  votes: 447
+  name: Unión Federal Democrática
+  seats: 0
+- id: LI (LIT-CI)
+  votes: 323
+  name: Lluita Internacionalista
+  seats: 0

@@ -1,0 +1,129 @@
+name: parlamentBarcelona-2010
+call: parlament
+circumscription: Barcelona
+date: '2010'
+real: true
+seats: 85
+threshold_percent: 3
+census: 4003751
+participation: 2357263
+abstention: 1646488
+nullvotes: 14857
+blankvotes: 68241
+candidatures:
+- id: CiU
+  votes: 862010
+  name: Convergència i Unió
+  seats: 35
+- id: PSC-PSOE
+  votes: 449549
+  name: Partit dels Socialistes de Catalunya-PSOE
+  seats: 18
+- id: PP
+  votes: 301440
+  name: Partit Popular
+  seats: 12
+- id: ICV-EUiA
+  votes: 193545
+  name: Iniciativa per Catalunya Verds - EUIA
+  seats: 8
+- id: ERC
+  votes: 148973
+  name: Esquerra Republicana de Catalunya
+  seats: 6
+- id: C's
+  votes: 89990
+  name: Ciutadans-Partido de la Ciudadanía
+  seats: 3
+- id: SI
+  votes: 72693
+  name: Solidaritat Catalana per la Independència
+  seats: 3
+- id: PxC
+  votes: 57381
+  name: Plataforma per Catalunya
+  seats: 0
+- id: RI.cat
+  votes: 23185
+  name: Reagrupament Independentista
+  seats: 0
+- id: Eb-CenB
+  votes: 14185
+  name: Escons en blanc-Ciudadanos en Blanco
+  seats: 0
+- id: EV-GVE
+  votes: 12087
+  name: Els Verds - Grup Verd Europeu
+  seats: 0
+- id: PACMA
+  votes: 11593
+  name: Partit Antitaurí Contra el Maltractament Animal
+  seats: 0
+- id: DES DE BAIX
+  votes: 5613
+  name: Des de Baix
+  seats: 0
+- id: PIRATA.CAT
+  votes: 5001
+  name: Pirates de Catalunya
+  seats: 0
+- id: UPyD
+  votes: 4634
+  name: Unión, Progreso y Democracia
+  seats: 0
+- id: CORI
+  votes: 4425
+  name: Coordinadora Reusenca Independent
+  seats: 0
+- id: PDLPEA
+  votes: 2508
+  name: Partido de los Pensionistas en Acción
+  seats: 0
+- id: PCPC
+  votes: 2262
+  name: Partit Comunista del Poble de Catalunya
+  seats: 0
+- id: ALTERNATIVA
+  votes: 2208
+  name: Alternativa de Govern
+  seats: 0
+- id: PUM+J
+  votes: 1774
+  name: Por un Mundo Más Justo
+  seats: 0
+- id: PFiV
+  votes: 1624
+  name: Partit Família i Vida
+  seats: 0
+- id: POSI
+  votes: 1399
+  name: Partit Obrer Socialista Internacionalista
+  seats: 0
+- id: FE-JONS
+  votes: 1250
+  name: Falange Española de las J.O.N.S.
+  seats: 0
+- id: PRE-IR
+  votes: 1101
+  name: Partit Republicà d'Esquerra-Izquierda Republicana
+  seats: 0
+- id: PCAS
+  votes: 1066
+  name: Partido Castellano
+  seats: 0
+- id: PH
+  votes: 856
+  name: Partit Humanista
+  seats: 0
+- id: U.C.E.
+  votes: 726
+  name: Unificació Comunista d'Espanya
+  seats: 0
+- id: GN
+  votes: 597
+  name: Gent Nostra
+  seats: 0
+- id: MSR
+  votes: 490
+  name: Movimiento Social Republicano
+  seats: 0

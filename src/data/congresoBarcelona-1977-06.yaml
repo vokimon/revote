@@ -1,7 +1,7 @@
-name: Congreso Barcelona 1979
-call: Congreso Diputados Español
+name: congresoBarcelona-1977-06
+call: congreso
 circumscription: Barcelona
-date: 1977
+date: 1977-06
 real: true
 seats: 33
 threshold_percent: 3
@@ -13,74 +13,73 @@ blankvotes: 4279
 candidatures:
 - id: PSC-PSOE
   votes: 721880
-  seats: 11
   name: PARTIT DELS SOCIALISTES DE CATALUNYA
+  seats: 11
 - id: PSUC-PCE
   votes: 469361
-  seats: 7
   name: PARTIT SOCIALIST UNIFICAT DE CATALUNYA
+  seats: 7
 - id: PDPC
   votes: 364798
-  seats: 6
   name: COALICION ELECT.PACTE DEMOCRATIC PER CATALUNYA
+  seats: 6
 - id: UCD
   votes: 355857
-  seats: 5
   name: UNION DE CENTRO DEMOCRATICO
+  seats: 5
 - id: UDC-IDCC
   votes: 127679
-  seats: 2
   name: UNIO DEL CENTRE I LA DEM. CRISTIANA DE CATALUNYA
+  seats: 2
 - id: EC-FED
   votes: 112794
-  seats: 1
   name: COALICION ELECTORAL ESQUERRA DE CATALUÑA
+  seats: 1
 - id: CC-AP
   votes: 75097
-  seats: 1
   name: COALICION ELECTORAL CONVIVENCIA CATALANA
+  seats: 1
 - id: PSP-US
   votes: 41356
-  seats: 0
   name: PARTIDO SOCIALISTA POPULAR - UNIDAD SOCIALISTA
+  seats: 0
 - id: FUT
   votes: 13559
-  seats: 0
   name: FRENTE UNIDAD DE LOS TRABAJADORES
+  seats: 0
 - id: CUPS
   votes: 12040
-  seats: 0
   name: UNITAT POPULAR PER SOCIALISME
+  seats: 0
 - id: AET
   votes: 10017
-  seats: 0
   name: AGRUPACION ELECTORAL DE TRABAJADORES
+  seats: 0
 - id: LLIGA
   votes: 9203
-  seats: 0
   name: LLIGA DE CATALUNYA PARTIT LIBERAL CATALA
+  seats: 0
 - id: DSCC
   votes: 9157
-  seats: 0
   name: DEMOCRACIA SOCIAL CRISTIANA DE CATALUÑA
+  seats: 0
 - id: AN18
   votes: 8895
-  seats: 0
   name: ALIANZA NACIONAL 18 DE JULIO
+  seats: 0
 - id: ASDCI
   votes: 8738
-  seats: 0
   name: ALIANZA SOCIALISTA DEMOCRATICA
+  seats: 0
 - id: RSC
   votes: 7900
-  seats: 0
   name: REFORMA SOCIAL CATALANA
+  seats: 0
 - id: FJONSA
   votes: 6395
-  seats: 0
   name: FALANGE ESPAÑOLA DE LAS JONS AUTENTICA
+  seats: 0
 - id: PPROV
   votes: 4112
-  seats: 0
   name: PARTIDO PROVERISTA
-
+  seats: 0

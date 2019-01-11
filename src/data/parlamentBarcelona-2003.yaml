@@ -1,0 +1,85 @@
+name: parlamentBarcelona-2003
+call: parlament
+circumscription: Barcelona
+date: '2003'
+real: true
+seats: 85
+threshold_percent: 3
+census: 4010834
+participation: 2490587
+abstention: 1520247
+nullvotes: 5416
+blankvotes: 22546
+candidatures:
+- id: PSC-CpC
+  votes: 824270
+  name: PSC-Ciutadans pel Canvi
+  seats: 29
+- id: CiU
+  votes: 715140
+  name: Convergència i Unió
+  seats: 25
+- id: ERC
+  votes: 376669
+  name: Esquerra Republicana de Catalunya
+  seats: 13
+- id: PP
+  votes: 311928
+  name: Partit Popular
+  seats: 11
+- id: ICV-EA
+  votes: 199553
+  name: Iniciativa per Catalunya-Esquerra Alternativa
+  seats: 7
+- id: EV-AE
+  votes: 18470
+  name: Els Verds-l'Alternativa Ecologista
+  seats: 0
+- id: PxC
+  votes: 3060
+  name: Plataforma per Catalunya
+  seats: 0
+- id: POSI
+  votes: 2773
+  name: Partit Obrer Socialista Internacionalista
+  seats: 0
+- id: Ei
+  votes: 1905
+  name: Escons Insubmisos
+  seats: 0
+- id: PCPC
+  votes: 1891
+  name: Partit Comunista del Poble de Catalunya
+  seats: 0
+- id: UADEP
+  votes: 1211
+  name: Una Altra Democràcia és Possible
+  seats: 0
+- id: PH
+  votes: 1188
+  name: Partit Humanista de Catalunya
+  seats: 0
+- id: E.CAT
+  votes: 1162
+  name: Estat Català
+  seats: 0
+- id: C.D.S.
+  votes: 1073
+  name: Centre Democràtic i Social
+  seats: 0
+- id: P.N.CA.
+  votes: 636
+  name: Partido Nacionalista Caló
+  seats: 0
+- id: EBS
+  votes: 603
+  name: Españoles Bajo el Separatismo
+  seats: 0
+- id: MSR
+  votes: 602
+  name: Movimiento Social Republicano
+  seats: 0
+- id: LI (LIT-CI)
+  votes: 491
+  name: Lluita Internacionalista
+  seats: 0

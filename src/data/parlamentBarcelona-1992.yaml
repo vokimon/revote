@@ -1,0 +1,81 @@
+name: parlamentBarcelona-1992
+call: parlament
+circumscription: Barcelona
+date: '1992'
+real: true
+seats: 85
+threshold_percent: 3
+census: 3722928
+participation: 1986721
+abstention: 1736207
+nullvotes: 6716
+blankvotes: 22711
+candidatures:
+- id: CiU
+  votes: 882758
+  name: Convergència i Unió
+  seats: 41
+- id: PSC-PSOE
+  votes: 572036
+  name: Partit dels Socialistes de Catalunya-PSOE
+  seats: 27
+- id: IC
+  votes: 146937
+  name: Iniciativa per Catalunya
+  seats: 6
+- id: ERC
+  votes: 142381
+  name: Esquerra Republicana de Catalunya
+  seats: 6
+- id: PP
+  votes: 117409
+  name: Partit Popular
+  seats: 5
+- id: C.D.S.
+  votes: 19505
+  name: Centre Democràtic i Social
+  seats: 0
+- id: PCC
+  votes: 19065
+  name: Partit dels Comunistes de Catalunya
+  seats: 0
+- id: EV-UVE
+  votes: 12750
+  name: Els Verds-Unió Verda
+  seats: 0
+- id: L.E.
+  votes: 9879
+  name: Los Ecologistas
+  seats: 0
+- id: P.E.C.VERDE
+  votes: 7786
+  name: Partit Ecologista de Catalunya VERDE
+  seats: 0
+- id: RUIZ-MATEOS
+  votes: 7639
+  name: A.E. José María Ruiz Mateos
+  seats: 0
+- id: P.S.T.
+  votes: 7397
+  name: Partido Socialista de los Trabajadores
+  seats: 0
+- id: AV-Mov.d'EN
+  votes: 4138
+  name: Alternativa Verda-Moviment d'Esquerra Nacionalista
+  seats: 0
+- id: CLL
+  votes: 3374
+  name: Catalunya Lliure
+  seats: 0
+- id: P.O.R.E.
+  votes: 1679
+  name: Partit Obrer Revolucionari d'Espanya
+  seats: 0
+- id: PH
+  votes: 1310
+  name: Partit Humanista
+  seats: 0
+- id: SI
+  votes: 1251
+  name: Socialistes Independents
+  seats: 0

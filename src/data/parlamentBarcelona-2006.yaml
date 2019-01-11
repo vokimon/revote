@@ -1,0 +1,85 @@
+name: parlamentBarcelona-2006
+call: parlament
+circumscription: Barcelona
+date: '2006'
+real: true
+seats: 85
+threshold_percent: 3
+census: 3991904
+participation: 2232872
+abstention: 1759032
+nullvotes: 8753
+blankvotes: 45558
+candidatures:
+- id: CiU
+  votes: 664723
+  name: Convergència i Unió
+  seats: 27
+- id: PSC-CpC
+  votes: 620601
+  name: PSC-Ciutadans pel Canvi
+  seats: 25
+- id: ERC
+  votes: 280566
+  name: Esquerra Republicana de Catalunya
+  seats: 11
+- id: PP
+  votes: 248165
+  name: Partit Popular
+  seats: 10
+- id: ICV-EUiA
+  votes: 230968
+  name: Iniciativa per Catalunya Verds - EUIA
+  seats: 9
+- id: C's
+  votes: 78525
+  name: Ciutadans-Partido de la Ciudadanía
+  seats: 3
+- id: EV-EVC
+  votes: 17900
+  name: Els Verds - Ecologistes i Verds de Catalunya
+  seats: 0
+- id: PACMA
+  votes: 11085
+  name: Partido Antitaurino contra el maltrato animal
+  seats: 0
+- id: Ei-ADD
+  votes: 5662
+  name: Escons Insubmisos-Alt. dels Demòcrates Descontents
+  seats: 0
+- id: POSI
+  votes: 4039
+  name: Partit Obrer Socialista Internacionalista
+  seats: 0
+- id: RC
+  votes: 4003
+  name: Partit Republicà Català
+  seats: 0
+- id: PCPC
+  votes: 3527
+  name: Partit Comunista del Poble de Catalunya
+  seats: 0
+- id: PH
+  votes: 2135
+  name: Partit Humanista de Catalunya
+  seats: 0
+- id: AES-DN
+  votes: 2131
+  name: Plataforma Adelante Cataluña (Alt.Española-DN)
+  seats: 0
+- id: PFiV
+  votes: 2048
+  name: Partit Família i Vida
+  seats: 0
+- id: PAZUL
+  votes: 1039
+  name: Carmel/Partido Azul
+  seats: 0
+- id: MSR
+  votes: 776
+  name: Movimiento Social Republicano
+  seats: 0
+- id: DECIDEIXCAT
+  votes: 668
+  name: Catalunya Decideix
+  seats: 0

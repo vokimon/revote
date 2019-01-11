@@ -1,0 +1,141 @@
+name: congresoBarcelona-2008-03
+call: congreso
+circumscription: Barcelona
+date: 2008-03
+real: true
+seats: 31
+threshold_percent: 3
+census: 3980181
+participation: 2812062
+abstention: 1168119
+nullvotes: 12834
+blankvotes: 42672
+candidatures:
+- id: PSC-PSOE
+  votes: 1309171
+  name: PARTIT DELS SOCIALISTES DE CATALUNYA
+  seats: 16
+- id: CiU
+  votes: 547993
+  name: CONVERGENCIA I UNIO
+  seats: 6
+- id: PP
+  votes: 470677
+  name: PARTIT POPULAR/PARTIDO POPULAR
+  seats: 6
+- id: ESQUERRA
+  votes: 184558
+  name: ESQUERRA REPUBLICANA DE CATALUNYA
+  seats: 2
+- id: ICV-EUiA
+  votes: 155674
+  name: INICIATIVA PER CATALUNYA VERDS-ESQUERRA UNIDA I ALTERNATIVA
+  seats: 1
+- id: C's
+  votes: 24220
+  name: CIUTADANS-PARTIDO DE LA CIUDADANIA
+  seats: 0
+- id: EV-AE
+  votes: 12561
+  name: ELS VERDS - L'ALTERNATIVA ECOLOGISTA
+  seats: 0
+- id: PACMA
+  votes: 8153
+  name: PARTIDO ANTITAURINO CONTRA EL MALTRATO ANIMAL
+  seats: 0
+- id: EV-LV
+  votes: 7324
+  name: ELS VERDS-LOS VERDES
+  seats: 0
+- id: UPyD
+  votes: 5179
+  name: UNION PROGRESO Y DEMOCRACIA
+  seats: 0
+- id: RC
+  votes: 4250
+  name: PARTIT REPUBLICA CATALA
+  seats: 0
+- id: Ei
+  votes: 3733
+  name: EI ESCONS INSUBMISOS-ALTERNATIVA DELS DEMOCRATES DESCONTENTS
+  seats: 0
+- id: PCPC
+  votes: 3100
+  name: PARTIDO COMUNISTA DEL PUEBLO DE CATALUNYA
+  seats: 0
+- id: PDLPEA
+  votes: 3050
+  name: PARTIDO DE LOS PENSIONISTAS EN ACCION
+  seats: 0
+- id: CENB
+  votes: 2851
+  name: CIUDADANOS EN BLANCO
+  seats: 0
+- id: PUM+J
+  votes: 1525
+  name: POR UN MUNDO MAS JUSTO
+  seats: 0
+- id: P.O.S.I.
+  votes: 1486
+  name: PARTIT OBRER SOCIALISTA INTERNACIONALISTA
+  seats: 0
+- id: IR-PRE
+  votes: 1387
+  name: IZQUIERDA REPUBLICANA-PARTIT REPUBLICA D'ESQUERRA
+  seats: 0
+- id: D.N.
+  votes: 1326
+  name: DEMOCRACIA NACIONAL
+  seats: 0
+- id: PFiV
+  votes: 1279
+  name: PARTIT FAMILIA I VIDA
+  seats: 0
+- id: FE de las JONS
+  votes: 1102
+  name: FALANGE ESPAÑOLA DE LAS J.O.N.S.
+  seats: 0
+- id: AMD
+  votes: 1079
+  name: ALTERNATIVA MOTOR Y DEPORTES
+  seats: 0
+- id: PxCat
+  votes: 823
+  name: PARTIT PER CATALUNYA
+  seats: 0
+- id: PH
+  votes: 627
+  name: PARTIT HUMANISTA DE CATALUNYA
+  seats: 0
+- id: PLCI
+  votes: 594
+  name: PARTIDO DE LAS LIBERTADES CIVILES
+  seats: 0
+- id: E-2000
+  votes: 527
+  name: ESPAÑA 2000
+  seats: 0
+- id: F.A.
+  votes: 524
+  name: FALANGE AUTENTICA
+  seats: 0
+- id: AES
+  votes: 509
+  name: ALTERNATIVA ESPAÑOLA
+  seats: 0
+- id: A.u.N.
+  votes: 359
+  name: ALIANZA NACIONAL
+  seats: 0
+- id: L.I.(LIT-CI)
+  votes: 321
+  name: LLUITA INTERNACIONALISTA
+  seats: 0
+- id: P. C. de C.
+  votes: 301
+  name: PARTIT CARLI DE CATALUNYA
+  seats: 0
+- id: SAIn
+  votes: 293
+  name: SOLIDARIDAD Y AUTOGESTION INTERNACIONALISTA
+  seats: 0

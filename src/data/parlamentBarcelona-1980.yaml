@@ -1,0 +1,77 @@
+name: parlamentBarcelona-1980
+call: parlament
+circumscription: Barcelona
+date: '1980'
+real: true
+seats: 85
+threshold_percent: 3
+census: 3444779
+participation: 2104767
+abstention: 1340012
+nullvotes: 10086
+blankvotes: 14399
+candidatures:
+- id: CiU
+  votes: 570670
+  name: Convergència i Unió
+  seats: 26
+- id: PSC-PSOE
+  votes: 485324
+  name: Partit dels Socialistes de Catalunya-PSOE
+  seats: 22
+- id: PSUC
+  votes: 435887
+  name: Partit Socialista Unificat de Catalunya
+  seats: 20
+- id: ERC
+  votes: 173815
+  name: Esquerra Republicana de Catalunya
+  seats: 8
+- id: CC-UCD
+  votes: 171122
+  name: Centristes de Catalunya-UCD
+  seats: 7
+- id: PSA
+  votes: 63442
+  name: Partido Socialista de Andalucía-Partido Andaluz
+  seats: 2
+- id: SC
+  votes: 53967
+  name: Solidaritat Catalana
+  seats: 0
+- id: NE
+  votes: 32324
+  name: Nacionalistes d'Esquerra
+  seats: 0
+- id: CUPS
+  votes: 28499
+  name: Unitat Popular del Socialisme C.U.P.S.
+  seats: 0
+- id: FN
+  votes: 20074
+  name: Fuerza Nueva
+  seats: 0
+- id: P.C.O.de C.
+  votes: 12963
+  name: Partit Comunista Obrer de Catalunya
+  seats: 0
+- id: BEAN-UP
+  votes: 11620
+  name: Bloc d'Esquerra d'Alliberament Nacional de Catalun
+  seats: 0
+- id: FE-JONS
+  votes: 6029
+  name: Falange Española de las J.O.N.S.
+  seats: 0
+- id: PCT-PCC
+  votes: 5710
+  name: Unidad Comunista
+  seats: 0
+- id: PNI
+  votes: 4741
+  name: Partido Nacional Independiente
+  seats: 0
+- id: C.i.C.
+  votes: 4095
+  name: Conservadors de Catalunya
+  seats: 0

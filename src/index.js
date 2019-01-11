@@ -183,6 +183,10 @@ function optionDescription(i) {
 function recompute(poll) {
 	hamilton(poll);
 	dHondt(poll);
+	poll.candidatures.map(function(c) {
+		if (c.dhondtseats !== c.seats)
+			console.log("D'hondt seats differ", c.id, c.dhondtseats, c.seats);
+	});
 	poll.options = generateOptions(poll, true)
 	poll.participation = poll.census - poll.abstention;
 }

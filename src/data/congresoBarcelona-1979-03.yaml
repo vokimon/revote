@@ -1,0 +1,129 @@
+name: congresoBarcelona-1979-03
+call: congreso
+circumscription: Barcelona
+date: 1979-03
+real: true
+seats: 33
+threshold_percent: 3
+census: 3466533
+participation: 2337309
+abstention: 1129224
+nullvotes: 42753
+blankvotes: 9714
+candidatures:
+- id: PSC-PSOE
+  votes: 694847
+  name: PARTIT DELS SOCIALISTES DE CATALUNYA
+  seats: 12
+- id: PSUC-PCE
+  votes: 436908
+  name: PARTIT SOCIALIST UNIFICAT DE CATALUNYA
+  seats: 7
+- id: CC-UCD
+  votes: 387543
+  name: CENTRISTES DE CATALUNYA
+  seats: 6
+- id: CIU
+  votes: 362427
+  name: COALICION CONVERGENCIA Y UNIO
+  seats: 6
+- id: ERFN
+  votes: 88770
+  name: ESQUERRA REPUBLICANA DE CATALUNYA - FRONT NACIONAL
+  seats: 1
+- id: CD
+  votes: 84195
+  name: COALICION DEMOCRATICA
+  seats: 1
+- id: BEAN
+  votes: 41430
+  name: BLOC D'ESQUERRAD'ALLIBERAMENT NACIONAL
+  seats: 0
+- id: PTC-PTE
+  votes: 36001
+  name: PARTIT DEL TREBALL DE CATALUNYA
+  seats: 0
+- id: PSOE-H
+  votes: 29868
+  name: PART. SOCIALISTA OBRERO ESPAÑOL(SECTOR HISTORICO)
+  seats: 0
+- id: UN
+  votes: 20743
+  name: PARTIDO UNION NACIONAL
+  seats: 0
+- id: IR
+  votes: 15019
+  name: IZQUIERDA REPUBLICANA
+  seats: 0
+- id: ORT
+  votes: 11122
+  name: ORGANIZACION REVOLUCIONARIA DE LOS TRABAJADORES
+  seats: 0
+- id: MC-OIC
+  votes: 10714
+  name: MOVIMIENTO COMUNISTA-ORGANIZ.IZQUIERDA COMUNISTA
+  seats: 0
+- id: PCT
+  votes: 10022
+  name: PARTIDO COMUNISTA DE LOS TRABAJADORES
+  seats: 0
+- id: OCE-BR
+  votes: 8120
+  name: ORGANIZACION COMUNISTA DE ESPAÑA BANDERA ROJA
+  seats: 0
+- id: UCE
+  votes: 6515
+  name: UNIFICACION COMUNISTA DE ESPAÑA
+  seats: 0
+- id: PSIN
+  votes: 5932
+  name: PARTIDO SINDICALISTA
+  seats: 0
+- id: LCR
+  votes: 5775
+  name: LIGA COMUNISTA REVOLUCIONARIA
+  seats: 0
+- id: E CATALA
+  votes: 5767
+  name: ESTAT CATALA
+  seats: 0
+- id: DSCC
+  votes: 4976
+  name: DEMOCRACIAL SOCIAL CRISTIANA DE CATALUÑA
+  seats: 0
+- id: FJONSA
+  votes: 3908
+  name: FALANGE ESPAÑOLA DE LAS JONS AUTENTICA
+  seats: 0
+- id: PLC
+  votes: 3267
+  name: PARTIDO LIBERAL DE CATALUÑA
+  seats: 0
+- id: PCARL
+  votes: 2554
+  name: PARTIDO CARLISTA
+  seats: 0
+- id: EE
+  votes: 2550
+  name: EUSKADIKO EZKERRA
+  seats: 0
+- id: PIPPA
+  votes: 2409
+  name: PARTIDO INDEPENDIENTE PRO POLITICA AUSTERA
+  seats: 0
+- id: ULE
+  votes: 1838
+  name: UNION PARA LA LIBERTAD DE EXPRESION
+  seats: 0
+- id: PPROV
+  votes: 1622
+  name: PARTIDO PROVERISTA
+  seats: 0
+- id: FE-UF
+  votes: 0
+  name: FALANGE ESPAÑOLA - UNIDAD FALANGISTA
+  seats: 0
+- id: LC
+  votes: 0
+  name: LIGA COMUNISTA
+  seats: 0
