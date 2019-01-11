@@ -1,0 +1,43 @@
+'#111':
+- abstention
+lightgrey:
+- blankvotes
+'#f44':
+- nullvotes
+blue:
+- PDPC
+- CiU
+- CIU
+darkcyan:
+- PP
+- A.P.
+- CC-AP
+- AP-PDP
+- AP-PDP-PL
+- AP-PDP-UL
+gold:
+- EC-FED
+- ERC
+- ERC-CAT SI
+- ESQUERRA
+orange:
+- C's
+red:
+- PSOE
+- PSC-CpC
+- PSC
+- PSC-PSOE
+limegreen:
+- ICV-EUiA
+- ICV-EA
+- IC-V
+- IC
+- IC-EV
+- IU
+- PSUC
+- PSUC-PCE
+
+
+
+
+

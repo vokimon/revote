@@ -87,7 +87,6 @@ var scenarios = context.keys().map(function(filename) {
 });
 console.log('Scenarios', scenarios);
 
-
 var poll = null;
 
 function hamilton(poll) {
@@ -193,23 +192,45 @@ function recompute(poll) {
 
 Revote.scenarioIndex(0);
 
-
 var skip = function (c) { return []; }
 
+function loadFixedColors() {
+	var colorgroups = require("./colorgroups.yaml");
+	var colors = [];
+	var options = [];
+	Object.keys(colorgroups).map(function(color) {
+		colorgroups[color].map(function(option) {
+			colors.push(color);
+			options.push(option);
+		});
+	});
+	Revote.color = d3.scaleOrdinal([].concat(
+		colors,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10,
+		d3.schemeCategory10
+	))
+	// Preallocate non-votes
+	options.map(function(option) { Revote.color(option); });
+};
+
+loadFixedColors();
+
 var Hemicycle = {};
-Hemicycle.color = d3.scaleOrdinal(d3.schemeSet3);
-Hemicycle.color = d3.scaleOrdinal([].concat(
-	['#000000','#aaaaaa','#f0f0f0'],
-	d3.schemeCategory10,
-	d3.schemeCategory10,
-	d3.schemeCategory10,
-	d3.schemeCategory10,
-	d3.schemeCategory10
-));
-// Preallocate non-votes
-Hemicycle.color('abstention');
-Hemicycle.color('nullvotes');
-Hemicycle.color('blankvotes');
 Hemicycle.view = function(vn) {
 	return m('svg.hemicycle', {
 		'viewBox': '0 0 600 300',
@@ -289,7 +310,7 @@ Hemicycle.oncreate = function(vn) {
 				.classed('sector', true)
 				.attr('d', arcs)
 				.attr('stroke', 'white')
-				.attr('fill', function(d,i) {return Hemicycle.color(d.data.id);} )
+				.attr('fill', function(d,i) {return Revote.color(d.data.id);} )
 				.each(function(d) {
 					this._current = d;
 				})
@@ -400,7 +421,7 @@ DHondtTable.view = function(vn) {
 				[...Array(ndivisors).keys()].map(function(i) {
 					if (i===0)
 						return m('th.candidature', {
-							style: { background: Hemicycle.color(option.id) },
+							style: { background: Revote.color(option.id) },
 						}, option.id);
 					return m('td'
 						+(i<=option.seats? '.taken':'')
@@ -828,7 +849,7 @@ DHondtPriceBar.oncreate = function(vn) {
 				.attr('height', optionsScale.bandwidth())
 				.attr('x', (s) => voteScale(0))
 				.attr('width', (s) => voteScale(s.seats===undefined?0:s.seats*seatPrice))
-				.attr('fill', (s) => Hemicycle.color(s.id))
+				.attr('fill', (s) => Revote.color(s.id))
 			;
 			return bar;
 		}
@@ -838,9 +859,9 @@ DHondtPriceBar.oncreate = function(vn) {
 				.attr('height', optionsScale.bandwidth()-2)
 				.attr('x', (s) => voteScale(s.seats!==undefined?s.seats*seatPrice:0))
 				.attr('width', (s) => voteScale(s.votes-(s.seats!==undefined?s.seats*seatPrice:0)))
-				.attr('fill', (s) => Hemicycle.color(s.id))
+				.attr('fill', (s) => Revote.color(s.id))
 				.attr('fill-opacity', 0.4)
-				.attr('stroke', (s) => Hemicycle.color(s.id))
+				.attr('stroke', (s) => Revote.color(s.id))
 				.attr('stroke-width', 2)
 			;
 			return bar;
