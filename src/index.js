@@ -18,6 +18,9 @@ var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
 var Revote = {};
 Revote.scenarioIndex = 0;
+Revote.currentScenario = function(index) {
+	currentScenario(index);
+};
 
 var context = require.context('./data/', true, /\.(yaml)$/);
 var scenarios = context.keys().map(function(filename) {
@@ -182,7 +185,7 @@ function currentScenario(index) {
 	updaters.map(function (f) { f(); });
 }
 
-currentScenario(0);
+Revote.currentScenario(0);
 
 
 var skip = function (c) { return []; }
@@ -423,9 +426,9 @@ ScenaryChooser.view = function(vn) {
 			label: _("Scenario"),
 			nohelp: true,
 			required: true,
-			value: currentScenario(),
+			value: Revote.currentScenario(),
 			onchange: function(ev) {
-				currentScenario(ev.target.value);
+				Revote.currentScenario(ev.target.value);
 			},
 			options: options,
 		}),
