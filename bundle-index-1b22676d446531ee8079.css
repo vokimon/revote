@@ -271,6 +271,9 @@ select {
 .transferwidget > .transferbuttons > div {
   flex: 1 0 auto;
 }
+.transferwidget > .transferbuttons * {
+  overflow: hidden;
+}
 .dhondtbars {
   margin: 0;
   padding: 0;
