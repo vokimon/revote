@@ -300,23 +300,25 @@ select {
   stroke-dasharray: 2, 2;
 }
 .dhondtbars svg .label.price {
-  fill: #008000;
+  fill: #90ee90;
 }
 .dhondtbars svg .label.price line {
-  stroke: #008000;
-}
-.dhondtbars svg .label.price .domain {
-  stroke: none;
+  stroke: #90ee90;
 }
 .dhondtbars svg line.threshold {
   stroke: #f00;
 }
 .dhondtbars svg .label.threshold {
   fill: #f00;
+  stroke: #f00;
 }
 .dhondtbars svg .label.threshold line {
-  stroke: #f00;
   fill: #f00;
+}
+.dhondtbars text.shadow {
+  stroke-width: 3;
+  stroke: #555;
+  opacity: 50%;
 }
 .dhondttable {
   min-height: 8em;
