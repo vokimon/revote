@@ -734,13 +734,18 @@ DHondtPriceBar.oncreate = function(vn) {
 			.range([0, height])
 			;
 		thresholdLine.transition()
+			.attr('y2',height)
 			.attr('x1',voteScale(threshold))
 			.attr('x2',voteScale(threshold))
 			;
+		seatGrid
+			.tickSize(-height, 0, 0);
 		chart.select('.grid.seats')
 			.transition()
 				.call(seatGrid)
 			;
+		votesGrid
+			.tickSize(-height-margin.top/2, 0, 0);
 		chart.select('.grid.votes')
 			.transition()
 				.call(votesGrid)
