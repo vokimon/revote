@@ -781,6 +781,24 @@ DHondtPriceBar.oncreate = function(vn) {
 				.attr('stroke-width', 2)
 			;
 		}
+		function barevents(bar) {
+			bar
+				.on('click', function(d,i) {
+					console.log("Selected origin:", poll.options[i].id);
+					vn.attrs.onoptionclicked &&
+						vn.attrs.onoptionclicked(i);
+					d3.event.preventDefault();
+					m.redraw();
+				})
+				.on('contextmenu', function(d,i) {
+					console.log("Selected target:", poll.options[i].id);
+					vn.attrs.onoptioncontext &&
+						vn.attrs.onoptioncontext(i);
+					d3.event.preventDefault();
+					m.redraw();
+				})
+			;
+		}
 	
 		var fullbars = chart.select('.bars')
 			.selectAll('.fullbar')
@@ -795,6 +813,7 @@ DHondtPriceBar.oncreate = function(vn) {
 			.append("rect")
 				.attr('class','fullbar')
 				.call(fullbar)
+				.call(barevents)
 			;
 		var reminders = chart.select('.bars')
 			.selectAll('.remainderbar')
@@ -809,6 +828,7 @@ DHondtPriceBar.oncreate = function(vn) {
 			.append("rect")
 				.attr('class','remainderbar')
 				.call(remainderbar)
+				.call(barevents)
 			;
 		thresholdLabel
 			.transition()
@@ -848,7 +868,16 @@ var App = {
 					m('h3', _("Information")),
 					m(Info),
 					m(DHondtTable),
-					m(DHondtPriceBar),
+					m(DHondtPriceBar, {
+						optionA: TransferWidget.from,
+						optionB: TransferWidget.to,
+						onoptionclicked: function(optionIdx) {
+							TransferWidget.from=optionIdx;
+						},
+						onoptioncontext: function(optionIdx) {
+							TransferWidget.to=optionIdx;
+						},
+					}),
 				]),
 			]),
 		]);
