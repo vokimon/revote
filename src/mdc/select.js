@@ -38,11 +38,11 @@ var Select = {
 	},
 	view: function(vn) {
 		function floats() {
-			if (vn.attrs.value) return true;
+			if (vn.attrs.value!==undefined && vn.attrs.value!=="") return true;
 			if (!vn.dom) return false;
-			if (!vn.dom.native) return false;
-			if (!vn.dom.native===document.activeElement) return true;
-			if (!vn.dom.native.value) return true;
+			if (!vn.state.native) return false;
+			if (!vn.state.native===document.activeElement) return true;
+			if (!vn.state.native.value) return true;
 			return false;
 		}
 		var attrs = Object.assign({}, vn.attrs);
