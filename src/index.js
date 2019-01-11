@@ -14,7 +14,15 @@ require('@material/typography/dist/mdc.typography.css').default;
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
-var poll = require('./data/congresoBarcelona-1977-06.yaml')
+var scenarioIndex = 0;
+var scenarios = [
+	require('./data/congresoBarcelona-1977-06.yaml'),
+	require('./data/theory-maxprice.yaml'),
+	require('./data/theory-minprice.yaml'),
+];
+
+var poll = null;
+
 function hamilton(poll) {
 	var remainingSeats = poll.seats;
 	var votesToCandidatures = poll.participation - poll.nullvotes - poll.blankvotes;
@@ -158,7 +166,16 @@ function transfer(scenario, fromOption, toOption, nvotes) {
 }
 
 
-recompute(poll);
+function currentScenario(index) {
+	if (index===undefined)
+		return scenarioIndex;
+	scenarioIndex=index;
+	poll = scenarios[index];
+	recompute(poll);
+	updaters.map(function (f) { f(); });
+}
+
+currentScenario(1);
 
 
 var skip = function (c) { return []; }
@@ -167,6 +184,9 @@ var Hemicycle = {};
 Hemicycle.color = d3.scaleOrdinal(d3.schemeSet3);
 Hemicycle.color = d3.scaleOrdinal([].concat(
 	['#000000','#aaaaaa','#f0f0f0'],
+	d3.schemeCategory10,
+	d3.schemeCategory10,
+	d3.schemeCategory10,
 	d3.schemeCategory10,
 	d3.schemeCategory10
 ));
@@ -383,22 +403,24 @@ DHondtTable.view = function(vn) {
 };
 
 var ScenaryChooser = {};
-ScenaryChooser.current = 0;
 ScenaryChooser.view = function(vn) {
-	var scenarios = [{
-			text: poll.name,
-			value: 0,
-	}];
+	var options = scenarios.map(function(scenario,i) {
+		return {
+			text: scenario.name,
+			value: i,
+		};
+	});
 	return m('.scenariochooser', [
 		m(Select, {
 			id: 'scenariochooser',
 			label: _("Scenario"),
 			nohelp: true,
-			value: ScenaryChooser.current,
-			onchanged: function(ev) {
-				ScenaryChooser.current=ev.target.value;
+			required: true,
+			value: currentScenario(),
+			onchange: function(ev) {
+				currentScenario(ev.target.value);
 			},
-			options: scenarios,
+			options: options,
 		}),
 	]);
 };
@@ -637,6 +659,7 @@ DHondtPriceBar.oncreate = function(vn) {
 		;
     var seatGrid = d3.axisTop()
         .scale(seatScale)
+		.tickValues(d3.range(1,maxSeats+3,1))
         .tickSize(-height, 0, 0)
         ;
     chart.append("g")
@@ -731,20 +754,26 @@ DHondtPriceBar.oncreate = function(vn) {
 		var height = vn.dom.scrollHeight - margin.top - margin.bottom;
 		var validVotes = poll.participation - poll.nullvotes;
 		var threshold = validVotes * poll.threshold_percent / 100;
+		var shownVotes = validVotes*2/3;
 		var seatPrice = Math.min.apply(null, poll.candidatures
 			.filter(function(c) { return c.seats!==0; })
 			.map(function(c) { return c.votes/c.seats; })
 		);
+		var maxSeats = Math.max.apply(null, poll.candidatures
+			.map(function(c) { return c.seats; })
+		);
 
 		voteScale
+			.domain([0,shownVotes])
 			.range([0, width])
 			;
 		seatScale
-			.domain([0,maxSeats+3])
-			.range([0,voteScale(seatPrice*(maxSeats+3))])
+			.domain([0,shownVotes/seatPrice])
+			.range([0,width])
 			;
 		optionsScale
 			.range([0, height])
+			.domain(poll.options.map(function(o) {return o.id;}))
 			;
 		thresholdLine.transition()
 			.attr('y2',height)
@@ -752,6 +781,7 @@ DHondtPriceBar.oncreate = function(vn) {
 			.attr('x2',voteScale(threshold))
 			;
 		seatGrid
+			.tickValues(d3.range(1,shownVotes/seatPrice,1))
 			.tickSize(-height, 0, 0);
 		chart.select('.grid.seats')
 			.transition()
@@ -781,6 +811,7 @@ DHondtPriceBar.oncreate = function(vn) {
 				.attr('width', (s) => voteScale(s.seats===undefined?0:s.seats*seatPrice))
 				.attr('fill', (s) => Hemicycle.color(s.id))
 			;
+			return bar;
 		}
 		function remainderbar(bar) {
 			bar
@@ -793,6 +824,7 @@ DHondtPriceBar.oncreate = function(vn) {
 				.attr('stroke', (s) => Hemicycle.color(s.id))
 				.attr('stroke-width', 2)
 			;
+			return bar;
 		}
 		function barevents(bar) {
 			bar
@@ -811,6 +843,7 @@ DHondtPriceBar.oncreate = function(vn) {
 					m.redraw();
 				})
 			;
+			return bar;
 		}
 	
 		var fullbars = chart.select('.bars')
@@ -827,6 +860,7 @@ DHondtPriceBar.oncreate = function(vn) {
 				.attr('class','fullbar')
 				.call(fullbar)
 				.call(barevents)
+			.exit().remove()
 			;
 		var reminders = chart.select('.bars')
 			.selectAll('.remainderbar')
@@ -843,6 +877,8 @@ DHondtPriceBar.oncreate = function(vn) {
 				.call(remainderbar)
 				.call(barevents)
 			;
+		reminders.exit().remove();
+
 		thresholdLabel
 			.transition()
 			.attr('transform','translate('+voteScale(threshold)+' '+(3*height/4)+') ')
