@@ -4,7 +4,7 @@ lightgrey:
 - blankvotes
 '#f44':
 - nullvotes
-blue:
+navy:
 - PDPC
 - CiU
 - CIU
@@ -22,7 +22,7 @@ gold:
 - ESQUERRA
 orange:
 - C's
-red:
+orangered:
 - PSOE
 - PSC-CpC
 - PSC

@@ -314,6 +314,12 @@ Hemicycle.oncreate = function(vn) {
 			.transition()
 				.duration(1000)
 				.attr('d', arcs)
+				.attr('fill', function(d,i) {
+					var color = Revote.color(d.data.id);
+					if (d.data.id === 'abstention')
+					console.log(d.data.id, color);
+					return color;
+				})
 			;
 		sectors
 			.enter()
@@ -322,7 +328,12 @@ Hemicycle.oncreate = function(vn) {
 				.classed('sector', true)
 				.attr('d', arcs)
 				.attr('stroke', 'white')
-				.attr('fill', function(d,i) {return Revote.color(d.data.id);} )
+				.attr('fill', function(d,i) {
+					var color = Revote.color(d.data.id);
+					if (d.data.id === 'abstention')
+					console.log(d.data.id, color);
+					return color;
+				})
 				.each(function(d) {
 					this._current = d;
 				})
@@ -959,7 +970,7 @@ var App = {
 				m('.leftpane', [
 					m('h3', _("Information")),
 					m(Info),
-					m(DHondtTable),
+					//m(DHondtTable),
 					m(DHondtPriceBar, {
 						optionA: TransferWidget.from,
 						optionB: TransferWidget.to,
