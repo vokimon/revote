@@ -625,7 +625,6 @@ DHondtPriceBar.oncreate = function(vn) {
 	chart.append('g')
 		.attr('class', 'x axis')
 		.attr('transform', 'translate(0,'+height+')')
-		.attr('stroke', 'red')
 		.call(voteAxis)
 		;
 
