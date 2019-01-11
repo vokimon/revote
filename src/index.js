@@ -16,7 +16,8 @@ require('@material/typography/dist/mdc.typography.css').default;
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
-var scenarioIndex = 0;
+var Revote = {};
+Revote.scenarioIndex = 0;
 
 var context = require.context('./data/', true, /\.(yaml)$/);
 var scenarios = context.keys().map(function(filename) {
@@ -174,8 +175,8 @@ function transfer(scenario, fromOption, toOption, nvotes) {
 
 function currentScenario(index) {
 	if (index===undefined)
-		return scenarioIndex;
-	scenarioIndex=index;
+		return Revote.scenarioIndex;
+	Revote.scenarioIndex=index;
 	poll = scenarios[index];
 	recompute(poll);
 	updaters.map(function (f) { f(); });
