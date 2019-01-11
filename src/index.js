@@ -9,6 +9,8 @@ var TextField = require('./mdc/textfield');
 var Layout = require('./mdc/layout');
 var Button = require('./mdc/button');
 
+
+require('font-awesome/css/font-awesome.css');
 require('@material/typography/dist/mdc.typography.css').default;
 
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
@@ -452,13 +454,14 @@ TransferWidget.view = function(vn) {
 		m(Button, {
 			raised: true,
 			title: _("Transfer from B to A"),
+			faicon: 'arrow-left',
 			onclick: function(ev) {
 				transfer(poll,
 					TransferWidget.to,
 					TransferWidget.from,
 					TransferWidget.transferStep);
 			},
-		}, _('🡄')),
+		}),
 		m('', {style: {'max-width': '8em'}},
 		m(TextField, {
 			type: 'number',
@@ -478,13 +481,14 @@ TransferWidget.view = function(vn) {
 		m(Button, {
 			raised: true,
 			title: _("Transfer from A to B"),
+			faicon: 'arrow-right',
 			onclick: function(ev) {
 				transfer(poll,
 					TransferWidget.from,
 					TransferWidget.to,
 					TransferWidget.transferStep);
 			},
-		}, _('🡆')),,
+		}),,
 		]),
 		m(Select, {
 			required: true,
