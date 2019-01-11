@@ -531,8 +531,8 @@ Info.view = function(vn) {
 				" ("+percent(candidatureVotes/poll.seats, validVotes)+")",
 		},{
 			label: _("Min price"),
-			value: votes(candidatureVotes/(poll.seats+poll.candidatures.length))+
-				" ("+percent(candidatureVotes/(poll.seats+poll.candidatures.length), validVotes)+")",
+			value: votes((candidatureVotes+poll.candidatures.length-1)/(poll.seats+poll.candidatures.length-1))+
+				" ("+percent((candidatureVotes+poll.candidatures.length-1)/(poll.seats+poll.candidatures.length-1), validVotes)+")",
 		},{
 			label: _("Seat price"),
 			value: votes(seatPrice)+
