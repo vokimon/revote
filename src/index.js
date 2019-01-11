@@ -291,6 +291,18 @@ Hemicycle.oncreate = function(vn) {
 			})
 			(options)
 			;
+		function selectOrigin(d,i) {
+			console.log("Selected origin:", options[i].id);
+			TransferWidget.from = i;
+			d3.event.preventDefault();
+			m.redraw();
+		}
+		function selectTarget(d,i) {
+			console.log("Selected target:", options[i].id);
+			TransferWidget.to = i;
+			d3.event.preventDefault();
+			m.redraw();
+		}
 		var sectors = vn.state.chart.selectAll('path.sector').data(pie);
 		sectors.select('title')
 			.text(function(d,i) {
@@ -314,18 +326,8 @@ Hemicycle.oncreate = function(vn) {
 				.each(function(d) {
 					this._current = d;
 				})
-				.on('click', function(d,i) {
-					console.log("Selected origin:", options[i].id);
-					TransferWidget.from = i;
-					d3.event.preventDefault();
-					m.redraw();
-				})
-				.on('contextmenu', function(d,i) {
-					console.log("Selected target:", options[i].id);
-					TransferWidget.to = i;
-					d3.event.preventDefault();
-					m.redraw();
-				})
+				.on('click', selectOrigin)
+				.on('contextmenu', selectTarget)
 			.append('title')
 				.text(function(d,i) {
 					return optionDescription(i);
