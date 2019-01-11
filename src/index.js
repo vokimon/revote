@@ -27,6 +27,17 @@ Revote.currentScenario = function(index) {
 	updaters.map(function (f) { f(); });
 };
 
+Revote.transfer = function(scenario, fromOption, toOption, nvotes) {
+	nvotes=parseInt(nvotes);
+	if (isNaN(nvotes)) return;
+	console.log("From", fromOption, 'to', toOption, 'by', nvotes);
+	nvotes = decreaseOption(scenario, fromOption, nvotes);
+	increaseOption(scenario, toOption, nvotes);
+	recompute(scenario);
+	updaters.map(function (f) { f(); });
+	m.redraw();
+}
+
 var context = require.context('./data/', true, /\.(yaml)$/);
 var scenarios = context.keys().map(function(filename) {
 	var scenario = context(filename);
@@ -168,17 +179,6 @@ function increaseOption(scenario, option, nvotes) {
 }
 
 var updaters = [];
-
-function transfer(scenario, fromOption, toOption, nvotes) {
-	nvotes=parseInt(nvotes);
-	if (isNaN(nvotes)) return;
-	console.log("From", fromOption, 'to', toOption, 'by', nvotes);
-	nvotes = decreaseOption(scenario, fromOption, nvotes);
-	increaseOption(scenario, toOption, nvotes);
-	recompute(scenario);
-	updaters.map(function (f) { f(); });
-	m.redraw();
-}
 
 Revote.currentScenario(0);
 
@@ -459,7 +459,7 @@ TransferWidget.view = function(vn) {
 			title: _("Transfer from B to A"),
 			faicon: 'arrow-left',
 			onclick: function(ev) {
-				transfer(poll,
+				Revote.transfer(poll,
 					TransferWidget.to,
 					TransferWidget.from,
 					TransferWidget.transferStep);
@@ -486,7 +486,7 @@ TransferWidget.view = function(vn) {
 			title: _("Transfer from A to B"),
 			faicon: 'arrow-right',
 			onclick: function(ev) {
-				transfer(poll,
+				Revote.transfer(poll,
 					TransferWidget.from,
 					TransferWidget.to,
 					TransferWidget.transferStep);
