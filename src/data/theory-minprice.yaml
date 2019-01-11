@@ -1,0 +1,34 @@
+name: "Fundamentos: Escenario de precio mínimo"
+call: Ninguna
+circumscription: Ninguna
+date: None
+real: false
+seats: 20
+threshold_percent: 0
+census: 3000000
+participation: 2000000
+abstention: 1000000
+nullvotes: 0
+blankvotes: 0
+candidatures:
+- id: A
+  votes: 583334
+  seats: 7
+  name: Candidatura A
+- id: B
+  votes: 583332
+  seats: 6
+  name: Candidatura B
+- id: C
+  votes: 416667
+  seats: 4
+  name: Candidatura C
+- id: D
+  votes: 250000
+  seats: 2
+  name: Candidatura D
+- id: E
+  votes: 166666
+  seats: 1
+  name: Candidatura E
+
