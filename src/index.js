@@ -177,7 +177,7 @@ function currentScenario(index) {
 	updaters.map(function (f) { f(); });
 }
 
-currentScenario(1);
+currentScenario(0);
 
 
 var skip = function (c) { return []; }
