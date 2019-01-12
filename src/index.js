@@ -199,8 +199,6 @@ function recompute(poll) {
 
 Revote.scenarioIndex(0);
 
-var skip = function (c) { return []; }
-
 function loadFixedColors() {
 	var colorgroups = require("./colorgroups.yaml");
 	var colors = [];
@@ -236,6 +234,9 @@ function loadFixedColors() {
 };
 
 loadFixedColors();
+
+
+var skip = function (c) { return []; }
 
 var Hemicycle = {};
 Hemicycle.view = function(vn) {
