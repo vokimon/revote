@@ -90,48 +90,55 @@ console.log('Scenarios', scenarios);
 var poll = null;
 
 function hamilton(poll) {
-	var remainingSeats = poll.seats;
 	var votesToCandidatures = poll.participation - poll.nullvotes - poll.blankvotes;
-	var seatPrice = votesToCandidatures/poll.seats;
+	var ncandidatures = poll.candidatures.length;
+	poll.minPrice = (votesToCandidatures + ncandidatures -1)
+		/ (poll.seats + ncandidatures -1)
+	poll.maxPrice = votesToCandidatures/poll.seats;
+
+	var remainingSeats = poll.seats;
 	poll.candidatures.map(function (candidature, i) {
-		var fullseats = Math.floor(candidature.votes/seatPrice);
+		var fullseats = Math.floor(candidature.votes/poll.maxPrice);
 		candidature.fullseats = fullseats;
 		candidature.hamiltonseats = fullseats;
-
-		candidature.remainder = candidature.votes % seatPrice / seatPrice;
+		candidature.remainder = candidature.votes % poll.maxPrice * 100 / poll.maxPrice;
 		remainingSeats -= fullseats;
 	});
-	var candidaturesWithRemainders = Object.keys(poll.candidatures).sort(function (a,b) {
-		return poll.candidatures[b].remainder - poll.candidatures[a].remainder;
-	}).slice(0,remainingSeats);
+	poll.halfSeats = remainingSeats;
+	var candidaturesWithRemainders = Object.keys(poll.candidatures)
+		.sort(function (a,b) {
+			return poll.candidatures[b].remainder - poll.candidatures[a].remainder;
+		})
+		.slice(0,remainingSeats);
 	candidaturesWithRemainders.map(function(v) {
 		var c = poll.candidatures[v];
 		c.hamiltonseats++;
 	});
 }
 function dHondt(poll) {
-	var validVotes = poll.participation - poll.nullvotes;
-	var threshold = validVotes * poll.threshold_percent / 100;
+	poll.validVotes = poll.participation - poll.nullvotes;
+	poll.threshold = poll.validVotes * poll.threshold_percent / 100;
 	poll.candidatures.map(function(c) {
 		c.dhondtseats=0;
 	});
-	var dividends = poll.candidatures
+	var quotients = poll.candidatures
 		.filter(function(o) {
 			// TODO: menor o menor o igual?
-			return o.votes >= threshold;
+			return o.votes >= poll.threshold;
 		})
 		.map(function(o) {
 			return [...Array(poll.seats).keys()].map(function(seats) {
 				return {
 					candidature: o,
-					dividend: o.votes/(seats+1),
+					quotient: o.votes/(seats+1),
 				};
 			});
 		})
 		.flat()
-		.sort(function(a,b) { return b.dividend-a.dividend; })
+		.sort(function(a,b) { return b.quotient-a.quotient; })
 		;
-	dividends
+	poll.seatPrice = quotients[poll.seats-1].quotient;
+	quotients
 		.slice(0,poll.seats)
 		.map(function(d) {
 			d.candidature.dhondtseats++;
@@ -175,7 +182,7 @@ function optionDescription(i) {
 		+  (c.seats === undefined ? '' :
 			'\nFull: ' + c.fullseats )
 		+  (c.seats === undefined ? '' :
-			'\nRemainder: ' + d3.format('.4f')(c.remainder) )
+			'\nRemainder: ' + percent(c.remainder, 100) )
 		;
 }
 
@@ -401,15 +408,9 @@ DHondtTable.view = function(vn) {
 		.filter(function(v) { return v.seats!==undefined; })
 		.map(function(v) { return v.seats; })
 		) + 3;
-	const seatPrice = Math.min.apply(null, poll.candidatures
-		.filter(function(c) { return c.seats!==0; })
-		.map(function(c) { return c.votes/c.seats; })
-	);
 	const nextPrice = Math.max.apply(null, poll.candidatures
 		.map(function(c) { return c.votes/(c.seats+1); })
 	);
-	const validVotes = poll.participation - poll.nullvotes;
-	const threshold = validVotes*poll.threshold_percent/100;
 	return m('.dhondttable', m('table', [
 		m('tr', m('td'), [
 			[...Array(ndivisors).keys()].map(function(i) {
@@ -438,11 +439,13 @@ DHondtTable.view = function(vn) {
 						}, option.id);
 					return m('td'
 						+(i<=option.seats? '.taken':'')
-						+(option.votes<=threshold?'.under':'')
+						+(i>option.fullseats? '.extra':'')
+						+(i<=option.hamiltonseats && i>option.fullseats? '.hamiltonextra':'')
+						+(option.votes<=poll.threshold?'.under':'')
 						+(option.nocandidature?'.under':'')
-						+(option.votes<=threshold && option.votes/i>=seatPrice?'.thresholded':'')
-						+(option.nocandidature && option.votes/i>=seatPrice?'.thresholded':'')
-						+(option.votes/i===seatPrice?'.last':'')
+						+(option.votes<=poll.threshold && option.votes/i>=poll.seatPrice?'.thresholded':'')
+						+(option.nocandidature && option.votes/i>=poll.seatPrice?'.thresholded':'')
+						+(option.votes/i===poll.seatPrice?'.last':'')
 						+(option.votes/i===nextPrice?'.last':'')
 						, votes(option.votes/i));
 				}),
@@ -560,18 +563,10 @@ TransferWidget.view = function(vn) {
 
 var Info = {};
 Info.view = function(vn) {
-	var seatPrice = Math.min.apply(null, poll.candidatures
-		.filter(function(c) { return c.seats!==0; })
-		.map(function(c) { return c.votes/c.seats; })
-	);
-
 	var seatNext = Math.max.apply(null, poll.candidatures
 		.filter(function(c) { return c.seats!==0; })
 		.map(function(c) { return c.votes/(c.seats+1); })
 	);
-
-	var candidatureVotes = poll.participation-poll.nullvotes-poll.blankvotes;
-	var validVotes = poll.participation-poll.nullvotes;
 
 	return m('.info', [{
 			label: _("Seats"),
@@ -598,28 +593,27 @@ Info.view = function(vn) {
 		},{
 			label: _("Threshold"),
 			value: percent(poll.threshold_percent,100)+
-				" ("+votes(poll.threshold_percent*(validVotes)/100)+")",
+				" ("+votes(poll.threshold)+")",
 		},{
 			label: _("Max price"),
-			value: votes(candidatureVotes/poll.seats)+
-				" ("+percent(candidatureVotes/poll.seats, validVotes)+")",
-		},{
-			label: _("Min price"),
-			value: votes((candidatureVotes+poll.candidatures.length-1)/(poll.seats+poll.candidatures.length-1))+
-				" ("+percent((candidatureVotes+poll.candidatures.length-1)/(poll.seats+poll.candidatures.length-1), validVotes)+")",
+			value: votes(poll.maxPrice)+
+				" ("+percent(poll.maxPrice, poll.validVotes)+")",
 		},{
 			label: _("Seat price"),
-			value: votes(seatPrice)+
-				" ("+percent(seatPrice, validVotes)+ " of valid)",
+			value: votes(poll.seatPrice)+
+				" ("+percent(poll.seatPrice, poll.validVotes)+ " of valid)",
 		},{
 			label: _("Next price"),
 			value: votes(seatNext)+
-				" ("+percent(seatNext, poll.participation-poll.nullvotes)+")",
+				" ("+percent(seatNext, poll.validVotes)+")",
 		},{
-			label: _("Factor"),
-			value: percent((validVotes/seatPrice-poll.seats)/poll.candidatures.length,1),
-		}]
-			.map(function(v, i) {
+			label: _("Min price"),
+			value: votes(poll.minPrice)+
+				" ("+percent(poll.minPrice, poll.validVotes)+")",
+		},{
+			label: _("Half Seats"),
+			value: votes(poll.halfSeats),
+		}].map(function(v, i) {
 			return m('', [
 				m('b', v.label, ":"),
 				m.trust('&nbsp'),
@@ -666,10 +660,6 @@ DHondtPriceBar.oncreate = function(vn) {
 
 	var svg = d3.select(vn.dom).select('svg');
 
-	var seatPrice = Math.min.apply(null, poll.candidatures
-		.filter(function(c) { return c.seats!==0; })
-		.map(function(c) { return c.votes/c.seats; })
-	);
 	var maxSeats = Math.max.apply(null, poll.candidatures
 		.map(function(c) { return c.seats; })
 	);
@@ -682,7 +672,10 @@ DHondtPriceBar.oncreate = function(vn) {
 
 	var optionsScale = d3.scaleBand()
 		.range([0, height])
-		.domain(poll.options.map(function(o) {return o.id;}))
+		.domain(poll.options
+			//.sort(function(a,b) {return b.votes-a.votes;})
+			.map(function(o) {return o.id;})
+			)
 		;
 	var optionAxis = d3.axisLeft()
 		.scale(optionsScale);
@@ -709,7 +702,7 @@ DHondtPriceBar.oncreate = function(vn) {
 
 	var seatScale = d3.scaleLinear()
 		.range([0,width])
-		.domain([0,shownVotes/seatPrice])
+		.domain([0,shownVotes/poll.seatPrice])
 		;
     var seatGrid = d3.axisTop()
         .scale(seatScale)
@@ -733,30 +726,28 @@ DHondtPriceBar.oncreate = function(vn) {
         .call(votesGrid)
 		;
 
-	var validVotes = poll.participation - poll.nullvotes;
-	var threshold = validVotes * poll.threshold_percent / 100;
 	var thresholdLine = chart.append('line')
 		.attr('class', 'threshold')
 		.attr('y1',0)
 		.attr('y2',height)
-		.attr('x1',voteScale(threshold))
-		.attr('x2',voteScale(threshold))
+		.attr('x1',voteScale(poll.threshold))
+		.attr('x2',voteScale(poll.threshold))
 		;
 	var thresholdLabel = chart.append('g')
 		.attr('class', 'label threshold')
-		.attr('transform','translate('+voteScale(threshold)+' '+(3*height/4)+') ')
+		.attr('transform','translate('+voteScale(poll.threshold)+' '+(3*height/4)+') ')
 		;
 	thresholdLabel
 		.append('text')
 		.attr('class', 'shadow')
 		.attr('dx', 10)
 		.attr('dy', 0)
-		.text(_("Threshold: ")+votes(threshold))
+		.text(_("Threshold: ")+votes(poll.threshold))
 		;
 	thresholdLabel
 		.append('text')
 		.attr('dx', 10)
-		.text(_("Threshold: ")+votes(threshold))
+		.text(_("Threshold: ")+votes(poll.threshold))
 		;
 
 	thresholdLabel
@@ -775,17 +766,17 @@ DHondtPriceBar.oncreate = function(vn) {
 
 	var priceLabel = chart.append('g')
 		.attr('class', 'label price')
-		.attr('transform','translate('+voteScale(seatPrice)+' '+(height/2)+')')
+		.attr('transform','translate('+voteScale(poll.seatPrice)+' '+(height/2)+')')
 		;
 	priceLabel
 		.append('text')
 		.attr('class', 'shadow')
-		.text(_("Seat price: ")+votes(seatPrice))
+		.text(_("Seat price: ")+votes(poll.seatPrice))
 		.attr('dx', 10)
 		;
 	priceLabel
 		.append('text')
-		.text(_("Seat price: ")+votes(seatPrice))
+		.text(_("Seat price: ")+votes(poll.seatPrice))
 		.attr('dx', 10)
 		;
 	priceLabel
@@ -806,13 +797,7 @@ DHondtPriceBar.oncreate = function(vn) {
 	this.updateData=function() {
 		var width = vn.dom.scrollWidth - margin.left -margin.right;
 		var height = vn.dom.scrollHeight - margin.top - margin.bottom;
-		var validVotes = poll.participation - poll.nullvotes;
-		var threshold = validVotes * poll.threshold_percent / 100;
 		var shownVotes = poll.census/2;
-		var seatPrice = Math.min.apply(null, poll.candidatures
-			.filter(function(c) { return c.seats!==0; })
-			.map(function(c) { return c.votes/c.seats; })
-		);
 		var maxSeats = Math.max.apply(null, poll.candidatures
 			.map(function(c) { return c.seats; })
 		);
@@ -822,20 +807,23 @@ DHondtPriceBar.oncreate = function(vn) {
 			.range([0, width])
 			;
 		seatScale
-			.domain([0,shownVotes/seatPrice])
+			.domain([0,shownVotes/poll.seatPrice])
 			.range([0,width])
 			;
 		optionsScale
 			.range([0, height])
-			.domain(poll.options.map(function(o) {return o.id;}))
+			.domain(poll.options
+				//.sort(function(a,b) {return b.votes-a.votes;})
+				.map(function(o) {return o.id;})
+			)
 			;
 		thresholdLine.transition()
 			.attr('y2',height)
-			.attr('x1',voteScale(threshold))
-			.attr('x2',voteScale(threshold))
+			.attr('x1',voteScale(poll.threshold))
+			.attr('x2',voteScale(poll.threshold))
 			;
 		seatGrid
-			.tickValues(d3.range(1,shownVotes/seatPrice,1))
+			.tickValues(d3.range(1,shownVotes/poll.seatPrice,1))
 			.tickSize(-height, 0, 0);
 		chart.select('.grid.seats')
 			.transition()
@@ -862,7 +850,7 @@ DHondtPriceBar.oncreate = function(vn) {
 				.attr('y', (s) => optionsScale(s.id))
 				.attr('height', optionsScale.bandwidth())
 				.attr('x', (s) => voteScale(0))
-				.attr('width', (s) => voteScale(s.seats===undefined?0:s.seats*seatPrice))
+				.attr('width', (s) => voteScale(s.seats===undefined?0:s.seats*poll.seatPrice))
 				.attr('fill', (s) => Revote.color(s.id))
 			;
 			return bar;
@@ -871,8 +859,8 @@ DHondtPriceBar.oncreate = function(vn) {
 			bar
 				.attr('y', (s) => optionsScale(s.id)+1)
 				.attr('height', optionsScale.bandwidth()-2)
-				.attr('x', (s) => voteScale(s.seats!==undefined?s.seats*seatPrice:0))
-				.attr('width', (s) => voteScale(s.votes-(s.seats!==undefined?s.seats*seatPrice:0)))
+				.attr('x', (s) => voteScale(s.seats!==undefined?s.seats*poll.seatPrice:0))
+				.attr('width', (s) => voteScale(s.votes-(s.seats!==undefined?s.seats*poll.seatPrice:0)))
 				.attr('fill', (s) => Revote.color(s.id))
 				.attr('fill-opacity', 0.4)
 				.attr('stroke', (s) => Revote.color(s.id))
@@ -935,16 +923,16 @@ DHondtPriceBar.oncreate = function(vn) {
 
 		thresholdLabel
 			.transition()
-			.attr('transform','translate('+voteScale(threshold)+' '+(3*height/4)+') ')
+			.attr('transform','translate('+voteScale(poll.threshold)+' '+(3*height/4)+') ')
 			.selectAll('text')
-				.text(_("Threshold: ")+votes(threshold))
+				.text(_("Threshold: ")+votes(poll.threshold))
 			;
 
 		priceLabel
 			.transition()
-			.attr('transform','translate('+voteScale(seatPrice)+' '+(height/2)+')')
+			.attr('transform','translate('+voteScale(poll.seatPrice)+' '+(height/2)+')')
 			.selectAll('text')
-				.text(_("Seat price: ")+votes(seatPrice))
+				.text(_("Seat price: ")+votes(poll.seatPrice))
 			;
 	};
 	this.updateData();
