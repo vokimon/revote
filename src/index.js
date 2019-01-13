@@ -748,7 +748,6 @@ var App = {
 			m('.appbody', [
 				m('.hemicycles', [
 					m('h3', _("Transfers")),
-					m(TransferWidget),
 					m(Hemicycle, { attribute: 'votes', shownovote: true, label: _("Opción Electoral")}),
 					m(Hemicycle, { attribute: 'votes', label: _("Votos a Candidaturas")}),
 					m(Hemicycle, { attribute: 'hamiltonseats', label: _("Reparto Hamilton")}),
@@ -757,6 +756,7 @@ var App = {
 				m('.leftpane', [
 					m('h3', _("Information")),
 					m(Info),
+					m(TransferWidget),
 					//m(DHondtTable),
 					m(DHondtPriceBar, {
 						optionA: TransferWidget.from,
