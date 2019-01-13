@@ -17,23 +17,6 @@ var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
 var poll = Revote.scenarioIndex(0);
 
-function optionDescription(i) {
-	var c = poll.options[i];
-	return c.id 
-		+ ' (' + c.name + ')'
-		+ '\nVotes: ' + c.votes
-		+ (c.seats === undefined ? '' :
-			'\nSeats: ' + c.seats )
-		+  (c.seats === undefined ? '' :
-			'\nHamilton: ' + c.hamiltonseats )
-		+  (c.seats === undefined ? '' :
-			'\nFull: ' + c.fullseats )
-		+  (c.seats === undefined ? '' :
-			'\nRemainder: ' + percent(c.remainder, 100) )
-		;
-}
-
-
 var skip = function (c) { return []; }
 
 var Hemicycle = {};
@@ -112,7 +95,7 @@ Hemicycle.oncreate = function(vn) {
 		var sectors = vn.state.chart.selectAll('path.sector').data(pie);
 		sectors.select('title')
 			.text(function(d,i) {
-				return optionDescription(i);
+				return Revote.optionDescription(i);
 			})
 			;
 		sectors
@@ -147,7 +130,7 @@ Hemicycle.oncreate = function(vn) {
 				.on('contextmenu', selectTarget)
 			.append('title')
 				.text(function(d,i) {
-					return optionDescription(i);
+					return Revote.optionDescription(i);
 				})
 			;
 		sectors.exit()
@@ -173,7 +156,7 @@ Hemicycle.oncreate = function(vn) {
 		}
 		labels.select('title')
 			.text(function(d,i) {
-				return optionDescription(i);
+				return Revote.optionDescription(i);
 			})
 			;
 		labels
@@ -192,7 +175,7 @@ Hemicycle.oncreate = function(vn) {
 				.attr('font-size', '160%')
 			.append('title')
 				.text(function(d,i) {
-					return optionDescription(i);
+					return Revote.optionDescription(i);
 				})
 			;
 		labels.exit().remove();
@@ -219,7 +202,7 @@ DHondtTable.view = function(vn) {
 		]),
 		poll.options.map(function(option, optionIdx) {
 			return m('tr', {
-					title: optionDescription(optionIdx),
+					title: Revote.optionDescription(optionIdx),
 						onclick: function(ev) {
 							TransferWidget.from=optionIdx;
 						},

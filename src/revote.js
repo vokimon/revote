@@ -3,6 +3,9 @@
 var _ = require('./translate');
 var d3 = require('d3');
 
+var percent = function(some, all) { return d3.format('.2%')(some/all);};
+var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
+
 var Revote = {};
 
 Revote._updaters = [];
@@ -193,6 +196,25 @@ var loadFixedColors = function() {
 };
 
 loadFixedColors();
+
+Revote.optionDescription = function(i) {
+	var poll = Revote.scenarios[Revote._scenarioIndex];
+	var c = poll.options[i];
+	return c.id 
+		+ ' (' + c.name + ')'
+		+ '\nVotes: ' + votes(c.votes)
+		+ (c.seats === undefined ? '' :
+			'\nSeats: ' + c.seats )
+		+  (c.seats === undefined ? '' :
+			'\nHamilton: ' + c.hamiltonseats )
+		+  (c.seats === undefined ? '' :
+			'\nFull: ' + c.fullseats )
+		+  (c.seats === undefined ? '' :
+			'\nRemainder: ' + percent(c.remainder, 100) )
+		;
+}
+
+
 
 module.exports = Revote;
 
