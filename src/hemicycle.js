@@ -8,8 +8,6 @@ var Revote = require('./revote.js');
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
-var poll = Revote.scenario();
-
 var Hemicycle = {};
 Hemicycle.view = function(vn) {
 	return m('svg.hemicycle', {
@@ -31,7 +29,7 @@ Hemicycle.oncreate = function(vn) {
 	var bbox = {width: 600, height: 300};
 	var r = Math.min(bbox.width/2, bbox.height);
 
-	var options = poll.options;
+	var options = Revote.scenario().options;
 	var pie = d3.pie()
 		.startAngle(-Math.PI/2)
 		.endAngle(Math.PI/2)
@@ -59,8 +57,8 @@ Hemicycle.oncreate = function(vn) {
 		;
 
 	this.updateSizes = function() {
-		console.log('updateSizes', vn.attrs.label);
-		var options = poll.options;
+		//console.log('updateSizes', vn.attrs.label);
+		var options = Revote.scenario().options;
 		var pie = d3.pie()
 			.startAngle(-Math.PI/2)
 			.endAngle(Math.PI/2)
@@ -72,13 +70,13 @@ Hemicycle.oncreate = function(vn) {
 			(options)
 			;
 		function selectOrigin(d,i) {
-			console.log("Selected origin:", options[i].id);
+			//console.log("Selected origin:", options[i].id);
 			TransferWidget.from = i;
 			d3.event.preventDefault();
 			m.redraw();
 		}
 		function selectTarget(d,i) {
-			console.log("Selected target:", options[i].id);
+			//console.log("Selected target:", options[i].id);
 			TransferWidget.to = i;
 			d3.event.preventDefault();
 			m.redraw();
