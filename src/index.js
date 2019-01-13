@@ -15,6 +15,8 @@ var Revote = require('./revote.js');
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
+var poll = Revote.scenarioIndex(0);
+
 function optionDescription(i) {
 	var c = poll.options[i];
 	return c.id 
@@ -30,9 +32,6 @@ function optionDescription(i) {
 			'\nRemainder: ' + percent(c.remainder, 100) )
 		;
 }
-
-
-var poll = Revote.scenarioIndex(0);
 
 
 var skip = function (c) { return []; }
