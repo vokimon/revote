@@ -181,7 +181,7 @@ var loadFixedColors = function() {
 loadFixedColors();
 
 Revote.optionDescription = function(i) {
-	var poll = Revote.scenarios[Revote._scenarioIndex];
+	var poll = Revote.scenario();
 	var c = poll.options[i];
 	return c.id 
 		+ ' (' + c.name + ')'
@@ -196,10 +196,6 @@ Revote.optionDescription = function(i) {
 			'\nRemainder: ' + percent(c.remainder, 100) )
 		;
 }
-
-Revote.scenario = function() {
-	return Revote.scenarios[Revote._scenarioIndex];
-};
 
 // Scenario loading
 var context = require.context('./data/', true, /\.(yaml)$/);
@@ -219,6 +215,9 @@ Revote.scenarioIndex = function(index) {
 	_recompute(poll);
 	Revote.notify();
 	return poll;
+};
+Revote.scenario = function() {
+	return Revote.scenarios[Revote._scenarioIndex];
 };
 
 Revote.scenarioIndex(0);
