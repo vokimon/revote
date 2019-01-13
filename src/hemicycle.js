@@ -1,21 +1,14 @@
 'use strict';
 
-require('font-awesome/css/font-awesome.css');
-require('@material/typography/dist/mdc.typography.css').default;
 var m = require('mithril');
 var _ = require('./translate');
-var css = require('./style.styl');
 var d3 = require('d3');
-var Select = require('./mdc/select');
-var TextField = require('./mdc/textfield');
-var Layout = require('./mdc/layout');
-var Button = require('./mdc/button');
 var Revote = require('./revote.js');
 
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
-var poll = Revote.scenarioIndex(0);
+var poll = Revote.scenario();
 
 var Hemicycle = {};
 Hemicycle.view = function(vn) {

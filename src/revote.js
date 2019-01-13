@@ -8,6 +8,7 @@ var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
 var Revote = {};
 
+// Subscription interface
 Revote._updaters = [];
 Revote.notify = function() {
 	Revote._updaters.map(function (f) { f(); });
@@ -16,25 +17,7 @@ Revote.subscribe = function(callback) {
 	Revote._updaters.push(callback);
 };
 
-var context = require.context('./data/', true, /\.(yaml)$/);
-Revote.scenarios = context.keys().map(function(filename) {
-	var scenario = context(filename);
-	scenario.filename = filename.split('/').pop();
-	return scenario;
-});
-console.log('Scenarios', Revote.scenarios);
-
-Revote._scenarioIndex = undefined;
-Revote.scenarioIndex = function(index) {
-	if (index===undefined)
-		return Revote._scenarioIndex;
-	Revote._scenarioIndex=index;
-	var poll = Revote.scenarios[index];
-	_recompute(poll);
-	Revote.notify();
-	return poll;
-};
-
+// Recompute
 
 function hamilton(poll) {
 	var votesToCandidatures = poll.participation - poll.nullvotes - poll.blankvotes;
@@ -214,7 +197,31 @@ Revote.optionDescription = function(i) {
 		;
 }
 
+Revote.scenario = function() {
+	return Revote.scenarios[Revote._scenarioIndex];
+};
 
+// Scenario loading
+var context = require.context('./data/', true, /\.(yaml)$/);
+Revote.scenarios = context.keys().map(function(filename) {
+	var scenario = context(filename);
+	scenario.filename = filename.split('/').pop();
+	return scenario;
+});
+console.log('Scenarios', Revote.scenarios);
+
+Revote._scenarioIndex = undefined;
+Revote.scenarioIndex = function(index) {
+	if (index===undefined)
+		return Revote._scenarioIndex;
+	Revote._scenarioIndex=index;
+	var poll = Revote.scenarios[index];
+	_recompute(poll);
+	Revote.notify();
+	return poll;
+};
+
+Revote.scenarioIndex(0);
 
 module.exports = Revote;
 

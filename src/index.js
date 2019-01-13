@@ -16,7 +16,7 @@ var Hemicycle = require('./hemicycle.js');
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
-var poll = Revote.scenarioIndex(0);
+var poll = Revote.scenario();
 
 var skip = function (c) { return []; }
 
