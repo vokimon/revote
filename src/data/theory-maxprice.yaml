@@ -31,7 +31,7 @@ candidatures:
   votes: 100000
   seats: 1
   name: Candidatura E
-description: >
+description: |
   Ejemplo de reparto D'Hondt con un precio de escaño máximo.
 
   Dado un número de votos a candidaturas
