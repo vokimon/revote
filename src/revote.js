@@ -27,7 +27,7 @@ Revote.scenarioIndex = function(index) {
 		return Revote._scenarioIndex;
 	Revote._scenarioIndex=index;
 	var poll = Revote.scenarios[index];
-	recompute(poll);
+	_recompute(poll);
 	Revote.notify();
 	return poll;
 };
@@ -114,7 +114,7 @@ function generateOptions(poll, shownovote) {
 	return options.sort(function(a,b) {a.votes-b.votes;});
 }
 
-function recompute(poll) {
+function _recompute(poll) {
 	hamilton(poll);
 	dHondt(poll);
 	poll.candidatures.map(function(c) {
@@ -164,7 +164,7 @@ Revote.transfer = function(scenario, fromOption, toOption, nvotes) {
 	console.log("From", fromOption, 'to', toOption, 'by', nvotes);
 	nvotes = _decreaseOption(scenario, fromOption, nvotes);
 	_increaseOption(scenario, toOption, nvotes);
-	recompute(scenario);
+	_recompute(scenario);
 	Revote.notify();
 	m.redraw();
 };
