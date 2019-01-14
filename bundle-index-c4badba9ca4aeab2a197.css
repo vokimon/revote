@@ -210,7 +210,6 @@ select {
   align-items: stretch;
   align-content: stretch;
   flex-direction: column;
-  min-width: 390px;
   overflow-x: none;
   overflow-y: auto;
   justify-content: space-between;
@@ -219,6 +218,16 @@ select {
   overflow: auto;
   display: block;
   flex: 1 1 auto;
+}
+@media only screen and (max-width: 800px) {
+  .hemicycles {
+    min-width: 40%;
+  }
+}
+@media only screen and (min-width: 800px) {
+  .hemicycles {
+    min-width: 390px;
+  }
 }
 .hemicycle {
   margin: 0px;
@@ -412,6 +421,7 @@ select {
   flex: 1 1 auto;
 }
 .info > div {
+  white-space: nowrap;
   display: flex;
   margin: 0 1ex;
   overflow: hidden;
