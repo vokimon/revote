@@ -174,6 +174,23 @@ select {
 }
 .scenariochooser {
   flex: 0 0 auto;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  flex-direction: row;
+  align-items: center;
+}
+.scenariochooser > * {
+  overflow: auto;
+  display: block;
+  flex: 1 1 auto;
+}
+.scenariochooser > * {
+  flex: 1 0 auto;
+}
+.scenariochooser > .mdc-button {
+  flex: 0 0 auto;
 }
 .appbody {
   display: inline-flex;
