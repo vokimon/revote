@@ -43,6 +43,16 @@ ScenaryChooser.view = function(vn) {
 			},
 			options: options,
 		}),
+		m(Button, {
+			onclick: function() {
+				Revote.scenarioIndex(Revote.scenarioIndex()-1);
+			},
+		}, _("<")),
+		m(Button, {
+			onclick: function() {
+				Revote.scenarioIndex(Revote.scenarioIndex()+1);
+			},
+		}, _(">")),
 	]);
 };
 

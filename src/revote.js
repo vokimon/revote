@@ -211,6 +211,8 @@ Revote._scenarioIndex = undefined;
 Revote.scenarioIndex = function(index) {
 	if (index===undefined)
 		return Revote._scenarioIndex;
+	if (index>=Revote.scenarios.length) index=0;
+	if (index<0) index=Revote.scenarios.length-1;
 	Revote._scenarioIndex=index;
 	var poll = Revote.scenarios[index];
 	if (poll===undefined) return;
@@ -229,7 +231,6 @@ Revote.byName = function(name) {
 	var i = Revote.scenarios.findIndex(function(s) {
 		return s.filename.slice(0,-5)===name;
 	});
-	console.log("Found", i);
 	Revote.scenarioIndex(i);
 };
 
