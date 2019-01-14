@@ -5,6 +5,9 @@ var _ = require('./translate');
 var d3 = require('d3');
 var Revote = require('./revote.js');
 
+var thresholdLabelOffset = 200;
+var priceLabelOffset = 250;
+
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
 const DHondtPriceBar = {};
@@ -121,7 +124,7 @@ DHondtPriceBar.oncreate = function(vn) {
 		;
 	var thresholdLabel = chart.append('g')
 		.attr('class', 'label threshold')
-		.attr('transform','translate('+voteScale(poll.threshold)+' '+(3*height/4)+') ')
+		.attr('transform','translate('+voteScale(poll.threshold)+' '+thresholdLabelOffset+') ')
 		;
 	thresholdLabel
 		.append('text')
@@ -152,7 +155,7 @@ DHondtPriceBar.oncreate = function(vn) {
 
 	var priceLabel = chart.append('g')
 		.attr('class', 'label price')
-		.attr('transform','translate('+voteScale(poll.seatPrice)+' '+(height/2)+')')
+		.attr('transform','translate('+voteScale(poll.seatPrice)+' '+priceLabelOffset+')')
 		;
 	priceLabel
 		.append('text')
@@ -311,14 +314,14 @@ DHondtPriceBar.oncreate = function(vn) {
 
 		thresholdLabel
 			.transition()
-			.attr('transform','translate('+voteScale(poll.threshold)+' '+(3*height/4)+') ')
+			.attr('transform','translate('+voteScale(poll.threshold)+' '+thresholdLabelOffset+') ')
 			.selectAll('text')
 				.text(_("Threshold: ")+votes(poll.threshold))
 			;
 
 		priceLabel
 			.transition()
-			.attr('transform','translate('+voteScale(poll.seatPrice)+' '+(height/2)+')')
+			.attr('transform','translate('+voteScale(poll.seatPrice)+' '+priceLabelOffset+')')
 			.selectAll('text')
 				.text(_("Seat price: ")+votes(poll.seatPrice))
 			;
