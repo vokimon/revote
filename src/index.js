@@ -260,6 +260,12 @@ Description.view = function(vn) {
 var App = {
 	currentView: 0,
 	view: function(vn) {
+		function selectOrigin(optionIdx) {
+			TransferWidget.from=optionIdx;
+		};
+		function selectTarget(optionIdx) {
+			TransferWidget.to=optionIdx;
+		};
 		return m('.app.mdc-typography', [
 			m('.topbar', [
 				m('h1',_("reVote: Simulador de flujos electorales")),
@@ -267,10 +273,22 @@ var App = {
 			m(ScenaryChooser),
 			m('.appbody', [
 				m('.hemicycles', [
-					m(Hemicycle, { attribute: 'votes', shownovote: true, label: _("Opción Electoral")}),
-					m(Hemicycle, { attribute: 'votes', label: _("Votos a Candidaturas")}),
-					m(Hemicycle, { attribute: 'hamiltonseats', label: _("Reparto Hamilton")}),
-					m(Hemicycle, { attribute: 'seats', label: _("Reparto D'Hondt")}),
+					m(Hemicycle, { attribute: 'votes', shownovote: true, label: _("Opción Electoral"),
+						onoptionclicked: selectOrigin,
+						onoptioncontext: selectTarget,
+					}),
+					m(Hemicycle, { attribute: 'votes', label: _("Votos a Candidaturas"),
+						onoptionclicked: selectOrigin,
+						onoptioncontext: selectTarget,
+					}),
+					m(Hemicycle, { attribute: 'hamiltonseats', label: _("Reparto Hamilton"),
+						onoptionclicked: selectOrigin,
+						onoptioncontext: selectTarget,
+					}),
+					m(Hemicycle, { attribute: 'seats', label: _("Reparto D'Hondt"),
+						onoptionclicked: selectOrigin,
+						onoptioncontext: selectTarget,
+					}),
 				]),
 				m('.leftpane', [
 					//m('h3', _("Information")),

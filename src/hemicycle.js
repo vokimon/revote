@@ -70,14 +70,14 @@ Hemicycle.oncreate = function(vn) {
 			(options)
 			;
 		function selectOrigin(d,i) {
-			//console.log("Selected origin:", options[i].id);
-			TransferWidget.from = i;
+			if (!vn.attrs.onoptionclicked) return
+			vn.attrs.onoptionclicked(i);
 			d3.event.preventDefault();
 			m.redraw();
 		}
 		function selectTarget(d,i) {
-			//console.log("Selected target:", options[i].id);
-			TransferWidget.to = i;
+			if (!vn.attrs.onoptioncontext) return
+			vn.attrs.onoptioncontext(i);
 			d3.event.preventDefault();
 			m.redraw();
 		}
