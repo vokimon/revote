@@ -11,6 +11,7 @@ var Button = require('./mdc/button');
 var Revote = require('./revote.js');
 var Hemicycle = require('./hemicycle.js');
 var DHondtPriceBar = require('./dhondtpricebar.js');
+var DHondtQuotients = require('./dhondtquotients.js');
 var TabBar = require('./mdc/tabbar.js');
 var marked = require('marked');
 require('font-awesome/css/font-awesome.css');
@@ -21,60 +22,6 @@ var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
 
 var skip = function (c) { return []; }
-
-var DHondtTable = {};
-DHondtTable.view = function(vn) {
-	var poll = Revote.scenario();
-	const ndivisors = Math.max.apply(null, poll.options
-		.filter(function(v) { return v.seats!==undefined; })
-		.map(function(v) { return v.seats; })
-		) + 3;
-	const nextPrice = Math.max.apply(null, poll.candidatures
-		.map(function(c) { return c.votes/(c.seats+1); })
-	);
-	return m('.dhondttable', m('table', [
-		m('tr', m('td'), [
-			[...Array(ndivisors).keys()].map(function(i) {
-				if (i===0) return m('td');
-				return m('th', i);
-			}),
-		]),
-		poll.options.map(function(option, optionIdx) {
-			return m('tr', {
-					title: Revote.optionDescription(optionIdx),
-						onclick: function(ev) {
-							TransferWidget.from=optionIdx;
-						},
-						oncontextmenu: function(ev) {
-							TransferWidget.to=optionIdx;
-							ev.preventDefault();
-						},
-				}, m('td.selection', [
-					(TransferWidget.from===optionIdx?"A":""),
-					(TransferWidget.to===optionIdx?"B":""),
-				]) , [
-				[...Array(ndivisors).keys()].map(function(i) {
-					if (i===0)
-						return m('th.candidature', {
-							style: { background: Revote.color(option.id) },
-						}, option.id);
-					return m('td'
-						+(i<=option.seats? '.taken':'')
-						+(i>option.fullseats? '.extra':'')
-						+(i<=option.hamiltonseats && i>option.fullseats? '.hamiltonextra':'')
-						+(option.votes<=poll.threshold?'.under':'')
-						+(option.nocandidature?'.under':'')
-						+(option.votes<=poll.threshold && option.votes/i>=poll.seatPrice?'.thresholded':'')
-						+(option.nocandidature && option.votes/i>=poll.seatPrice?'.thresholded':'')
-						+(option.votes/i===poll.seatPrice?'.last':'')
-						+(option.votes/i===nextPrice?'.last':'')
-						, votes(option.votes/i));
-				}),
-			]);
-		}),
-			
-	]));
-};
 
 var ScenaryChooser = {};
 ScenaryChooser.view = function(vn) {
@@ -324,7 +271,16 @@ var App = {
 							TransferWidget.to=optionIdx;
 						},
 					}):
-					App.currentView===1 ? m(DHondtTable):
+					App.currentView===1 ? m(DHondtQuotients, {
+						optionA: TransferWidget.from,
+						optionB: TransferWidget.to,
+						onoptionclicked: function(optionIdx) {
+							TransferWidget.from=optionIdx;
+						},
+						onoptioncontext: function(optionIdx) {
+							TransferWidget.to=optionIdx;
+						},
+					}):
 					App.currentView===2 ? m(Description):
 					m(''),
 					m(TransferWidget),
