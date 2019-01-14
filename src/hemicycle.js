@@ -93,10 +93,7 @@ Hemicycle.oncreate = function(vn) {
 				.duration(1000)
 				.attr('d', arcs)
 				.attr('fill', function(d,i) {
-					var color = Revote.color(d.data.id);
-					if (d.data.id === 'abstention')
-					console.log(d.data.id, color);
-					return color;
+					return Revote.color(d.data.id);
 				})
 			;
 		sectors
@@ -107,10 +104,7 @@ Hemicycle.oncreate = function(vn) {
 				.attr('d', arcs)
 				.attr('stroke', 'white')
 				.attr('fill', function(d,i) {
-					var color = Revote.color(d.data.id);
-					if (d.data.id === 'abstention')
-					console.log(d.data.id, color);
-					return color;
+					return Revote.color(d.data.id);
 				})
 				.each(function(d) {
 					this._current = d;

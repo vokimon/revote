@@ -32,12 +32,12 @@ DHondtPriceBar.oninit = function(vn) {
 		vn.state.updateData && vn.state.updateData();
 	})
 	window.addEventListener('resize', function() {
-		console.log("onresize");
+		//console.log("onresize");
 		vn.state.updateData && vn.state.updateData();
 	});
 };
 DHondtPriceBar.onupdate = function(vn) {
-	console.log("updating");
+	//console.log("updating");
 	this.updateData();
 };
 DHondtPriceBar.oncreate = function(vn) {
@@ -262,14 +262,14 @@ DHondtPriceBar.oncreate = function(vn) {
 		function barevents(bar) {
 			bar
 				.on('click', function(d,i) {
-					console.log("Selected origin:", poll.options[i].id);
+					//console.log("Selected origin:", poll.options[i].id);
 					vn.attrs.onoptionclicked &&
 						vn.attrs.onoptionclicked(i);
 					d3.event.preventDefault();
 					m.redraw();
 				})
 				.on('contextmenu', function(d,i) {
-					console.log("Selected target:", poll.options[i].id);
+					//console.log("Selected target:", poll.options[i].id);
 					vn.attrs.onoptioncontext &&
 						vn.attrs.onoptioncontext(i);
 					d3.event.preventDefault();

@@ -106,7 +106,7 @@ function _recompute(poll) {
 	dHondt(poll);
 	poll.candidatures.map(function(c) {
 		if (c.dhondtseats !== c.seats)
-			console.log("D'hondt seats differ", c.id, c.dhondtseats, c.seats);
+			//console.log("D'hondt seats differ", c.id, c.dhondtseats, c.seats);
 	});
 	poll.options = generateOptions(poll, true)
 	poll.participation = poll.census - poll.abstention;
@@ -148,7 +148,7 @@ function _increaseOption(scenario, option, nvotes) {
 Revote.transfer = function(scenario, fromOption, toOption, nvotes) {
 	nvotes=parseInt(nvotes);
 	if (isNaN(nvotes)) return;
-	console.log("From", fromOption, 'to', toOption, 'by', nvotes);
+	//console.log("From", fromOption, 'to', toOption, 'by', nvotes);
 	nvotes = _decreaseOption(scenario, fromOption, nvotes);
 	_increaseOption(scenario, toOption, nvotes);
 	_recompute(scenario);
