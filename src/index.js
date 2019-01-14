@@ -22,15 +22,6 @@ var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
 var skip = function (c) { return []; }
 
-
-function jump() {
-	var hash = window.location.hash.substr(1);
-	Revote.byName(hash);
-	m.redraw();
-}
-window.onhashchange = jump;
-jump();
-
 var ScenaryChooser = {};
 ScenaryChooser.view = function(vn) {
 	var options = Revote.scenarios.map(function(scenario,i) {

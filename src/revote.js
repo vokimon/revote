@@ -213,7 +213,11 @@ Revote.scenarioIndex = function(index) {
 		return Revote._scenarioIndex;
 	Revote._scenarioIndex=index;
 	var poll = Revote.scenarios[index];
+	if (poll===undefined) return;
 	_recompute(poll);
+	var name = poll.filename.slice(0,-5);
+	if (name!==location.hash.slice(1))
+		location.hash='#'+name;
 	Revote.notify();
 	return poll;
 };
@@ -229,7 +233,15 @@ Revote.byName = function(name) {
 	Revote.scenarioIndex(i);
 };
 
+function jump() {
+	var hash = window.location.hash.substr(1);
+	Revote.byName(hash);
+	m.redraw();
+}
+window.onhashchange = jump;
+
 Revote.scenarioIndex(0);
+jump();
 
 module.exports = Revote;
 
