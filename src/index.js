@@ -44,15 +44,19 @@ ScenaryChooser.view = function(vn) {
 			options: options,
 		}),
 		m(Button, {
+			raised: true,
+			title: _("Previous scenario on the list"),
 			onclick: function() {
 				Revote.scenarioIndex(Revote.scenarioIndex()-1);
 			},
-		}, _("<")),
+		}, '<'),
 		m(Button, {
+			raised: true,
+			title: _("Next scenario on the list"),
 			onclick: function() {
 				Revote.scenarioIndex(Revote.scenarioIndex()+1);
 			},
-		}, _(">")),
+		}, '>'),
 	]);
 };
 
