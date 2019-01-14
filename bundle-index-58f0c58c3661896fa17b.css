@@ -302,15 +302,15 @@ select {
   stroke: none;
 }
 .dhondtbars svg .grid.seats line {
-  stroke: #90ee90;
+  stroke: #008000;
   opacity: 50%;
   stroke-dasharray: 2, 2;
 }
 .dhondtbars svg .label.price {
-  fill: #90ee90;
+  fill: #008000;
 }
 .dhondtbars svg .label.price line {
-  stroke: #90ee90;
+  stroke: #008000;
 }
 .dhondtbars svg line.threshold {
   stroke: #f00;
@@ -324,7 +324,7 @@ select {
 }
 .dhondtbars text.shadow {
   stroke-width: 3;
-  stroke: #555;
+  stroke: #fff;
   opacity: 50%;
 }
 .dhondttable {
