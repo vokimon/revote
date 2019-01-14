@@ -33,6 +33,7 @@ candidatures:
   name: Candidatura E
 description: |
   Ejemplo de reparto D'Hondt con un precio de escaño mínimo.
+  ---
 
   Dado un número de votos a candidaturas,
   el número de candidaturas y

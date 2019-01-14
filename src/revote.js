@@ -1,5 +1,6 @@
 'use strict';
 
+var m = require('mithril');
 var _ = require('./translate');
 var d3 = require('d3');
 

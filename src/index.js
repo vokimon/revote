@@ -1,7 +1,5 @@
 'use strict';
 
-require('font-awesome/css/font-awesome.css');
-require('@material/typography/dist/mdc.typography.css').default;
 var m = require('mithril');
 var _ = require('./translate');
 var css = require('./style.styl');
@@ -12,6 +10,10 @@ var Layout = require('./mdc/layout');
 var Button = require('./mdc/button');
 var Revote = require('./revote.js');
 var Hemicycle = require('./hemicycle.js');
+var TabBar = require('./mdc/tabbar.js');
+var marked = require('marked');
+require('font-awesome/css/font-awesome.css');
+require('@material/typography/dist/mdc.typography.css').default;
 
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
@@ -557,7 +559,17 @@ DHondtPriceBar.oncreate = function(vn) {
 };
 
 
+var Description = {};
+Description.view = function(vn) {
+	return m(".scenariodescription",
+		m.trust(marked(
+			Revote.scenario().description|| _("## No description")
+		))
+	);
+};
+
 var App = {
+	currentView: 0,
 	view: function(vn) {
 		return m('.app.mdc-typography', [
 			m('.topbar', [
@@ -566,18 +578,36 @@ var App = {
 			m(ScenaryChooser),
 			m('.appbody', [
 				m('.hemicycles', [
-					m('h3', _("Transfers")),
 					m(Hemicycle, { attribute: 'votes', shownovote: true, label: _("Opción Electoral")}),
 					m(Hemicycle, { attribute: 'votes', label: _("Votos a Candidaturas")}),
 					m(Hemicycle, { attribute: 'hamiltonseats', label: _("Reparto Hamilton")}),
 					m(Hemicycle, { attribute: 'seats', label: _("Reparto D'Hondt")}),
 				]),
 				m('.leftpane', [
-					m('h3', _("Information")),
+					//m('h3', _("Information")),
 					m(Info),
-					m(TransferWidget),
-					//m(DHondtTable),
-					m(DHondtPriceBar, {
+					//m('h3', _("Transfers")),
+					m(TabBar, {
+						index: App.currentView,
+						onactivated: function(ev) {
+							App.currentView=ev.detail.index;
+						},
+						align: 'expand',
+						tabs: [{
+							id: 'dhondtbars',
+							text: _("D'Hondt price"),
+							faicon: 'chart-bar',
+						},{
+							id: 'dhondtquotients',
+							text: _("D'Hondt Quotients"),
+							faicon: 'divide',
+						},{
+							id: 'description',
+							text: _("Description"),
+							icon: 'info',
+						}],
+					}),
+					App.currentView===0? m(DHondtPriceBar, {
 						optionA: TransferWidget.from,
 						optionB: TransferWidget.to,
 						onoptionclicked: function(optionIdx) {
@@ -586,7 +616,11 @@ var App = {
 						onoptioncontext: function(optionIdx) {
 							TransferWidget.to=optionIdx;
 						},
-					}),
+					}):
+					App.currentView===1 ? m(DHondtTable):
+					App.currentView===2 ? m(Description):
+					m(''),
+					m(TransferWidget),
 				]),
 			]),
 		]);
