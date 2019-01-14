@@ -20,8 +20,16 @@ require('@material/typography/dist/mdc.typography.css').default;
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
-
 var skip = function (c) { return []; }
+
+
+function jump() {
+	var hash = window.location.hash.substr(1);
+	Revote.byName(hash);
+	m.redraw();
+}
+window.onhashchange = jump;
+jump();
 
 var ScenaryChooser = {};
 ScenaryChooser.view = function(vn) {

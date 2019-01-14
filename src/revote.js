@@ -221,6 +221,14 @@ Revote.scenario = function() {
 	return Revote.scenarios[Revote._scenarioIndex];
 };
 
+Revote.byName = function(name) {
+	var i = Revote.scenarios.findIndex(function(s) {
+		return s.filename.slice(0,-5)===name;
+	});
+	console.log("Found", i);
+	Revote.scenarioIndex(i);
+};
+
 Revote.scenarioIndex(0);
 
 module.exports = Revote;
