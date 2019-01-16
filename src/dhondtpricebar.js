@@ -122,66 +122,51 @@ DHondtPriceBar.oncreate = function(vn) {
 		.attr('x1',voteScale(poll.threshold))
 		.attr('x2',voteScale(poll.threshold))
 		;
-	var thresholdLabel = chart.append('g')
-		.attr('class', 'label threshold')
-		.attr('transform','translate('+voteScale(poll.threshold)+' '+thresholdLabelOffset+') ')
-		;
-	thresholdLabel
-		.append('text')
-		.attr('class', 'shadow')
-		.attr('dx', 10)
-		.attr('dy', 0)
-		.text(_("Threshold: ")+votes(poll.threshold))
-		;
-	thresholdLabel
-		.append('text')
-		.attr('dx', 10)
-		.text(_("Threshold: ")+votes(poll.threshold))
-		;
 
-	thresholdLabel
-		.append('circle')
-		.attr('cx', 0)
-		.attr('cy', 20)
-		.attr('r', 2)
-		;
-	thresholdLabel
-		.append('line')
-		.attr('x1', 0)
-		.attr('x2', 30)
-		.attr('y1', 20)
-		.attr('y2', 5)
-		;
-
-	var priceLabel = chart.append('g')
-		.attr('class', 'label price')
-		.attr('transform','translate('+voteScale(poll.seatPrice)+' '+priceLabelOffset+')')
-		;
-	priceLabel
-		.append('text')
-		.attr('class', 'shadow')
-		.text(_("Seat price: ")+votes(poll.seatPrice))
-		.attr('dx', 10)
-		;
-	priceLabel
-		.append('text')
-		.text(_("Seat price: ")+votes(poll.seatPrice))
-		.attr('dx', 10)
-		;
-	priceLabel
-		.append('circle')
-		.attr('cx', 0)
-		.attr('cy', 20)
-		.attr('r', 2)
-		;
-	priceLabel
-		.append('line')
-		.attr('x1', 0)
-		.attr('x2', 30)
-		.attr('y1', 20)
-		.attr('y2', 5)
-		;
+	function voteLabel(cssclass, label, yoffset, nvotes) {
+		var group = chart.append('g')
+			.attr('class', 'label '+cssclass)
+			.attr('transform','translate('
+				+voteScale(nvotes)+' '
+				+yoffset+') ')
+		group
+			.append('text')
+			.attr('class', 'shadow')
+			.attr('dx', 10)
+			.attr('dy', 0)
+			.text(label+votes(nvotes))
+			;
+		group
+			.append('text')
+			.attr('dx', 10)
+			.text(_("Threshold: ")+votes(nvotes))
+			;
+		group
+			.append('circle')
+			.attr('cx', 0)
+			.attr('cy', 20)
+			.attr('r', 2)
+			;
+		group
+			.append('line')
+			.attr('x1', 0)
+			.attr('x2', 30)
+			.attr('y1', 20)
+			.attr('y2', 5)
+			;
 		
+		group.update = function(newnvotes) {
+			group
+				.transition()
+				.attr('transform','translate('+voteScale(newnvotes)+' '+yoffset+') ')
+				.selectAll('text')
+					.text(label+votes(newnvotes))
+				;
+		}
+		return group;
+	}
+	var thresholdLabel = voteLabel('threshold', _("Threshold: "), thresholdLabelOffset, poll.threshold);
+	var priceLabel = voteLabel('price', _("Seat price: "), priceLabelOffset, poll.seatPrice);
 
 	this.updateData=function() {
 		var poll = Revote.scenario();
@@ -312,19 +297,8 @@ DHondtPriceBar.oncreate = function(vn) {
 			;
 		reminders.exit().remove();
 
-		thresholdLabel
-			.transition()
-			.attr('transform','translate('+voteScale(poll.threshold)+' '+thresholdLabelOffset+') ')
-			.selectAll('text')
-				.text(_("Threshold: ")+votes(poll.threshold))
-			;
-
-		priceLabel
-			.transition()
-			.attr('transform','translate('+voteScale(poll.seatPrice)+' '+priceLabelOffset+')')
-			.selectAll('text')
-				.text(_("Seat price: ")+votes(poll.seatPrice))
-			;
+		thresholdLabel.update(poll.threshold);
+		priceLabel.update(poll.seatPrice);
 	};
 	this.updateData();
 };
