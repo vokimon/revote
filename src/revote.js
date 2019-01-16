@@ -65,7 +65,7 @@ function dHondt(poll) {
 				};
 			});
 		})
-		.flat()
+		.reduce(function(acc, v) { return acc.concat(v) }, [])
 		.sort(function(a,b) { return b.quotient-a.quotient; })
 		;
 	poll.seatPrice = quotients[poll.seats-1].quotient;
