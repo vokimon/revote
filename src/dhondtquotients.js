@@ -49,24 +49,24 @@ DHondtQuotients.view = function(vn) {
 					(vn.attrs.optionA===optionIdx?"A":""),
 					(vn.attrs.optionB===optionIdx?"B":""),
 				]) , [
-				[...Array(ndivisors).keys()].map(function(i) {
-					if (i===0)
+				[...Array(ndivisors).keys()].map(function(seat) {
+					if (seat===0)
 						return m('th.candidature', {
 							style: { background: Revote.color(option.id) },
-						}, option.id);
+						}, Revote.shortName(option));
 					return m('td'
-						+(i<=option.seats? '.taken':'')
-						+(i>option.fullseats? '.extra':'')
-						+(i<=option.hamiltonseats && i>option.fullseats? '.hamiltonextra':'')
+						+(seat<=option.seats? '.taken':'')
+						+(seat>option.fullseats? '.extra':'')
+						+(seat<=option.hamiltonseats && seat>option.fullseats? '.hamiltonextra':'')
 						+(option.votes<=poll.threshold?'.under':'')
 						+(option.nocandidature?'.under':'')
-						+(option.votes<=poll.threshold && option.votes/i>=poll.seatPrice?'.thresholded':'')
-						+(option.nocandidature && option.votes/i>=poll.seatPrice?'.thresholded':'')
-						+(option.votes/i===poll.seatPrice?'.last':'')
-						+(option.votes/i===poll.nextPrice?'.last':'')
+						+(option.votes<=poll.threshold && option.votes/seat>=poll.seatPrice?'.thresholded':'')
+						+(option.nocandidature && option.votes/seat>=poll.seatPrice?'.thresholded':'')
+						+(option.votes/seat===poll.seatPrice?'.last':'')
+						+(option.votes/seat===poll.nextPrice?'.last':'')
 						, {
-							title: Revote.seatDescription(optionIdx,i),
-						}, votes(option.votes/i));
+							title: Revote.seatDescription(optionIdx,seat),
+						}, votes(option.votes/seat));
 				}),
 			]);
 		}),
