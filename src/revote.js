@@ -205,12 +205,13 @@ Revote.optionDescription = function(i) {
 		+  (c.seats === undefined ? '' :
 			'\nRemainder: ' + percent(c.remainder, 100) )
 		;
-}
+};
 
 Revote.seatDescription = function(optionIdx, seat) {
 	var poll = Revote.scenario();
 	var c = poll.options[optionIdx];
 	return Revote.optionDescription(optionIdx)
+		+"\n------"
 		+(seat<=c.seats?
 			"\nEscaño "+seat+" conseguido":
 			"\nEscaño "+seat+" no conseguido")
@@ -219,13 +220,13 @@ Revote.seatDescription = function(optionIdx, seat) {
 		+(seat<=c.seats && seat>c.fullseats?
 			"\nExtra por D'Hondt":'')
 		+(seat<=c.hamiltonseats && seat>c.fullseats?
-			'\nExtra por Hamilton':'')
+			'\nSería extra por Hamilton':'')
 		+(c.votes<=poll.threshold && c.votes/seat>=poll.seatPrice?
 			'\nNo conseguido por umbral':'')
 		+(c.nocandidature && c.votes/seat>=poll.seatPrice?
 			'\nNo conseguido por ser no voto':'')
 		+(c.votes/seat===poll.seatPrice?
-			"\nMarca el precio de D'Hondt":'')
+			"\nÚltimo escaño, fija el precio de D'Hondt":'')
 		+(c.votes/seat===poll.nextPrice?
 			"\nSiguiente escaño candidato":'')
 		;
