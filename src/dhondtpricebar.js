@@ -159,7 +159,7 @@ DHondtPriceBar.oncreate = function(vn) {
 			.attr('y1', 20)
 			.attr('y2', 5)
 			;
-		
+
 		group.update = function(newnvotes) {
 			group
 				.transition()
@@ -226,6 +226,11 @@ DHondtPriceBar.oncreate = function(vn) {
 				.call(optionAxis)
 			;
 
+
+		var tooltip = d3.select("body").append("div")
+			.attr("class", "tooltip")
+			.style("opacity", 0);
+
 		function fullbar(bar) {
 			bar
 				.attr('y', (s) => optionsScale(s.id))
@@ -265,10 +270,25 @@ DHondtPriceBar.oncreate = function(vn) {
 					d3.event.preventDefault();
 					m.redraw();
 				})
+				.on("mouseover", function(d,i) {
+					tooltip.transition()
+						.duration(200)
+						.style("opacity", .9);
+					tooltip.text(Revote.optionDescription(i))
+						.style("left", (d3.event.pageX+28) + "px")
+						.style("top", (d3.event.pageY-28) + "px")
+						;
+				})
+				.on("mouseout", function(d) {
+					tooltip.transition()
+						.duration(500)
+						.style("opacity", 0)
+						;
+				})
 			;
 			return bar;
 		}
-	
+
 		var fullbars = chart.select('.bars')
 			.selectAll('.fullbar')
 			.data(poll.options)

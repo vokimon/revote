@@ -79,9 +79,7 @@ function dHondt(poll) {
 	poll.nextPrice = Math.max.apply(null, poll.candidatures
 		.map(function(c) { return c.votes/(c.seats+1); })
 	);
-
 	poll.remainderFactor = poll.candidatures.reduce(function(res,c) {
-		console.log(c.votes, poll.seatPrice, c.votes%poll.seatPrice);
 		return res + c.votes - poll.seatPrice*c.seats;
 	},0)/poll.seatPrice/poll.candidatures.length;
 	quotients
@@ -89,6 +87,9 @@ function dHondt(poll) {
 		.map(function(d) {
 			d.candidature.dhondtseats++;
 		});
+	poll.candidatures.map(function(c) {
+		c.dhondtRemainder = c.votes % poll.seatPrice * 100 / poll.seatPrice;
+	});
 }
 function generateOptions(poll, shownovote) {
 	var options = poll.candidatures.slice();
@@ -205,17 +206,26 @@ loadFixedColors();
 Revote.optionDescription = function(i) {
 	var poll = Revote.scenario();
 	var c = poll.options[i];
-	return c.id 
-		+ ' (' + c.name + ')'
+	return Revote.shortName(c)
+		+ (c.name !== Revote.shortName(c)?
+			' (' + c.name + ')':'')
 		+ '\nVotes: ' + votes(c.votes)
 		+ (c.seats === undefined ? '' :
-			'\nSeats: ' + c.seats )
+			'\nSeats: ' + c.seats 
+			+ ' (' + c.fullseats
+			+ '+' + (c.seats-c.fullseats)
+			+ ')'
+			)
 		+  (c.seats === undefined ? '' :
-			'\nHamilton: ' + c.hamiltonseats )
+			'\nHamilton: ' + c.hamiltonseats
+			+ ' (' + c.fullseats
+			+ '+' + (c.hamiltonseats-c.fullseats)
+			+ ')'
+			)
 		+  (c.seats === undefined ? '' :
-			'\nFull: ' + c.fullseats )
+			'\nOriginal remainder: ' + percent(c.remainder, 100))
 		+  (c.seats === undefined ? '' :
-			'\nRemainder: ' + percent(c.remainder, 100) )
+			'\nD\'Hondt remainder: ' + percent(c.dhondtRemainder, 100))
 		;
 };
 

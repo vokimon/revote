@@ -185,7 +185,7 @@ Info.view = function(vn) {
 		},{
 			label: _("Seat price"),
 			value: votes(poll.seatPrice)+
-				" ("+percent(poll.seatPrice, poll.validVotes)+ " of valid)",
+				" ("+percent(poll.seatPrice, poll.validVotes)+")",
 		},{
 			label: _("Next price"),
 			value: votes(seatNext)+
