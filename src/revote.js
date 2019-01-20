@@ -26,7 +26,6 @@ function hamilton(poll) {
 	poll.minPrice = (votesToCandidatures + ncandidatures -1)
 		/ (poll.seats + ncandidatures -1)
 	poll.maxPrice = votesToCandidatures/poll.seats;
-
 	var remainingSeats = poll.seats;
 	poll.candidatures.map(function (candidature, i) {
 		var fullseats = Math.floor(candidature.votes/poll.maxPrice);
@@ -69,6 +68,9 @@ function dHondt(poll) {
 		.sort(function(a,b) { return b.quotient-a.quotient; })
 		;
 	poll.seatPrice = quotients[poll.seats-1].quotient;
+	poll.nextPrice = Math.max.apply(null, poll.candidatures
+		.map(function(c) { return c.votes/(c.seats+1); })
+	);
 
 	poll.remainderFactor = poll.candidatures.reduce(function(res,c) {
 		console.log(c.votes, poll.seatPrice, c.votes%poll.seatPrice);

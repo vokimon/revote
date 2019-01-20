@@ -26,9 +26,6 @@ DHondtQuotients.view = function(vn) {
 		.filter(function(v) { return v.seats!==undefined; })
 		.map(function(v) { return v.seats; })
 		) + 3;
-	const nextPrice = Math.max.apply(null, poll.candidatures
-		.map(function(c) { return c.votes/(c.seats+1); })
-	);
 	return m('.dhondttable', m('table', [
 		m('tr', m('td'), [
 			[...Array(ndivisors).keys()].map(function(i) {
@@ -66,7 +63,7 @@ DHondtQuotients.view = function(vn) {
 						+(option.votes<=poll.threshold && option.votes/i>=poll.seatPrice?'.thresholded':'')
 						+(option.nocandidature && option.votes/i>=poll.seatPrice?'.thresholded':'')
 						+(option.votes/i===poll.seatPrice?'.last':'')
-						+(option.votes/i===nextPrice?'.last':'')
+						+(option.votes/i===poll.nextPrice?'.last':'')
 						, votes(option.votes/i));
 				}),
 			]);
