@@ -64,7 +64,9 @@ DHondtQuotients.view = function(vn) {
 						+(option.nocandidature && option.votes/i>=poll.seatPrice?'.thresholded':'')
 						+(option.votes/i===poll.seatPrice?'.last':'')
 						+(option.votes/i===poll.nextPrice?'.last':'')
-						, votes(option.votes/i));
+						, {
+							title: Revote.seatDescription(optionIdx,i),
+						}, votes(option.votes/i));
 				}),
 			]);
 		}),

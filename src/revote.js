@@ -207,6 +207,30 @@ Revote.optionDescription = function(i) {
 		;
 }
 
+Revote.seatDescription = function(optionIdx, seat) {
+	var poll = Revote.scenario();
+	var c = poll.options[optionIdx];
+	return Revote.optionDescription(optionIdx)
+		+(seat<=c.seats?
+			"\nEscaño "+seat+" conseguido":
+			"\nEscaño "+seat+" no conseguido")
+		+(seat<=c.seats && seat<=c.fullseats?
+			"\nEscaño entero":'')
+		+(seat<=c.seats && seat>c.fullseats?
+			"\nExtra por D'Hondt":'')
+		+(seat<=c.hamiltonseats && seat>c.fullseats?
+			'\nExtra por Hamilton':'')
+		+(c.votes<=poll.threshold && c.votes/seat>=poll.seatPrice?
+			'\nNo conseguido por umbral':'')
+		+(c.nocandidature && c.votes/seat>=poll.seatPrice?
+			'\nNo conseguido por ser no voto':'')
+		+(c.votes/seat===poll.seatPrice?
+			"\nMarca el precio de D'Hondt":'')
+		+(c.votes/seat===poll.nextPrice?
+			"\nSiguiente escaño candidato":'')
+		;
+}
+
 // Scenario loading
 var context = require.context('./data/', true, /\.(yaml)$/);
 Revote.scenarios = context.keys().map(function(filename) {
