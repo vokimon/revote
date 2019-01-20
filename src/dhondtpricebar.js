@@ -67,7 +67,12 @@ DHondtPriceBar.oncreate = function(vn) {
 			)
 		;
 	var optionAxis = d3.axisLeft()
-		.scale(optionsScale);
+		.scale(optionsScale)
+		.tickFormat(function(optionId) {
+			var option = Revote.optionById(optionId);
+			return Revote.shortName(option);
+		})
+		;
 	chart.append('g')
 		.attr('class', 'y axis')
 		.call(optionAxis)

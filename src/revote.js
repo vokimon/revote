@@ -45,6 +45,14 @@ function hamilton(poll) {
 		c.hamiltonseats++;
 	});
 }
+Revote.optionById = function(id) {
+	return Revote.scenario()._optionsById[id];
+};
+
+Revote.shortName = function(option) {
+	console.log("shortName", option);
+	return option.nocandidature===true?option.name:option.id;
+}
 function dHondt(poll) {
 	poll.validVotes = poll.participation - poll.nullvotes;
 	poll.threshold = poll.validVotes * poll.threshold_percent / 100;
@@ -119,6 +127,10 @@ function _recompute(poll) {
 */
 	poll.options = generateOptions(poll, true)
 	poll.participation = poll.census - poll.abstention;
+	poll._optionsById = {};
+	poll.options.map(function(o) {
+		poll._optionsById[o.id]=o;
+	});
 }
 
 
