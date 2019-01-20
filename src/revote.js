@@ -69,6 +69,11 @@ function dHondt(poll) {
 		.sort(function(a,b) { return b.quotient-a.quotient; })
 		;
 	poll.seatPrice = quotients[poll.seats-1].quotient;
+
+	poll.remainderFactor = poll.candidatures.reduce(function(res,c) {
+		console.log(c.votes, poll.seatPrice, c.votes%poll.seatPrice);
+		return res + c.votes - poll.seatPrice*c.seats;
+	},0)/poll.seatPrice/poll.candidatures.length;
 	quotients
 		.slice(0,poll.seats)
 		.map(function(d) {

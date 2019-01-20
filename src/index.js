@@ -197,6 +197,9 @@ Info.view = function(vn) {
 		},{
 			label: _("Half Seats"),
 			value: votes(poll.halfSeats),
+		},{
+			label: _("Remainder Factor"),
+			value: percent(poll.remainderFactor,1),
 		}].map(function(v, i) {
 			return m('', [
 				m('b', v.label, ":"),
