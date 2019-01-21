@@ -19,9 +19,8 @@ Revote.subscribe = function(callback) {
 };
 
 // Recompute
-
 function hamilton(poll) {
-	var votesToCandidatures = poll.participation - poll.nullvotes - poll.blankvotes;
+	var votesToCandidatures = poll.participation - poll.nullvotes - poll.blankvotes - (poll.uncounted||0);
 	var ncandidatures = poll.candidatures.length;
 	poll.minPrice = (votesToCandidatures + ncandidatures -1)
 		/ (poll.seats + ncandidatures -1)
@@ -54,7 +53,7 @@ Revote.shortName = function(option) {
 	return option.nocandidature===true?option.name:option.id;
 }
 function dHondt(poll) {
-	poll.validVotes = poll.participation - poll.nullvotes;
+	poll.validVotes = poll.participation - poll.nullvotes - (poll.uncounted||0);
 	poll.threshold = poll.validVotes * poll.threshold_percent / 100;
 	poll.candidatures.map(function(c) {
 		c.dhondtseats=0;
@@ -111,6 +110,11 @@ function generateOptions(poll, shownovote) {
 			id: 'nullvotes',
 			name: _("Nulo"),
 			votes: poll.nullvotes,
+			nocandidature: true,
+		},{
+			id: 'uncounted',
+			name: _("Inexcrutado"),
+			votes: poll.uncounted || 0,
 			nocandidature: true,
 		}]);
 	}
@@ -289,7 +293,6 @@ Revote.byName = function(name) {
 	});
 	Revote.scenarioIndex(i);
 };
-
 function jump() {
 	var hash = window.location.hash.substr(1);
 	Revote.byName(hash);
