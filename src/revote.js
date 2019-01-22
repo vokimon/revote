@@ -44,14 +44,6 @@ function hamilton(poll) {
 		c.hamiltonseats++;
 	});
 }
-Revote.optionById = function(id) {
-	return Revote.scenario()._optionsById[id];
-};
-
-Revote.shortName = function(option) {
-	console.log("shortName", option);
-	return option.nocandidature===true?option.name:option.id;
-}
 function dHondt(poll) {
 	poll.validVotes = poll.participation - poll.nullvotes - (poll.uncounted||0);
 	poll.threshold = poll.validVotes * poll.threshold_percent / 100;
@@ -206,6 +198,14 @@ var loadFixedColors = function() {
 };
 
 loadFixedColors();
+
+Revote.optionById = function(id) {
+	return Revote.scenario()._optionsById[id];
+};
+
+Revote.shortName = function(option) {
+	return option.nocandidature===true?option.name:option.id;
+}
 
 Revote.optionDescription = function(i) {
 	var poll = Revote.scenario();
