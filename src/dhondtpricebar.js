@@ -38,7 +38,7 @@ DHondtPriceBar.oninit = function(vn) {
 };
 DHondtPriceBar.onupdate = function(vn) {
 	//console.log("updating");
-	this.updateData();
+	//this.updateData();
 };
 DHondtPriceBar.oncreate = function(vn) {
 	var poll = Revote.scenario();
@@ -233,12 +233,33 @@ DHondtPriceBar.oncreate = function(vn) {
 
 		function fullbar(bar) {
 			bar
-				.attr('y', (s) => optionsScale(s.id))
-				.attr('height', optionsScale.bandwidth())
+				.attr('y', (s) => optionsScale(s.id)+1)
+				.attr('height', optionsScale.bandwidth()-2)
 				.attr('x', (s) => voteScale(0))
 				.attr('width', (s) => voteScale(s.seats===undefined?0:s.seats*poll.seatPrice))
 				.attr('fill', (s) => Revote.color(s.id))
+				.attr('stroke', (s) => d3.rgb(Revote.color(s.id)).darker())
+				.attr('stroke-width', 2)
 			;
+			return bar;
+		}
+		function seatbar(bar) {
+			var seat = bar.selectAll('.seat')
+				.data(d3.range(s.seats));
+
+			seat.enter()
+				.append('rect')
+				.attr('class','seat')
+				.attr('y', (s) => optionsScale(s.id)+1)
+				.attr('height', optionsScale.bandwidth()-2)
+				.attr('x', (s) => voteScale(s))
+				.attr('width', (s) => voteScale(s.seats===undefined?0:s.seats*poll.seatPrice))
+				.attr('fill', (s) => Revote.color(s.id))
+				.attr('stroke', (s) => d3.rgb(Revote.color(s.id)).darker())
+				.attr('stroke-width', 2)
+			;
+			seat
+			seat.exit().remove();
 			return bar;
 		}
 		function remainderbar(bar) {
@@ -249,7 +270,7 @@ DHondtPriceBar.oncreate = function(vn) {
 				.attr('width', (s) => voteScale(s.votes-(s.seats!==undefined?s.seats*poll.seatPrice:0)))
 				.attr('fill', (s) => Revote.color(s.id))
 				.attr('fill-opacity', 0.4)
-				.attr('stroke', (s) => Revote.color(s.id))
+				.attr('stroke', (s) => d3.rgb(Revote.color(s.id)).darker())
 				.attr('stroke-width', 2)
 			;
 			return bar;
@@ -303,6 +324,21 @@ DHondtPriceBar.oncreate = function(vn) {
 				.attr('class','fullbar')
 				.call(fullbar)
 				.call(barevents)
+			.exit().remove()
+			;
+		var seatbars = chart.select('.bars')
+			.selectAll('.seatbars')
+			.data(poll.options)
+			;
+		seatbars
+			.transition()
+			.call(seatbar)
+			;
+		seatbars
+			.enter()
+			.append("g")
+				.attr('class','seatbar')
+				.call(seatbar)
 			.exit().remove()
 			;
 		var reminders = chart.select('.bars')
