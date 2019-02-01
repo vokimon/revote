@@ -144,7 +144,7 @@ DHondtPriceBar.oncreate = function(vn) {
 		group
 			.append('text')
 			.attr('dx', 10)
-			.text(_("Threshold: ")+votes(nvotes))
+			.text(label+votes(nvotes))
 			;
 		group
 			.append('circle')

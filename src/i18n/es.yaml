@@ -1,1 +1,80 @@
-hello: hola
+# Main window
+
+Electoral flux simulator: Simulador de flujos electorales
+
+Electoral Choice: Opción Electoral
+Just Candidatures: Votos a Candidaturas
+Hamilton Method: Reparto Hamilton
+D'Hondt Method: Reparto D'Hondt
+
+
+Information: Información
+Transfers: Transferencia
+D'Hondt price: Precio
+D'Hondt Quotients: Cocientes
+Description: Descripción
+
+# dhondtpricebar
+
+"Threshold: ": "Umbral: "
+"Seat price: ": "Precio escaño: "
+
+# Model
+
+Abstention: Abstención
+Blank: Blanco
+"Null": Nulo
+Uncounted: Inexcrutado
+
+Votes: Votos
+Seats: Escaños
+Hamilton: Hamilton
+Original remainder: Restos originales
+D'Hondt remainder: Restos D'Hondt
+
+"\nSeat %(n) taken": "\nEscaño %{n} conseguido"
+"\nSeat %{n} not taken": "\nEscaño %{n} no conseguido"
+"\nFull seat": "\nEscaño entero"
+"\nExtra by D'Hondt": "\nExtra por D'Hondt"
+"\nExtra by Hamilton": "\nSería extra por Hamilton"
+"\nThresholded": "\nNo conseguido por umbral"
+"\nNon vote choice": "\nNo conseguido por ser no voto"
+"\nLast seat, fixes D'Hondt price": "\nÚltimo escaño, fija el precio de D'Hondt"
+"\nNext seat that would be taken": "\nSiguiente escaño candidato"
+
+# Scenario choser
+
+Scenario: Escenario
+Previous scenario on the list: Previo escenario de la lista
+Next scenario on the list: Siguiente escenario de la lista
+
+# Transfer widget
+
+Option A: Opción A
+Option B: Opción B
+Transfer from A to B: Transfiere de A a B
+Transfer from B to A: Transfiere de B a A
+Votes to transfer: Votos a transferir
+
+# Info widget
+
+#Seats: Escaños
+Census: Censo
+Participation: Participación
+#Abstention: Abstención
+#"Null": Nulo
+#Blank: Blanco
+Threshold: Umbral
+Max price: Precio máximo
+Seat price: Precio final
+Next price: Precio siguiente
+Min price: Precio mínimo
+Half Seats: Asientos incompletos
+Remainder Factor: Resto medios
+
+# Description
+
+"## No description": "## Sin descripción"
+
+
+

@@ -231,24 +231,25 @@ var App = {
 		};
 		return m('.app.mdc-typography', [
 			m('.topbar', [
-				m('h1',_("reVote: Simulador de flujos electorales")),
+				m('h1',_("reVote"),m('span.subtitle',
+					": "+_("Electoral flux simulator"))),
 			]),
 			m(ScenaryChooser),
 			m('.appbody', [
 				m('.hemicycles', [
-					m(Hemicycle, { attribute: 'votes', shownovote: true, label: _("Opción Electoral"),
+					m(Hemicycle, { attribute: 'votes', shownovote: true, label: _("Electoral Choice"),
 						onoptionclicked: selectOrigin,
 						onoptioncontext: selectTarget,
 					}),
-					m(Hemicycle, { attribute: 'votes', label: _("Votos a Candidaturas"),
+					m(Hemicycle, { attribute: 'votes', label: _("Just Candidatures"),
 						onoptionclicked: selectOrigin,
 						onoptioncontext: selectTarget,
 					}),
-					m(Hemicycle, { attribute: 'hamiltonseats', label: _("Reparto Hamilton"),
+					m(Hemicycle, { attribute: 'hamiltonseats', label: _("Hamilton Method"),
 						onoptionclicked: selectOrigin,
 						onoptioncontext: selectTarget,
 					}),
-					m(Hemicycle, { attribute: 'seats', label: _("Reparto D'Hondt"),
+					m(Hemicycle, { attribute: 'seats', label: _("D'Hondt Method"),
 						onoptionclicked: selectOrigin,
 						onoptioncontext: selectTarget,
 					}),

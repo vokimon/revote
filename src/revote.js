@@ -90,22 +90,22 @@ function generateOptions(poll, shownovote) {
 	if (shownovote) {
 		options = options.concat([{
 			id: 'abstention',
-			name: _("Abstención"),
+			name: _("Abstention"),
 			votes: poll.abstention,
 			nocandidature: true,
 		},{
 			id: 'blankvotes',
-			name: _("Blanco"),
+			name: _("Blank"),
 			votes: poll.blankvotes,
 			nocandidature: true,
 		},{
 			id: 'nullvotes',
-			name: _("Nulo"),
+			name: _("Null"),
 			votes: poll.nullvotes,
 			nocandidature: true,
 		},{
 			id: 'uncounted',
-			name: _("Inexcrutado"),
+			name: _("Uncounted"),
 			votes: poll.uncounted || 0,
 			nocandidature: true,
 		}]);
@@ -213,23 +213,23 @@ Revote.optionDescription = function(i) {
 	return Revote.shortName(c)
 		+ (c.name !== Revote.shortName(c)?
 			' (' + c.name + ')':'')
-		+ '\nVotes: ' + votes(c.votes)
+		+ '\n'+ _("Votes")+': ' + votes(c.votes)
 		+ (c.seats === undefined ? '' :
-			'\nSeats: ' + c.seats 
+			'\n'+_("Seats")+': ' + c.seats 
 			+ ' (' + c.fullseats
 			+ '+' + (c.seats-c.fullseats)
 			+ ')'
 			)
 		+  (c.seats === undefined ? '' :
-			'\nHamilton: ' + c.hamiltonseats
+			'\n'+_("Hamilton")+': ' + c.hamiltonseats
 			+ ' (' + c.fullseats
 			+ '+' + (c.hamiltonseats-c.fullseats)
 			+ ')'
 			)
 		+  (c.seats === undefined ? '' :
-			'\nOriginal remainder: ' + percent(c.remainder, 100))
+			'\n'+_("Original remainder")+': ' + percent(c.remainder, 100))
 		+  (c.seats === undefined ? '' :
-			'\nD\'Hondt remainder: ' + percent(c.dhondtRemainder, 100))
+			'\n'+_("D'Hondt remainder")+': ' + percent(c.dhondtRemainder, 100))
 		;
 };
 
@@ -239,22 +239,22 @@ Revote.seatDescription = function(optionIdx, seat) {
 	return Revote.optionDescription(optionIdx)
 		+"\n------"
 		+(seat<=c.seats?
-			"\nEscaño "+seat+" conseguido":
-			"\nEscaño "+seat+" no conseguido")
+			_("\nSeat %{n} taken", {n:seat}):
+			_("\nSeat %{n} no taken", {n:seat}))
 		+(seat<=c.seats && seat<=c.fullseats?
-			"\nEscaño entero":'')
+			_("\nFull seat"):'')
 		+(seat<=c.seats && seat>c.fullseats?
-			"\nExtra por D'Hondt":'')
+			_("\nExtra by D'Hondt"):'')
 		+(seat<=c.hamiltonseats && seat>c.fullseats?
-			'\nSería extra por Hamilton':'')
+			_("\nExtra by Hamilton"):'')
 		+(c.votes<=poll.threshold && c.votes/seat>=poll.seatPrice?
-			'\nNo conseguido por umbral':'')
+			_("\nThresholded"):'')
 		+(c.nocandidature && c.votes/seat>=poll.seatPrice?
-			'\nNo conseguido por ser no voto':'')
+			_("\nNon vote choice"):'')
 		+(c.votes/seat===poll.seatPrice?
-			"\nÚltimo escaño, fija el precio de D'Hondt":'')
+			_("\nLast seat, fixes D'Hondt price"):'')
 		+(c.votes/seat===poll.nextPrice?
-			"\nSiguiente escaño candidato":'')
+			_("\nNext seat that would be taken"):'')
 		;
 }
 
