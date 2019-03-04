@@ -9,10 +9,11 @@ var TextField = require('./mdc/textfield');
 var Layout = require('./mdc/layout');
 var Button = require('./mdc/button');
 var Revote = require('./revote.js');
-var Hemicycle = require('./hemicycle.js');
-var DHondtPriceBar = require('./dhondtpricebar.js');
-var DHondtQuotients = require('./dhondtquotients.js');
-var TabBar = require('./mdc/tabbar.js');
+var Hemicycle = require('./hemicycle');
+var DHondtPriceBar = require('./dhondtpricebar');
+var DHondtQuotients = require('./dhondtquotients');
+var ScenaryChooser = require('./scenarychooser');
+var TabBar = require('./mdc/tabbar');
 var marked = require('marked');
 require('font-awesome/css/font-awesome.css');
 require('@material/typography/dist/mdc.typography.css').default;
@@ -21,44 +22,6 @@ var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
 var skip = function (c) { return []; }
-
-var ScenaryChooser = {};
-ScenaryChooser.view = function(vn) {
-	var options = Revote.scenarios.map(function(scenario,i) {
-		return {
-			text: scenario.name,
-			value: i,
-		};
-	});
-	var poll = Revote.scenario();
-	return m('.scenariochooser', [
-		m(Select, {
-			id: 'scenariochooser',
-			label: _("Scenario"),
-			nohelp: true,
-			required: true,
-			value: Revote.scenarioIndex(),
-			onchange: function(ev) {
-				Revote.scenarioIndex(ev.target.value);
-			},
-			options: options,
-		}),
-		m(Button, {
-			raised: true,
-			title: _("Previous scenario on the list"),
-			onclick: function() {
-				Revote.scenarioIndex(Revote.scenarioIndex()-1);
-			},
-		}, '<'),
-		m(Button, {
-			raised: true,
-			title: _("Next scenario on the list"),
-			onclick: function() {
-				Revote.scenarioIndex(Revote.scenarioIndex()+1);
-			},
-		}, '>'),
-	]);
-};
 
 var TransferWidget = {};
 TransferWidget.from = 0;
