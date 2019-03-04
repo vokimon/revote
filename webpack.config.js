@@ -10,6 +10,7 @@ var config = {
 	context: path.resolve(__dirname, 'src'),
 	entry: {
 		index: './index',
+		learndhondt: './learndhondt',
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist'),
@@ -26,6 +27,11 @@ var config = {
 			filename: 'index.html',
 			template: './mithriltemplate.html',
 			chunks: ['common','index'],
+			}),
+		new HtmlWebpackPlugin({
+			filename: 'learndhondt.html',
+			template: './mithriltemplate.html',
+			chunks: ['common','learndhondt'],
 			}),
 		// Split css included as js into a separate file again
 		new MiniCssExtractPlugin({
