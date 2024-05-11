@@ -3,8 +3,8 @@ html {
   background: #fff;
   color: #000;
   position: absolute;
-  height: 100%;
-  width: 100%;
+  height: 99%;
+  width: 99%;
   padding: 0;
   margin: 0;
 }
@@ -427,6 +427,19 @@ select {
   display: flex;
   margin: 0 1ex;
   overflow: hidden;
+}
+.tooltip {
+  position: absolute;
+  white-space: pre-wrap;
+  max-width: 200px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: #444;
+  color: #fff;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  padding: 1ex;
 }
 
 /*!
