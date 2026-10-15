@@ -292,7 +292,9 @@ Revote.byName = function(name) {
 	var i = Revote.scenarios.findIndex(function(s) {
 		return s.filename.slice(0,-5)===name;
 	});
+	if (i === -1) return false;
 	Revote.scenarioIndex(i);
+	return true;
 };
 function jump() {
 	var hash = window.location.hash.substr(1);
@@ -301,8 +303,9 @@ function jump() {
 }
 window.onhashchange = jump;
 
-Revote.scenarioIndex(0);
 jump();
+if (Revote.scenarioIndex() === undefined)
+	Revote.scenarioIndex(0);
 
 module.exports = Revote;
 
