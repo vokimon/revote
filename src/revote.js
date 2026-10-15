@@ -114,6 +114,7 @@ function generateOptions(poll, shownovote) {
 }
 
 function _recompute(poll) {
+	poll.participation = poll.census - poll.abstention;
 	hamilton(poll);
 	dHondt(poll);
 /*
@@ -123,7 +124,6 @@ function _recompute(poll) {
 	});
 */
 	poll.options = generateOptions(poll, true)
-	poll.participation = poll.census - poll.abstention;
 	poll._optionsById = {};
 	poll.options.map(function(o) {
 		poll._optionsById[o.id]=o;
