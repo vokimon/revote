@@ -24,7 +24,7 @@ Description: Descripción
 Abstention: Abstención
 Blank: Blanco
 "Null": Nulo
-Uncounted: Inexcrutado
+Uncounted: Inescrutado
 
 Votes: Votos
 Seats: Escaños
@@ -32,7 +32,7 @@ Hamilton: Hamilton
 Original remainder: Restos originales
 D'Hondt remainder: Restos D'Hondt
 
-"\nSeat %(n) taken": "\nEscaño %{n} conseguido"
+"\nSeat %{n} taken": "\nEscaño %{n} conseguido"
 "\nSeat %{n} not taken": "\nEscaño %{n} no conseguido"
 "\nFull seat": "\nEscaño entero"
 "\nExtra by D'Hondt": "\nExtra por D'Hondt"

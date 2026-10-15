@@ -240,7 +240,7 @@ Revote.seatDescription = function(optionIdx, seat) {
 		+"\n------"
 		+(seat<=c.seats?
 			_("\nSeat %{n} taken", {n:seat}):
-			_("\nSeat %{n} no taken", {n:seat}))
+			_("\nSeat %{n} not taken", {n:seat}))
 		+(seat<=c.seats && seat<=c.fullseats?
 			_("\nFull seat"):'')
 		+(seat<=c.seats && seat>c.fullseats?
