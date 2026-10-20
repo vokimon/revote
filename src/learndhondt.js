@@ -1,5 +1,6 @@
 'use strict';
 
+require('./i18n-setup');
 var m = require('mithril');
 var _ = require('./translate');
 var css = require('./style.styl');
