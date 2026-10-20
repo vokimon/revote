@@ -9,6 +9,7 @@ var TextField = require('./mdc/textfield');
 var Layout = require('./mdc/layout');
 var Button = require('./mdc/button');
 var Revote = require('./revote.js');
+require('./scenarios');
 var Hemicycle = require('./hemicycle.js');
 var DHondtPriceBar = require('./dhondtpricebar.js');
 var DHondtQuotients = require('./dhondtquotients.js');
