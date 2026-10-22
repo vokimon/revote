@@ -8,14 +8,18 @@ globalThis.location = globalThis.window.location;
 const Revote = require('../src/revote.js');
 const pristine = structuredClone(require('../src/data/congresoCantabria-2023-07.yaml'));
 
-function freshScenario() {
-	const scenario = structuredClone(pristine);
-	scenario.filename = 'congresoCantabria-2023-07.yaml';
-	scenario.candidatures.sort(function(a, b) { return b.votes - a.votes; });
+function injectPoll(scenario) {
 	Revote.scenarios.length = 0;
 	Revote.scenarios.push(scenario);
 	Revote._scenarioIndex = undefined;
 	return Revote.scenarioIndex(0);
+}
+
+function freshScenario() {
+	const scenario = structuredClone(pristine);
+	scenario.filename = 'congresoCantabria-2023-07.yaml';
+	scenario.candidatures.sort(function(a, b) { return b.votes - a.votes; });
+	return injectPoll(scenario);
 }
 
 function candidatureIndex(poll, id) {
@@ -52,4 +56,21 @@ test('transfer updates nextPrice', () => {
 	Revote.transfer(poll, candidatureIndex(poll, 'PSOE'), optionIndex(poll, 'SUMAR'), 30000);
 	const expected = Math.max(...poll.candidatures.map(c => c.votes / (c.seats + 1)));
 	expect(poll.nextPrice).toBe(expected);
+});
+
+test('nextPrice ignores votes of candidatures below the threshold', () => {
+	const poll = injectPoll({
+		filename: 'synthetic.yaml',
+		seats: 5,
+		threshold_percent: 25,
+		census: 1200,
+		abstention: 0,
+		nullvotes: 0,
+		blankvotes: 0,
+		candidatures: [
+			{ id: 'winner', votes: 1000, seats: 0 },
+			{ id: 'belowThreshold', votes: 200, seats: 0 },
+		],
+	});
+	expect(poll.nextPrice).toBe(1000 / 6);
 });

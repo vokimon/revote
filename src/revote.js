@@ -122,6 +122,7 @@ function _recompute(poll) {
 */
 	poll.options = generateOptions(poll, true)
 	poll.nextPrice = Math.max.apply(null, poll.candidatures
+		.filter(function(c) { return c.votes >= poll.threshold; })
 		.map(function(c) { return c.votes/(c.seats+1); })
 	);
 	poll._optionsById = {};
