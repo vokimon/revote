@@ -112,10 +112,6 @@ TransferWidget.view = function(vn) {
 var Info = {};
 Info.view = function(vn) {
 	var poll = Revote.scenario();
-	var seatNext = Math.max.apply(null, poll.candidatures
-		.filter(function(c) { return c.seats!==0; })
-		.map(function(c) { return c.votes/(c.seats+1); })
-	);
 
 	return m('.info', [{
 			label: _("Seats"),
@@ -153,8 +149,8 @@ Info.view = function(vn) {
 				" ("+percent(poll.seatPrice, poll.validVotes)+")",
 		},{
 			label: _("Next price"),
-			value: votes(seatNext)+
-				" ("+percent(seatNext, poll.validVotes)+")",
+			value: votes(poll.nextPrice)+
+				" ("+percent(poll.nextPrice, poll.validVotes)+")",
 		},{
 			label: _("Min price"),
 			value: votes(poll.minPrice)+
