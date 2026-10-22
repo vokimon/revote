@@ -67,9 +67,6 @@ function dHondt(poll) {
 		.sort(function(a,b) { return b.quotient-a.quotient; })
 		;
 	poll.seatPrice = quotients[poll.seats-1].quotient;
-	poll.nextPrice = Math.max.apply(null, poll.candidatures
-		.map(function(c) { return c.votes/(c.seats+1); })
-	);
 	poll.remainderFactor = poll.candidatures.reduce(function(res,c) {
 		return res + c.votes - poll.seatPrice*c.seats;
 	},0)/poll.seatPrice/poll.candidatures.length;
@@ -124,6 +121,9 @@ function _recompute(poll) {
 	});
 */
 	poll.options = generateOptions(poll, true)
+	poll.nextPrice = Math.max.apply(null, poll.candidatures
+		.map(function(c) { return c.votes/(c.seats+1); })
+	);
 	poll._optionsById = {};
 	poll.options.map(function(o) {
 		poll._optionsById[o.id]=o;

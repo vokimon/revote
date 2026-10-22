@@ -46,3 +46,10 @@ test('threshold stays stable across recomputes after a transfer to abstention', 
 	Revote.transfer(poll, pp, abstention, 0);
 	expect(poll.threshold).toBe(before);
 });
+
+test('transfer updates nextPrice', () => {
+	const poll = freshScenario();
+	Revote.transfer(poll, candidatureIndex(poll, 'PSOE'), optionIndex(poll, 'SUMAR'), 30000);
+	const expected = Math.max(...poll.candidatures.map(c => c.votes / (c.seats + 1)));
+	expect(poll.nextPrice).toBe(expected);
+});
