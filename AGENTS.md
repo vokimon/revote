@@ -225,7 +225,9 @@ TODO: Fill this when the stack migration is finish
 
 ## Decissions
 
-- Version lock files (`bun.lock`) are not committed
+Some decissions we took against agent intuitions:
+
+- Version lock files (`bun.lock`, `npm.lock`...) are not committed
 
 
 

@@ -4,6 +4,7 @@
 - [ ] Stack: Migrate to vite
 - [ ] Stack: Migrate to vitest
 - [ ] Stack: Migrate to React/Mantine
+- [ ] Scenario Selector: Filter by Constituency and type of election (congress, senate, european parlament...)
 - [ ] Local Scenarios: Use local storage to store them
 - [ ] Local Scenarios: Make stock scenarios read only
 - [ ] Local Scenarios: Duplicate existing scenarios as local
