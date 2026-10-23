@@ -223,3 +223,10 @@ keeping all the artifacts related to the same topic together.
 
 TODO: Fill this when the stack migration is finish
 
+## Decissions
+
+- Version lock files (`bun.lock`) are not committed
+
+
+
+
