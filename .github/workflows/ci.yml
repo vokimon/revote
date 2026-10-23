@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [react, master]
+  workflow_dispatch:
+  # Weekly dependencies update check
+  schedule:
+    - cron: '0 6 * * 1'  # Mondays 06:00 UTC
+
+concurrency:
+  group: ci-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ github.event_name == 'schedule' && 'latest' || '1.4.2' }}
+      - run: bun install
+      - run: bun test
+      - run: bun run build
