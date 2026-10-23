@@ -1,0 +1,45 @@
+name: congresoCantabria-2023-07
+call: congreso
+circumscription: Cantabria
+date: 2023-07
+real: true
+seats: 5
+threshold_percent: 3
+census: 507818
+participation: 355145
+abstention: 152673
+nullvotes: 4995
+blankvotes: 3262
+candidatures:
+- id: PP
+  votes: 147326
+  name: PARTIDO POPULAR
+  seats: 2
+- id: PSOE
+  votes: 116596
+  name: PARTIDO SOCIALISTA OBRERO ESPAÑOL
+  seats: 2
+- id: VOX
+  votes: 49243
+  name: VOX
+  seats: 1
+- id: SUMAR
+  votes: 29713
+  name: SUMAR
+  seats: 0
+- id: PACMA
+  votes: 2089
+  name: PACMA
+  seats: 0
+- id: FO
+  votes: 790
+  name: FORO
+  seats: 0
+- id: PCTE
+  votes: 598
+  name: PARTIDO COMUNISTA DE LOS TRABAJADORES DE ESPAÑA
+  seats: 0
+- id: Recortes0
+  votes: 533
+  name: Recortes 0
+  seats: 0
