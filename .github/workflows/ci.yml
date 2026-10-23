@@ -2,7 +2,8 @@ name: CI
 
 on:
   push:
-    branches: [react, master]
+    branches-ignore:
+      - gh-pages
   workflow_dispatch:
   # Weekly dependencies update check
   schedule:
