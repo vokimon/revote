@@ -2,6 +2,7 @@
 
 var m = require('mithril');
 var _ = require('./translate');
+var subscriptable = require('./subscriptable');
 var d3 = require('d3');
 
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
@@ -10,14 +11,7 @@ var marginalityFactor = 0.3;
 
 var Revote = {};
 
-// Subscription interface
-Revote._updaters = [];
-Revote.notify = function() {
-	Revote._updaters.map(function (f) { f(); });
-};
-Revote.subscribe = function(callback) {
-	Revote._updaters.push(callback);
-};
+subscriptable(Revote)
 
 // Recompute
 function hamilton(poll) {
