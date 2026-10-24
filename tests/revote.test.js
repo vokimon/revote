@@ -74,3 +74,23 @@ test('nextPrice ignores votes of candidatures below the threshold', () => {
 	});
 	expect(poll.nextPrice).toBe(1000 / 6);
 });
+
+test('remainderFactor averages only candidatures above the marginality factor', () => {
+	const poll = injectPoll({
+		filename: 'synthetic.yaml',
+		seats: 1,
+		threshold_percent: 20,
+		census: 310,
+		abstention: 0,
+		nullvotes: 0,
+		blankvotes: 0,
+		candidatures: [
+			{ id: 'winner', votes: 100, seats: 1 }, // Marks the prices
+			{ id: 'bigChallenger', votes: 75, seats: 0 },
+			{ id: 'otherChallenger', votes: 75, seats: 0 },
+			{ id: 'belowThreshold', votes: 40, seats: 0 },
+			{ id: 'marginal', votes: 29, seats: 0 }, // Excluded for mean
+		],
+	});
+	expect(poll.remainderFactor).toBe((75 + 75 +  40) / 100 / 4);
+});

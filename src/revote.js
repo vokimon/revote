@@ -6,6 +6,7 @@ var d3 = require('d3');
 
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
+var marginalityFactor = 0.3;
 
 var Revote = {};
 
@@ -22,8 +23,7 @@ Revote.subscribe = function(callback) {
 function hamilton(poll) {
 	var votesToCandidatures = poll.participation - poll.nullvotes - poll.blankvotes - (poll.uncounted||0);
 	var ncandidatures = poll.candidatures.length;
-	poll.minPrice = (votesToCandidatures + ncandidatures -1)
-		/ (poll.seats + ncandidatures -1)
+	poll.minPrice = (votesToCandidatures + ncandidatures -1) / (poll.seats + ncandidatures -1)
 	poll.maxPrice = votesToCandidatures/poll.seats;
 	var remainingSeats = poll.seats;
 	poll.candidatures.map(function (candidature, i) {
@@ -67,9 +67,12 @@ function dHondt(poll) {
 		.sort(function(a,b) { return b.quotient-a.quotient; })
 		;
 	poll.seatPrice = quotients[poll.seats-1].quotient;
-	poll.remainderFactor = poll.candidatures.reduce(function(res,c) {
+	var nonMarginal = poll.candidatures.filter(function(c) {
+		return c.votes >= poll.seatPrice * marginalityFactor;
+	});
+	poll.remainderFactor = nonMarginal.reduce(function(res,c) {
 		return res + c.votes - poll.seatPrice*c.seats;
-	},0)/poll.seatPrice/poll.candidatures.length;
+	},0)/poll.seatPrice/nonMarginal.length;
 	quotients
 		.slice(0,poll.seats)
 		.map(function(d) {
