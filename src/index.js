@@ -38,7 +38,7 @@ TransferWidget.view = function(vn) {
 			nohelp: true,
 			value: TransferWidget.from,
 			onchange: function(ev) {
-				TransferWidget.from=ev.target.value;
+				TransferWidget.from=Number(ev.target.value);
 			},
 			required: true,
 			options: poll.options.map(function(option, i) {
@@ -82,12 +82,12 @@ TransferWidget.view = function(vn) {
 			title: _("Transfer from A to B"),
 			faicon: 'arrow-right',
 			onclick: function(ev) {
-				Revote.transfer(poll,
-					TransferWidget.from,
-					TransferWidget.to,
-					TransferWidget.transferStep);
+					Revote.transfer(poll,
+						TransferWidget.from,
+						TransferWidget.to,
+						TransferWidget.transferStep);
 			},
-		}),,
+		}),
 		]),
 		m(Select, {
 			required: true,
@@ -96,7 +96,7 @@ TransferWidget.view = function(vn) {
 			nohelp: true,
 			value: TransferWidget.to,
 			onchange: function(ev) {
-				TransferWidget.to=ev.target.value;
+				TransferWidget.to=Number(ev.target.value);
 			},
 			options: poll.options.map(function(option, i) {
 				return {
