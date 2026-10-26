@@ -1,12 +1,14 @@
 import { test, expect, mock } from 'bun:test';
-
-mock.module('mithril', () => ({ redraw: () => {} }));
+import pristineData from '../src/data/congresoCantabria-2023-07.yaml';
 
 globalThis.window = { location: { hash: '' } };
 globalThis.location = globalThis.window.location;
+mock.module('mithril', () => ({
+    default: { redraw: () => {} },
+}));
+const { default: Revote } = await import('../src/revote.js') // Async for the window hack to work
 
-import Revote from '../src/revote.js';
-const pristine = structuredClone(require('../src/data/congresoCantabria-2023-07.yaml'));
+const pristine = structuredClone(pristineData);
 
 function injectPoll(scenario) {
 	Revote.scenarios.length = 0;
