@@ -5,7 +5,6 @@ import _ from './translate';
 import Select from './mdc/select';
 import Button from './mdc/button';
 import Revote from './revote.js';
-import marked from 'marked';
 
 var ScenaryChooser = {};
 ScenaryChooser.view = function(vn) {

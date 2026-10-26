@@ -12,7 +12,6 @@ import Revote from './revote.js';
 import Hemicycle from './hemicycle.js';
 import DHondtPriceBar from './dhondtpricebar.js';
 import TabBar from './mdc/tabbar.js';
-import marked from 'marked';
 import 'font-awesome/css/font-awesome.css';
 import '@material/typography/dist/mdc.typography.css';
 
