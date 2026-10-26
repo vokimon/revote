@@ -1,7 +1,10 @@
 'use strict';
 /** @module */
 
-var m = require('mithril');
+import m from 'mithril';
+import Checkbox from './checkbox';
+import Button from './button';
+import Layout from './layout';
 require('@material/tab-bar/dist/mdc.tab-bar.css');
 require('@material/tab-scroller/dist/mdc.tab-scroller.css');
 require('@material/tab-indicator/dist/mdc.tab-indicator.css');
@@ -114,9 +117,6 @@ TabBar.Example.model = {
 };
 TabBar.Example.view = function(vn) {
 	var model = vn.state.model;
-	var Checkbox = require('./checkbox');
-	var Button = require('./button');
-	var Layout = require('./layout');
 	return m(Layout, m(Layout.Cell, {span: 12} , [
 		m('h2', 'Tab bars'),
 		m(TabBar, {
@@ -196,6 +196,6 @@ TabBar.Example.view = function(vn) {
 
 
 
-module.exports=TabBar;
+export default TabBar;
 
 // vim: noet ts=4 sw=4

@@ -1,7 +1,7 @@
 'use strict';
 
-const _ = require('./translate');
-const moment = require('moment');
+import _ from './translate';
+import moment from 'moment';
 require('moment/locale/es');
 require('moment/locale/ca');
 require('moment/locale/eu');

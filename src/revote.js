@@ -1,9 +1,10 @@
 'use strict';
 
-var m = require('mithril');
-var _ = require('./translate');
-var subscriptable = require('./subscriptable');
-var d3 = require('d3');
+import m from 'mithril';
+import _ from './translate';
+import subscriptable from './subscriptable';
+import * as d3 from 'd3';
+import colorgroups from './colorgroups.yaml';
 
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
@@ -173,7 +174,6 @@ Revote.transfer = function(scenario, fromOption, toOption, nvotes) {
 };
 
 var loadFixedColors = function() {
-	var colorgroups = require("./colorgroups.yaml");
 	var colors = [];
 	var options = [];
 	Object.keys(colorgroups).map(function(color) {
@@ -300,6 +300,6 @@ Revote.initialize = function() {
 		Revote.scenarioIndex(0);
 };
 
-module.exports = Revote;
+export default Revote;
 
 // vim: noet ts=4 sw=4

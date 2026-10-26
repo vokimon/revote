@@ -23,5 +23,5 @@ function callOrSelf(target, ...args) {
   return target
 }
 
-module.exports = subscriptable
+export default subscriptable
 

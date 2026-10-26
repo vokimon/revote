@@ -1,6 +1,6 @@
 'use strict';
 /** @module */
-var m = require('mithril');
+import m from 'mithril';
 require('@material/layout-grid/dist/mdc.layout-grid.css');
 
 function pop(o,k) { var r=o[k]; if (r!==undefined) { delete o[k];} return r; }
@@ -60,6 +60,6 @@ var Cell = {
 Layout.Row = Row;
 Layout.Cell = Cell;
 
-module.exports = Layout
+export default Layout
 
 // vim: noet ts=4 sw=4

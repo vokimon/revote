@@ -1,22 +1,22 @@
 'use strict';
 
 require('./i18n-setup');
-var m = require('mithril');
-var _ = require('./translate');
-var css = require('./style.styl');
-var d3 = require('d3');
-var Select = require('./mdc/select');
-var TextField = require('./mdc/textfield');
-var Layout = require('./mdc/layout');
-var Button = require('./mdc/button');
-var Revote = require('./revote.js');
+import m from 'mithril';
+import _ from './translate';
+import css from './style.styl';
+import * as d3 from 'd3';
+import Select from './mdc/select';
+import TextField from './mdc/textfield';
+import Layout from './mdc/layout';
+import Button from './mdc/button';
+import Revote from './revote.js';
 require('./scenarios');
-var Hemicycle = require('./hemicycle.js');
-var DHondtPriceBar = require('./dhondtpricebar.js');
-var DHondtQuotients = require('./dhondtquotients.js');
-var TabBar = require('./mdc/tabbar.js');
-var marked = require('marked');
-var ScenaryChooser = require('./scenarychooser');
+import Hemicycle from './hemicycle.js';
+import DHondtPriceBar from './dhondtpricebar.js';
+import DHondtQuotients from './dhondtquotients.js';
+import TabBar from './mdc/tabbar.js';
+import marked from 'marked';
+import ScenaryChooser from './scenarychooser';
 require('font-awesome/css/font-awesome.css');
 require('@material/typography/dist/mdc.typography.css').default;
 

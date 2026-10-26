@@ -1,8 +1,8 @@
 'use strict';
-var m = require('mithril');
-var _ = require('./translate');
-var css = require('./style.styl');
-var d3 = require('d3');
+import m from 'mithril';
+import _ from './translate';
+import css from './style.styl';
+import * as d3 from 'd3';
 
 require('font-awesome/css/font-awesome.css');
 require('@material/typography/dist/mdc.typography.css').default;

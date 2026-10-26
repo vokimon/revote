@@ -1,6 +1,6 @@
 'use strict';
 
-var Revote = require('./revote');
+import Revote from './revote';
 var context = require.context('./data/', true, /\.(yaml)$/);
 Revote.scenarios = context.keys().map(function(filename) {
 	var scenario = context(filename);

@@ -1,5 +1,6 @@
 'use strict';
-var m = require('mithril');
+import m from 'mithril';
+import Layout from './layout';
 require('@material/button/dist/mdc.button.css');
 
 /** @module */
@@ -44,7 +45,6 @@ var Button = {
 
 Button.Example = {
 	view: function(vn) {
-		var Layout = require('./layout');
 		return m(Layout,
 			m(Layout.Row, m(Layout.Cell, m('h2', 'Buttons'))),
 			m(Layout.Row, {align: 'center'}, [
@@ -65,6 +65,6 @@ Button.Example = {
 	}
 };
 
-module.exports=Button;
+export default Button;
 
 // vim: noet ts=4 sw=4

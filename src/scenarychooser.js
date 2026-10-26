@@ -1,11 +1,11 @@
 'use strict';
 
-var m = require('mithril');
-var _ = require('./translate');
-var Select = require('./mdc/select');
-var Button = require('./mdc/button');
-var Revote = require('./revote.js');
-var marked = require('marked');
+import m from 'mithril';
+import _ from './translate';
+import Select from './mdc/select';
+import Button from './mdc/button';
+import Revote from './revote.js';
+import marked from 'marked';
 
 var ScenaryChooser = {};
 ScenaryChooser.view = function(vn) {
@@ -45,6 +45,6 @@ ScenaryChooser.view = function(vn) {
 	]);
 };
 
-module.exports = ScenaryChooser;
+export default ScenaryChooser;
 
 // vim: noet ts=4 sw=4

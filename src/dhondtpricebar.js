@@ -1,9 +1,9 @@
 'use strict';
 
-var m = require('mithril');
-var _ = require('./translate');
-var d3 = require('d3');
-var Revote = require('./revote.js');
+import m from 'mithril';
+import _ from './translate';
+import * as d3 from 'd3';
+import Revote from './revote.js';
 
 var thresholdLabelOffset = 200;
 var priceLabelOffset = 250;
@@ -328,6 +328,6 @@ DHondtPriceBar.oncreate = function(vn) {
 	this.updateData();
 };
 
-module.exports = DHondtPriceBar;
+export default DHondtPriceBar;
 
 // vim: noet ts=4 sw=4

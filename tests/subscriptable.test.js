@@ -1,4 +1,4 @@
-const subscriptable = require('../src/subscriptable')
+import subscriptable from '../src/subscriptable';
 
 describe('subscriptable', () => {
   it('is called when notified', () => {

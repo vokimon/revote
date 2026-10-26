@@ -1,9 +1,10 @@
 'use strict';
 /** @module */
-var m = require('mithril');
-var _ = require('../translate');
-var MDCCheckbox = require('@material/checkbox');
-var MDCFormField = require('@material/form-field');
+import m from 'mithril';
+import _ from '../translate';
+import MDCCheckbox from '@material/checkbox';
+import MDCFormField from '@material/form-field';
+import Layout from './layout';
 require('@material/checkbox/dist/mdc.checkbox.css');
 require('@material/form-field/dist/mdc.form-field.css');
 
@@ -67,7 +68,6 @@ var Example = {
 	},
 	view: function(vn) {
 		var self = this;
-		const Layout = require('./layout');
 		return m(Layout, [
 			m(Layout.Row, m(Layout.Cell, {span:12},
 				m('h2', 'Checkboxes'))),
@@ -139,6 +139,6 @@ var Example = {
 
 Checkbox.Example = Example;
 
-module.exports=Checkbox
+export default Checkbox
 
 // vim: noet ts=4 sw=4

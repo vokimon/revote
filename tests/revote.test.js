@@ -5,7 +5,7 @@ mock.module('mithril', () => ({ redraw: () => {} }));
 globalThis.window = { location: { hash: '' } };
 globalThis.location = globalThis.window.location;
 
-const Revote = require('../src/revote.js');
+import Revote from '../src/revote.js';
 const pristine = structuredClone(require('../src/data/congresoCantabria-2023-07.yaml'));
 
 function injectPoll(scenario) {

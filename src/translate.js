@@ -1,7 +1,7 @@
 'use strict';
 
-const _ = require('i18n4v');
+import _ from 'i18n4v';
 
-module.exports = _
+export default _
 
 // vim: noet ts=4 sw=4

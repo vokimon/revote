@@ -1,7 +1,9 @@
 'use strict';
-var m = require('mithril');
-var _ = require('../translate');
-var MDCTextField = require('@material/textfield');
+import m from 'mithril';
+import Button from './button';
+import Layout from './layout';
+import _ from '../translate';
+import MDCTextField from '@material/textfield';
 require('@material/textfield/dist/mdc.textfield.css');
 
 var TextField = {
@@ -129,8 +131,6 @@ var TextField = {
 
 TextField.Example = {};
 TextField.Example.view = function(vn) {
-	var Button = require('./button');
-	const Layout = require('./layout');
 	return m(Layout, m('h2', 'TextFields'),
 		m(Layout.Row, [
 			{
@@ -286,6 +286,6 @@ TextField.Example.view = function(vn) {
 };
 
 
-module.exports = TextField
+export default TextField
 
 // vim: noet ts=4 sw=4

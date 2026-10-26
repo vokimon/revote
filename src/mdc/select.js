@@ -1,9 +1,10 @@
 'use strict';
 /** @module */
 
-var m = require('mithril');
-var _ = require('../translate');
-var MDCSelect = require('@material/select');
+import m from 'mithril';
+import Layout from './layout';
+import _ from '../translate';
+import MDCSelect from '@material/select';
 require('@material/select/dist/mdc.select.css');
 
 /**
@@ -161,7 +162,6 @@ var Example = {
 	},
 	view: function(vn) {
 		var self = this;
-		const Layout = require('./layout');
 		const options = [
 			{
 				value: 'grains',
@@ -236,6 +236,6 @@ var Example = {
 
 Select.Example = Example;
 
-module.exports=Select
+export default Select
 
 // vim: noet ts=4 sw=4
