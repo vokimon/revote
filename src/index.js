@@ -1,6 +1,6 @@
 'use strict';
 
-require('./i18n-setup');
+import './i18n-setup';
 import m from 'mithril';
 import _ from './translate';
 import css from './style.styl';
@@ -10,15 +10,15 @@ import TextField from './mdc/textfield';
 import Layout from './mdc/layout';
 import Button from './mdc/button';
 import Revote from './revote.js';
-require('./scenarios');
+import './scenarios';
 import Hemicycle from './hemicycle';
 import DHondtPriceBar from './dhondtpricebar';
 import DHondtQuotients from './dhondtquotients';
 import ScenaryChooser from './scenarychooser';
 import TabBar from './mdc/tabbar';
 import marked from 'marked';
-require('font-awesome/css/font-awesome.css');
-require('@material/typography/dist/mdc.typography.css').default;
+import 'font-awesome/css/font-awesome.css';
+import '@material/typography/dist/mdc.typography.css';
 
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};

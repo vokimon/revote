@@ -13,8 +13,8 @@ import Hemicycle from './hemicycle.js';
 import DHondtPriceBar from './dhondtpricebar.js';
 import TabBar from './mdc/tabbar.js';
 import marked from 'marked';
-require('font-awesome/css/font-awesome.css');
-require('@material/typography/dist/mdc.typography.css').default;
+import 'font-awesome/css/font-awesome.css';
+import '@material/typography/dist/mdc.typography.css';
 
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};

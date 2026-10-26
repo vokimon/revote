@@ -5,7 +5,7 @@ import m from 'mithril';
 import Layout from './layout';
 import _ from '../translate';
 import MDCSelect from '@material/select';
-require('@material/select/dist/mdc.select.css');
+import '@material/select/dist/mdc.select.css';
 
 /**
 Mithril component wrapping an MDC Select input field.

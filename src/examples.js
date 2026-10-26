@@ -4,8 +4,8 @@ import _ from './translate';
 import css from './style.styl';
 import * as d3 from 'd3';
 
-require('font-awesome/css/font-awesome.css');
-require('@material/typography/dist/mdc.typography.css').default;
+import 'font-awesome/css/font-awesome.css';
+import '@material/typography/dist/mdc.typography.css';
 
 var traceFocus = require('./debughelpers').traceFocus;
 

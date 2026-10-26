@@ -5,11 +5,11 @@ import m from 'mithril';
 import Checkbox from './checkbox';
 import Button from './button';
 import Layout from './layout';
-require('@material/tab-bar/dist/mdc.tab-bar.css');
-require('@material/tab-scroller/dist/mdc.tab-scroller.css');
-require('@material/tab-indicator/dist/mdc.tab-indicator.css');
-require('@material/tab/dist/mdc.tab.css');
-require('material-design-icons/iconfont/material-icons.css');
+import '@material/tab-bar/dist/mdc.tab-bar.css';
+import '@material/tab-scroller/dist/mdc.tab-scroller.css';
+import '@material/tab-indicator/dist/mdc.tab-indicator.css';
+import '@material/tab/dist/mdc.tab.css';
+import 'material-design-icons/iconfont/material-icons.css';
 
 var MDCTabBar = require('@material/tab-bar').MDCTabBar;
 

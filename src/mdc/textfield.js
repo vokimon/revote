@@ -4,7 +4,7 @@ import Button from './button';
 import Layout from './layout';
 import _ from '../translate';
 import MDCTextField from '@material/textfield';
-require('@material/textfield/dist/mdc.textfield.css');
+import '@material/textfield/dist/mdc.textfield.css';
 
 var TextField = {
 	oncreate: function(vn) {

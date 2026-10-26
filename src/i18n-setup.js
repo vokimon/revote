@@ -2,10 +2,10 @@
 
 import _ from './translate';
 import moment from 'moment';
-require('moment/locale/es');
-require('moment/locale/ca');
-require('moment/locale/eu');
-require('moment/locale/gl');
+import 'moment/locale/es';
+import 'moment/locale/ca';
+import 'moment/locale/eu';
+import 'moment/locale/gl';
 
 function basename(path) {
 	return path.split('/').pop().split('.').shift();

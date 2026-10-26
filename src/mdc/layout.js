@@ -1,7 +1,7 @@
 'use strict';
 /** @module */
 import m from 'mithril';
-require('@material/layout-grid/dist/mdc.layout-grid.css');
+import '@material/layout-grid/dist/mdc.layout-grid.css';
 
 function pop(o,k) { var r=o[k]; if (r!==undefined) { delete o[k];} return r; }
 

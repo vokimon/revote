@@ -1,7 +1,7 @@
 'use strict';
 import m from 'mithril';
 import Layout from './layout';
-require('@material/button/dist/mdc.button.css');
+import '@material/button/dist/mdc.button.css';
 
 /** @module */
 
