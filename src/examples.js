@@ -1,13 +1,12 @@
 'use strict';
 import m from 'mithril';
 import _ from './translate';
+import { traceFocus } from './debughelpers';
 import css from './style.styl';
 import * as d3 from 'd3';
 
 import 'font-awesome/css/font-awesome.css';
 import '@material/typography/dist/mdc.typography.css';
-
-var traceFocus = require('./debughelpers').traceFocus;
 
 var skip = function (c) { return []; }
 
