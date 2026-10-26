@@ -2,8 +2,9 @@
 
 - [x] Stack: Stabilize the code base
 - [x] Stack: Migrate to ESM
-- [ ] Stack: Migrate to vite
+- [x] Stack: Migrate to vite
 - [ ] Stack: Migrate to vitest
+- [ ] Stack: Separar d3 de mithril
 - [ ] Stack: Migrate to React/Mantine
 - [ ] Local Scenarios: Use local storage to store them
 - [ ] Local Scenarios: Make stock scenarios read only
