@@ -25,12 +25,12 @@ var config = {
 		// Rewrites html to insert generated css and js
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
-			template: './mithriltemplate.html',
+			template: './index.html',
 			chunks: ['common','index'],
 			}),
 		new HtmlWebpackPlugin({
 			filename: 'learndhondt.html',
-			template: './mithriltemplate.html',
+			template: './index.html',
 			chunks: ['common','learndhondt'],
 			}),
 		// Split css included as js into a separate file again
