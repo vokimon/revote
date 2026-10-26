@@ -3,13 +3,13 @@ import m from 'mithril';
 import Button from './button';
 import Layout from './layout';
 import _ from '../translate';
-import MDCTextField from '@material/textfield';
+import { MDCTextField } from '@material/textfield';
 import '@material/textfield/dist/mdc.textfield.css';
 
 var TextField = {
 	oncreate: function(vn) {
 		var mdcinput = vn.dom.querySelector('.mdc-text-field');
-		this.mdcinstance = new MDCTextField.MDCTextField(mdcinput);
+		this.mdcinstance = new MDCTextField(mdcinput);
 		var errormessage = vn.attrs.errormessage || vn.state.errormessage || '';
 		vn.state.mdcinstance.valid = !errormessage;
 		vn.state.native = vn.dom.querySelector('.mdc-text-field__input');

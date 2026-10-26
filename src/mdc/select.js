@@ -4,7 +4,7 @@
 import m from 'mithril';
 import Layout from './layout';
 import _ from '../translate';
-import MDCSelect from '@material/select';
+import { MDCSelect } from '@material/select';
 import '@material/select/dist/mdc.select.css';
 
 /**
@@ -35,7 +35,7 @@ Input field that unfolds in a set of options you can choose.
 var Select = {
 	oncreate: function(vn) {
 		var mdcselect = this.native = vn.dom.querySelector('.mdc-select');
-		this.mdcinstance = new MDCSelect.MDCSelect(mdcselect);
+		this.mdcinstance = new MDCSelect(mdcselect);
 	},
 	view: function(vn) {
 		function floats() {
