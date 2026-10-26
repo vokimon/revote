@@ -1,10 +1,10 @@
 # TODO's
 
-- [ ] Stack: Stabilize the code base
+- [x] Stack: Stabilize the code base
+- [x] Stack: Migrate to ESM
 - [ ] Stack: Migrate to vite
 - [ ] Stack: Migrate to vitest
 - [ ] Stack: Migrate to React/Mantine
-- [ ] Scenario Selector: Filter by Constituency and type of election (congress, senate, european parlament...)
 - [ ] Local Scenarios: Use local storage to store them
 - [ ] Local Scenarios: Make stock scenarios read only
 - [ ] Local Scenarios: Duplicate existing scenarios as local
@@ -15,9 +15,10 @@
 - [ ] Scenario Editor: Change seats
 - [ ] Scenario Editor: Change threshold
 - [ ] Scenario Editor: Edit a pool from scratch with a nice ui
+- [ ] Incorporate paper scripts to download, extract and convert all election data
+- [ ] Smart scenario filter: province, election kind (congress, senate, european...)...
+- [ ] Party selection feedback (when selected as A or B, highlight every component refering it, starting by the transfer selector)
 - [ ] Visual seat borders on the bars
 - [ ] Consider price range instead of single price as border with size
 - [ ] Percent mode (to work from pools with percentages instead of votes)
-- [ ] Incorporate paper scripts to download, extract and convert all election data
-- [ ] Smart scenario filter: election kind, province...
 
