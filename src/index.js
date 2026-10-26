@@ -16,7 +16,7 @@ import DHondtPriceBar from './dhondtpricebar';
 import DHondtQuotients from './dhondtquotients';
 import ScenaryChooser from './scenarychooser';
 import TabBar from './mdc/tabbar';
-import marked from 'marked';
+import { marked } from 'marked';
 import 'font-awesome/css/font-awesome.css';
 import '@material/typography/dist/mdc.typography.css';
 
