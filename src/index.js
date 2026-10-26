@@ -3,7 +3,7 @@
 import './i18n-setup';
 import m from 'mithril';
 import _ from './translate';
-import css from './style.styl';
+import './style.styl';
 import * as d3 from 'd3';
 import Select from './mdc/select';
 import TextField from './mdc/textfield';
