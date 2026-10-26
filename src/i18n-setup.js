@@ -11,15 +11,19 @@ function basename(path) {
 	return path.split('/').pop().split('.').shift();
 }
 
-var translations = {};
-const requireContext = require.context('./i18n', false, /\.yaml$/);
-for (let key of requireContext.keys()) {
-	const translation = requireContext(key);
+const translations = {};
+const modules = import.meta.glob('./i18n/*.yaml', {
+	eager: true,
+	import: "default",
+});
+
+for (const [key, translation] of Object.entries(modules)) {
 	const langname = basename(key);
 	translations[langname] = {
 		values: translation
 	};
 }
+
 _.selectLanguage(Object.keys(translations), function(err, lang) {
 	_.translator.add(translations[lang] || translations['es']);
 	moment.locale(lang);
