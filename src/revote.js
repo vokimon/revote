@@ -276,7 +276,7 @@ Revote.scenarioIndex = function(index) {
 	return poll;
 };
 Revote.scenario = function() {
-	return Revote.scenarios[Revote._scenarioIndex];
+	return Revote.scenarios[Revote.scenarioIndex()];
 };
 
 Revote.byName = function(name) {
