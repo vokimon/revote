@@ -2,8 +2,8 @@
 /** @module */
 import m from 'mithril';
 import _ from '../translate';
-import MDCCheckbox from '@material/checkbox';
-import MDCFormField from '@material/form-field';
+import { MDCCheckbox } from '@material/checkbox';
+import { MDCFormField } from '@material/form-field';
 import Layout from './layout';
 import '@material/checkbox/dist/mdc.checkbox.css';
 import '@material/form-field/dist/mdc.form-field.css';
@@ -21,8 +21,8 @@ var Checkbox = {
 	oncreate: function(vn) {
 		var mdccheckbox = vn.dom.querySelector('.mdc-checkbox');
 		this.native = vn.dom.querySelector('.mdc-checkbox__native-control');
-		this.mdcinstance = new MDCCheckbox.MDCCheckbox(mdccheckbox);
-		const formField = new MDCFormField.MDCFormField(vn.dom);
+		this.mdcinstance = new MDCCheckbox(mdccheckbox);
+		const formField = new MDCFormField(vn.dom);
 		formField.input = this.mdcinstance;
 		if (vn.attrs.checked === undefined) {
 			this.native.indeterminate = true;
