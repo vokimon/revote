@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { parseScenarioFilename, compareScenarios } from '../src/scenarioindex.js';
+import { parseScenarioFilename, compareScenarios } from '../src/stockscenarios.js';
 
 describe('parseScenarioFilename', () => {
     test('invalid pattern returns just id', () => {

@@ -10,7 +10,7 @@ import TextField from './mdc/textfield';
 import Layout from './mdc/layout';
 import Button from './mdc/button';
 import Revote from './revote.js';
-import './scenarios';
+import './stockscenarios-setup';
 import Hemicycle from './hemicycle';
 import DHondtPriceBar from './dhondtpricebar';
 import DHondtQuotients from './dhondtquotients';
