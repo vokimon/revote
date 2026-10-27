@@ -1,6 +1,9 @@
 'use strict';
 
 import Revote from './revote';
+import { parseScenarioFilename } from './scenarioindex.js';
+
+
 const scenarioModules = import.meta.glob('./data/**/*.yaml', {
 	eager: true,
 	import: 'default',
