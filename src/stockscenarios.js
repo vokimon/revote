@@ -29,10 +29,6 @@ export function parseScenarioFilename(path) {
 
 }
 
-const scenarioLoaders = import.meta.glob('./data/**/*.yaml', {
-    import: 'default',
-});
-
 export function compareScenarios(a, b) {
     return (a.province ?? '').localeCompare(b.province ?? '') ||
         (a.year ?? 0) - (b.year ?? 0) ||
@@ -41,20 +37,25 @@ export function compareScenarios(a, b) {
         a.id.localeCompare(b.id);
 }
 
-export const scenarios = Object.keys(scenarioLoaders)
-    .map(parseScenarioFilename)
-	.sort(compareScenarios)
+export function validateScenarioIndex(scenarioIndex) {
+    const ids = new Set();
 
-const ids = new Set();
+    for (const scenario of scenarioIndex) {
+        if (ids.has(scenario.id)) {
+            throw new Error(`Duplicate scenario ID: ${scenario.id}`);
+        }
 
-for (const scenario of scenarios) {
-    if (ids.has(scenario.id)) {
-        throw new Error(`Duplicate scenario ID: ${scenario.id}`);
+        ids.add(scenario.id);
     }
-
-    ids.add(scenario.id);
+    return scenarioIndex
 }
 
-console.debug(scenarios)
+export function buildScenarioIndex(paths) {
+    const scenarioIndex = paths
+        .map(parseScenarioFilename)
+        .sort(compareScenarios)
 
-export default scenarios;
+    validateScenarioIndex(scenarioIndex)
+    return scenarioIndex
+}
+
