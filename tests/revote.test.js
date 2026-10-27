@@ -1,9 +1,9 @@
-import { test, expect, mock } from 'bun:test';
+import { test, expect, vi } from 'vitest';
 import pristineData from '../src/data/congresoCantabria-2023-07.yaml';
 
 globalThis.window = { location: { hash: '' } };
 globalThis.location = globalThis.window.location;
-mock.module('mithril', () => ({
+vi.mock('mithril', () => ({
     default: { redraw: () => {} },
 }));
 const { default: Revote } = await import('../src/revote.js') // Async for the window hack to work

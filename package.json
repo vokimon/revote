@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "gh": "bun run build && bunx gh-pages -d dist",
     "deploy": "bun run build && bash scripts/deploy.sh",
-    "test": "bun test"
+    "test": "vitest run --root ."
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,8 @@
   "devDependencies": {
     "@modyfi/vite-plugin-yaml": "^1.1.1",
     "gh-pages": "^6.3.0",
-    "material-components-web": "^0.44.1"
+    "material-components-web": "^0.44.1",
+    "vitest": "^5.0.5"
   },
   "dependencies": {
     "d3": "^5.7.0",

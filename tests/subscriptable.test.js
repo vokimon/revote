@@ -1,4 +1,5 @@
 import subscriptable from '../src/subscriptable';
+import {describe, it, expect} from 'vitest'
 
 describe('subscriptable', () => {
   it('is called when notified', () => {
