@@ -3,9 +3,24 @@
 - [x] Stack: Stabilize the code base
 - [x] Stack: Migrate to ESM
 - [x] Stack: Migrate to vite
-- [ ] Stack: Migrate to vitest
+- [x] Stack: Migrate to vitest
 - [ ] Stack: Separar d3 de mithril
+- [ ] Stack: Decouple revote from mithril (redraw as last subscriber)
+- [ ] Stack: Decouple hash management from revote (location.hash read/write, window.onhashchange, window/location shims + async import in tests)
 - [ ] Stack: Migrate to React/Mantine
+- [ ] Async loading stock scenarios
+  - [ ] Navigate by scenario index (revote + chooser read the filename index)
+  - [ ] Sort abstract scenarios (no province) last
+  - [ ] Async scenario selection with injected sync-backed loader
+  - [ ] Mount after the first scenario is loaded
+  - [ ] Blocking loading overlay for pending loads
+  - [ ] Flip stock scenarios to lazy loading
+  - [ ] Remove leftovers (console.debug, orphan examples.js)
+- [ ] Bundle stock scenarios by province
+  - [ ] Group scenario chunks by province at build time (needed before the lazy flip)
+  - [ ] Reorganize data: province directories + abstract naming
+  - [ ] Per-province entry modules; loadScenario imports province bundles
+  - [ ] Integrate bulk generated data (generator adapts to this format)
 - [ ] Local Scenarios: Use local storage to store them
 - [ ] Local Scenarios: Make stock scenarios read only
 - [ ] Local Scenarios: Duplicate existing scenarios as local
