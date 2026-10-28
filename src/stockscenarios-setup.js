@@ -3,6 +3,11 @@
 import Revote from './revote';
 import { buildScenarioIndex } from './stockscenarios.js';
 
+const scenarioLoaders = import.meta.glob('./data/**/*.yaml', {
+    import: 'default',
+});
+
+export const scenarioIndex = buildScenarioIndex(Object.keys(scenarioLoaders))
 
 const scenarioModules = import.meta.glob('./data/**/*.yaml', {
 	eager: true,
@@ -14,12 +19,6 @@ Revote.scenarios = Object.entries(scenarioModules).map(function([filename, scena
 	scenario.candidatures.sort(function(a, b) { return b.votes - a.votes; });
 	return scenario;
 });
-
-const scenarioLoaders = import.meta.glob('./data/**/*.yaml', {
-    import: 'default',
-});
-
-export const scenarioIndex = buildScenarioIndex(Object.keys(scenarioLoaders))
 
 console.debug({"scenarios": Revote.scenarios})
 console.debug({scenarioIndex})
