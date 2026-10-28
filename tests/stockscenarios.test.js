@@ -6,6 +6,7 @@ describe('parseScenarioFilename', () => {
         expect(parseScenarioFilename('archivo.yaml'))
             .toEqual({
                 id: 'archivo',
+                filename: 'archivo.yaml',
             });
     });
 

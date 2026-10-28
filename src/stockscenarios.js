@@ -25,6 +25,7 @@ export function parseScenarioFilename(path) {
 
     return {
         id: filename.slice(0, -5),
+        filename,
     }
 
 }
