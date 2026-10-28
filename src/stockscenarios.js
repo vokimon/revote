@@ -30,7 +30,8 @@ export function parseScenarioFilename(path) {
 }
 
 export function compareScenarios(a, b) {
-    return (a.province ?? '').localeCompare(b.province ?? '') ||
+    return (a.province == null) - (b.province == null) ||
+        (a.province ?? '').localeCompare(b.province ?? '') ||
         (a.year ?? 0) - (b.year ?? 0) ||
         (a.month ?? 0) - (b.month ?? 0) ||
         (a.election ?? '').localeCompare(b.election ?? '') ||

@@ -118,4 +118,11 @@ describe('compareScenarios', () => {
             scenario(),
         )).toBe(0);
     });
+
+    test('sorts scenarios without province after provinces', () => {
+        expect(compareScenarios(
+            scenario({ province: undefined }),
+            scenario({ province: 'Cantabria' }),
+        )).toBeGreaterThan(0);
+    });
 });
