@@ -39,25 +39,25 @@ export function compareScenarios(a, b) {
         a.id.localeCompare(b.id);
 }
 
-export function validateScenarioIndex(scenarioIndex) {
+export function validateShallowScenarios(shallowScenarios) {
     const ids = new Set();
 
-    for (const scenario of scenarioIndex) {
+    for (const scenario of shallowScenarios) {
         if (ids.has(scenario.id)) {
             throw new Error(`Duplicate scenario ID: ${scenario.id}`);
         }
 
         ids.add(scenario.id);
     }
-    return scenarioIndex
+    return shallowScenarios
 }
 
-export function buildScenarioIndex(paths) {
-    const scenarioIndex = paths
+export function buildShallowScenarios(paths) {
+    const shallowScenarios = paths
         .map(parseScenarioFilename)
         .sort(compareScenarios)
 
-    validateScenarioIndex(scenarioIndex)
-    return scenarioIndex
+    validateShallowScenarios(shallowScenarios)
+    return shallowScenarios
 }
 

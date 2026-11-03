@@ -1,13 +1,13 @@
 'use strict';
 
 import Revote from './revote';
-import { buildScenarioIndex } from './stockscenarios.js';
+import { buildShallowScenarios } from './stockscenarios.js';
 
 const scenarioLoaders = import.meta.glob('./data/**/*.yaml', {
     import: 'default',
 });
 
-export const scenarioIndex = buildScenarioIndex(Object.keys(scenarioLoaders))
+export const shallowScenarios = buildShallowScenarios(Object.keys(scenarioLoaders))
 
 const scenarioModules = import.meta.glob('./data/**/*.yaml', {
 	eager: true,
@@ -21,7 +21,7 @@ Revote.scenarios = Object.entries(scenarioModules).map(function([filename, scena
 });
 
 console.debug({"scenarios": Revote.scenarios})
-console.debug({scenarioIndex})
+console.debug({shallowScenarios})
 
 Revote.initialize();
 
