@@ -12,6 +12,10 @@
   - [ ] Navigate by scenario index (revote + chooser read the filename index)
   - [ ] Sort abstract scenarios (no province) last
   - [ ] Async scenario selection with injected sync-backed loader
+  - [ ] Ui loading block:
+      - [ ] Adapt messages.js to also decouple global ui blocking with a message on async loading (block, free)
+      - [ ] Blocking ui component
+      - [ ] Loading use it
   - [ ] Mount after the first scenario is loaded
   - [ ] Blocking loading overlay for pending loads
   - [ ] Flip stock scenarios to lazy loading

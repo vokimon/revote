@@ -55,37 +55,46 @@ or to roll back just the refinements.
 ## TDD (Test-Driven Development)
 
 When using TDD (Beck/Fowler methodology):
-1. **Red**: Write a single failing test.
+1. **RED**: Write a single failing test.
    Only a failing assertion counts as RED --
    compilation errors, runtime crashes, or build failures do not qualify as RED.
    The proposal must compile,
    and only the new test may fail;
    existing tests must still pass.
-2. **Green**: Write the minimal implementation to make the test pass. Do not add extra behavior.
-3. **Refactor**: Clean up code while keeping tests passing.
+2. **GREEN**: Write the minimal implementation to make the test pass. Do not add extra behavior.
+3. **REFACTOR**: Clean up code while keeping tests passing.
 
 **When to use**: TDD applies to platform-independent code (e.g., business logic, data models, utilities). UI code does not use TDD yet.
 
 Notice: The RED is not just writing the test. A RED may also change production code in those cases:
 
 - Failing Stub: The RED for the first test of a new SUT (class, method...) often requires a stub that implements the interface but still fails by an assertion failure, and not failing by a missing import, class, method...
-- Demotion: If we over implemented in the previous Green or Refactor, we can still make room for a new test to increase coverage by demoting the implementation if that does not make the previous tests to fail. This is better done previously to the RED as refactor but often is done as afterthouht when we see a planned test is not failing.
+- Demotion: If we over implemented in the previous GREEN or REFACTOR, we can still make room for a new test to increase coverage by demoting the implementation if that does not make the previous tests to fail. This is better done previously to the RED as REFACTOR but often is done as afterthouht when we see a planned test is not failing.
 
 **Test writing conventions**:
 - Avoid multiple asserts in a single test
 - When asserting multiple parts of a structure, build a helper that dumps the structure as a big string and assert it against the expected string, so the runner shows a multiline diff where the differences are easy to spot
 - When testing multiple cases with the same logic, create a separate test method for each case; extract common code to a helper method with discriminant features as parameters
 - Asserting large structures often became fragile. Concentrate inside a helper the setup of the irrelevant parts of the structure, and parametrize the relevant ones, to make updating those irrelevant parts easier. Do not expose parameters before they are needed.
-- For setup objects, encapsulate common setup in a helper with parameters for what varies between cases; this makes each test case show only what differs
-- Name the tests to include those parts: sut, case and optionally expectation, like in `summary with many errors display one each line`
+- For setup objects, encapsulate common setup in a helper with parameters for what varies between cases; this will highlight in test code what is special about that test case.
+- Name the tests to include those parts: sut, case and, optionally, expectation, like in `summary with many errors display one each line`
 - For literals, choose content that when shown in assertions, help to make faster diagnoses. Instead of naming two test objects 'a' and 'b', name them "previous", "wrongname"
-- For aggregations consider testing 0, 1, N cases. Depending on the case, 0 or 1 first may make simpler fail the tests in order.
+- Rule of thumb for test granularity: branch analysis.
+  A green should either write branchless code from scratch or adding a single branch to existing code.
+  Adding more branches than that on GREEN, means we are overimplementing, with an untested case.
+  Smaller granularity is accepted if we can still fail each test.
+- For aggregations consider testing None, Single, Many cases.
+  Usually ordering either None or Single first simplifies failing the tests.
+  When all cases share a complex behaviour, None is first to address it.
+  When None is a different animal, usually Single first is simpler.
+  Before adding the next RED, REFACTOR to widen the container (member -> nullable -> container) but not using it so the next test fails but the green is direct.
+  for example using container.first instead member, but not looping to keep Many test RED.
 
 **Rules**:
 - Do not change existing behavior during RED phase: for a bug, the test fails
   against the current code as-is; for new functionality, the stub compiles but
   gives a wrong result
-- Implement only what is needed to pass the test, no more
+- GREEN implement only what is needed to pass the test, no more
 - Each step must compile.
   RED proposals have only the new test failing by design;
   existing tests must still pass.
@@ -130,7 +139,7 @@ This step can also be split by each state query.
 4. Cleanup:
 Remove the original artifact and any remaining state-setting code.
 
-Since all the steps are stable, we could stop an ongoing refactor and focus on TDD some missing stuff in the new artifact.
+Since all the steps are stable, we could stop an ongoing REFACTOR and focus on TDD some missing stuff in the new artifact.
 
 
 ## Style
