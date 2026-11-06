@@ -263,9 +263,11 @@ Revote._scenarioIndex = undefined;
 Revote.scenarioIndex = function(index) {
 	if (index===undefined)
 		return Revote._scenarioIndex;
+
 	if (index>=Revote.scenarios.length) index=0;
 	if (index<0) index=Revote.scenarios.length-1;
 	Revote._scenarioIndex=index;
+
 	var poll = Revote.scenarios[index];
 	if (poll===undefined) return;
 	_recompute(poll);
