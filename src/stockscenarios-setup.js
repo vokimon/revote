@@ -7,7 +7,7 @@ const scenarioLoaders = import.meta.glob('./data/**/*.yaml', {
     import: 'default',
 });
 
-export const shallowScenarios = buildShallowScenarios(Object.keys(scenarioLoaders))
+export const shallowScenarios = buildShallowScenarios(scenarioLoaders)
 
 const scenarioModules = import.meta.glob('./data/**/*.yaml', {
 	eager: true,
