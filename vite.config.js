@@ -16,6 +16,13 @@ export default defineConfig({
               test: /node_modules/,
               priority: 1,
             },
+            {
+              test: /\/src\/data\//,
+              name: id => {
+                const match = id.match(/\/src\/data\/[^A-Z]*([A-Z][^-]*)-/);
+                return match ? `scenarios-${match[1]}` : 'scenarios-other';
+              },
+            },
           ],
         },
       },
