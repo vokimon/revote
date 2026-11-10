@@ -20,9 +20,11 @@ import { marked } from 'marked';
 import 'font-awesome/css/font-awesome.css';
 import '@material/typography/dist/mdc.typography.css';
 
-var percent = function(some, all) { return d3.format('.2%')(some/all);};
-var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
-
+var percent = function(some, all) { return some===undefined ? '-%' : d3.format('.2%')(some/all);};
+var votes = function(v) { return v===undefined ? "-" : d3.format(',.0f')(v).replace(/,/gi,'.');};
+var votes_n_percent = function(some, all) {
+	return votes(some)+ " (" + percent(some, all) + ")"
+}
 var skip = function (c) { return []; }
 
 var TransferWidget = {};
@@ -115,52 +117,50 @@ Info.view = function(vn) {
 
 	return m('.info', [{
 			label: _("Seats"),
-			value: poll.seats,
+			value: votes(poll?.seats),
 		},{
 			label: _("Census"),
-			value: votes(poll.census),
+			value: votes(poll?.census),
 		},{
 			label: _("Participation"),
-			value: votes(poll.participation)+
-				" ("+percent(poll.participation,poll.census)+")",
+			value: votes_n_percent(poll?.participation, poll?.census),
 		},{
 			label: _("Abstention"),
-			value: votes(poll.abstention)+
-				" ("+percent(poll.abstention, poll.census)+")",
+			value: votes_n_percent(poll?.abstention, poll?.census),
 		},{
 			label: _("Null"),
-			value: votes(poll.nullvotes)+
-				" ("+percent(poll.nullvotes, poll.census)+")",
+			value: votes(poll?.nullvotes)+
+				" ("+percent(poll?.nullvotes, poll?.census)+")",
 		},{
 			label: _("Blank"),
-			value: votes(poll.blankvotes)+
-				" ("+percent(poll.blankvotes, poll.census)+")",
+			value: votes(poll?.blankvotes)+
+				" ("+percent(poll?.blankvotes, poll?.census)+")",
 		},{
 			label: _("Threshold"),
-			value: percent(poll.threshold_percent,100)+
-				" ("+votes(poll.threshold)+")",
+			value: percent(poll?.threshold_percent,100)+
+				" ("+votes(poll?.threshold)+")",
 		},{
 			label: _("Max price"),
-			value: votes(poll.maxPrice)+
-				" ("+percent(poll.maxPrice, poll.validVotes)+")",
+			value: votes(poll?.maxPrice)+
+				" ("+percent(poll?.maxPrice, poll?.validVotes)+")",
 		},{
 			label: _("Seat price"),
-			value: votes(poll.seatPrice)+
-				" ("+percent(poll.seatPrice, poll.validVotes)+")",
+			value: votes(poll?.seatPrice)+
+				" ("+percent(poll?.seatPrice, poll?.validVotes)+")",
 		},{
 			label: _("Next price"),
-			value: votes(poll.nextPrice)+
-				" ("+percent(poll.nextPrice, poll.validVotes)+")",
+			value: votes(poll?.nextPrice)+
+				" ("+percent(poll?.nextPrice, poll?.validVotes)+")",
 		},{
 			label: _("Min price"),
-			value: votes(poll.minPrice)+
-				" ("+percent(poll.minPrice, poll.validVotes)+")",
+			value: votes(poll?.minPrice)+
+				" ("+percent(poll?.minPrice, poll?.validVotes)+")",
 		},{
 			label: _("Half Seats"),
-			value: votes(poll.halfSeats),
+			value: votes(poll?.halfSeats),
 		},{
 			label: _("Remainder Factor"),
-			value: percent(poll.remainderFactor,1),
+			value: percent(poll?.remainderFactor,1),
 		}].map(function(v, i) {
 			return m('', [
 				m('b', v.label, ":"),
