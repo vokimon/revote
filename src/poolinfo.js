@@ -29,32 +29,26 @@ PoolInfo.view = function(vn) {
 			value: votes_n_percent(poll?.abstention, poll?.census),
 		},{
 			label: _("Null"),
-			value: votes(poll?.nullvotes)+
-				" ("+percent(poll?.nullvotes, poll?.census)+")",
+			value: votes_n_percent(poll?.nullvotes, poll?.census),
 		},{
 			label: _("Blank"),
-			value: votes(poll?.blankvotes)+
-				" ("+percent(poll?.blankvotes, poll?.census)+")",
+			value: votes_n_percent(poll?.blankvotes, poll?.census),
 		},{
 			label: _("Threshold"),
 			value: percent(poll?.threshold_percent,100)+
 				" ("+votes(poll?.threshold)+")",
 		},{
 			label: _("Max price"),
-			value: votes(poll?.maxPrice)+
-				" ("+percent(poll?.maxPrice, poll?.validVotes)+")",
+			value: votes_n_percent(poll?.maxPrice, poll?.validVotes),
 		},{
 			label: _("Seat price"),
-			value: votes(poll?.seatPrice)+
-				" ("+percent(poll?.seatPrice, poll?.validVotes)+")",
+			value: votes_n_percent(poll?.seatPrice, poll?.validVotes),
 		},{
 			label: _("Next price"),
-			value: votes(poll?.nextPrice)+
-				" ("+percent(poll?.nextPrice, poll?.validVotes)+")",
+			value: votes_n_percent(poll?.nextPrice, poll?.validVotes),
 		},{
 			label: _("Min price"),
-			value: votes(poll?.minPrice)+
-				" ("+percent(poll?.minPrice, poll?.validVotes)+")",
+			value: votes_n_percent(poll?.minPrice, poll?.validVotes),
 		},{
 			label: _("Half Seats"),
 			value: votes(poll?.halfSeats),
@@ -72,3 +66,5 @@ PoolInfo.view = function(vn) {
 };
 
 export default PoolInfo
+
+// vim: noet ts=4 sw=4
