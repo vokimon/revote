@@ -3,6 +3,7 @@ import yaml from '@modyfi/vite-plugin-yaml';
 
 export default defineConfig({
   root: 'src',
+  base: '/revote/',
   plugins: [yaml()],
   build: {
     outDir: '../dist',
