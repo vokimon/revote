@@ -5,6 +5,7 @@ import _ from './translate';
 import subscriptable from './subscriptable';
 import * as d3 from 'd3';
 import colorgroups from './colorgroups.yaml';
+import tasks from './tasks'
 
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
@@ -144,8 +145,7 @@ function _decreaseOption(scenario, option, nvotes) {
 		scenario.candidatures[option].votes;
 	if (nvotes>currentValue)
 		nvotes = currentValue;
-	console.log("Decreasing", attribute || scenario.candidatures[option].id,
-		'by', nvotes);
+	//console.log("Decreasing", attribute || scenario.candidatures[option].id, 'by', nvotes);
 	if (attribute)
 		scenario[attribute] -= nvotes;
 	else
@@ -154,8 +154,7 @@ function _decreaseOption(scenario, option, nvotes) {
 }
 function _increaseOption(scenario, option, nvotes) {
 	var attribute = _optionAttribute(scenario, option);
-	console.log("Increasing", attribute || scenario.candidatures[option].id,
-		'by', nvotes);
+	//console.log("Increasing", attribute || scenario.candidatures[option].id, 'by', nvotes);
 	if (attribute)
 		scenario[attribute] += nvotes;
 	else
@@ -258,27 +257,46 @@ Revote.seatDescription = function(optionIdx, seat) {
 
 // Scenario loading
 Revote.scenarios = [];
+Revote.stockScenarios = [];
+
+Revote.nextScenario = function() {
+	Revote.setScenario(Revote._scenarioIndex + 1)
+}
+Revote.prevScenario = function() {
+	Revote.setScenario(Revote._scenarioIndex - 1)
+}
+Revote.setScenario = function(index) {
+	if (index < 0) index = Revote.scenarios.length - 1
+	if (index >= Revote.scenarios.length) index = 0
+	Revote._scenarioIndex = index
+	let scenario = Revote.scenarios[Revote._scenarioIndex]
+	var name = scenario.id
+	console.log({scenario})
+	if (name!==location.hash.slice(1))
+		location.hash='#'+name;
+	if (scenario.data !== undefined) return
+	tasks.run(
+		`Cargando datos para ${scenario.name}`,
+		async () => {
+			var poll = await scenario.promise()
+			_recompute(poll);
+			scenario.data = poll
+			Revote.notify()
+			m.redraw();
+		}
+	)
+}
 
 Revote._scenarioIndex = undefined;
 Revote.scenarioIndex = function(index) {
 	if (index===undefined)
 		return Revote._scenarioIndex;
 
-	if (index>=Revote.scenarios.length) index=0;
-	if (index<0) index=Revote.scenarios.length-1;
-	Revote._scenarioIndex=index;
-
-	var poll = Revote.scenarios[index];
-	if (poll===undefined) return;
-	_recompute(poll);
-	var name = poll.filename.slice(0,-5);
-	if (name!==location.hash.slice(1))
-		location.hash='#'+name;
-	Revote.notify();
-	return poll;
+	Revote.setScenario(index)
+	return
 };
 Revote.scenario = function() {
-	return Revote.scenarios[Revote.scenarioIndex()];
+	return Revote.scenarios[Revote.scenarioIndex()].data;
 };
 
 Revote.byName = function(name) {
@@ -296,7 +314,8 @@ function jump() {
 }
 window.onhashchange = jump;
 
-Revote.initialize = function() {
+Revote.initialize = function(stockScenarios) {
+	Revote.scenarios = stockScenarios
 	jump();
 	if (Revote.scenarioIndex() === undefined)
 		Revote.scenarioIndex(0);

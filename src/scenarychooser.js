@@ -10,7 +10,7 @@ var ScenaryChooser = {};
 ScenaryChooser.view = function(vn) {
 	var options = Revote.scenarios.map(function(scenario,i) {
 		return {
-			text: scenario.name,
+			text: scenario.id,
 			value: i,
 		};
 	});
@@ -31,14 +31,14 @@ ScenaryChooser.view = function(vn) {
 			raised: true,
 			title: _("Previous scenario on the list"),
 			onclick: function() {
-				Revote.scenarioIndex(Revote.scenarioIndex()-1);
+				Revote.prevScenario();
 			},
 		}, '<'),
 		m(Button, {
 			raised: true,
 			title: _("Next scenario on the list"),
 			onclick: function() {
-				Revote.scenarioIndex(Revote.scenarioIndex()+1);
+				Revote.nextScenario();
 			},
 		}, '>'),
 	]);

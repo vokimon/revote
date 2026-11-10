@@ -1,5 +1,7 @@
 import { describe, test, expect, vi } from 'vitest';
 import pristineData from '../src/data/congresoCantabria-2023-07.yaml';
+import { parseScenarioFilename } from '../src/stockscenarios.js';
+import tasks from '../src/tasks.js';
 
 globalThis.window = { location: { hash: '' } };
 globalThis.location = globalThis.window.location;
@@ -10,18 +12,38 @@ const { default: Revote } = await import('../src/revote.js') // Async for the wi
 
 const pristine = structuredClone(pristineData);
 
-function injectPoll(scenario) {
-	Revote.scenarios.length = 0;
-	Revote.scenarios.push(scenario);
-	Revote._scenarioIndex = undefined;
-	return Revote.scenarioIndex(0);
+function flushLoad() {
+	return new Promise(resolve => {
+		const unsubscribe = tasks.subscribe(null, () => {
+			unsubscribe();
+			resolve();
+		});
+	});
 }
 
-function freshScenario() {
-	const scenario = structuredClone(pristine);
-	scenario.filename = 'congresoCantabria-2023-07.yaml';
-	scenario.candidatures.sort(function(a, b) { return b.votes - a.votes; });
-	return injectPoll(scenario);
+function injectShallowScenarios(...scenarioDatas) {
+	Revote.scenarios.length = 0;
+	for (const scenarioData of scenarioDatas) {
+		Revote.scenarios.push({
+			...parseScenarioFilename(scenarioData.filename),
+			promise: () => scenarioData,
+		});
+	}
+	Revote._scenarioIndex = undefined;
+}
+
+async function injectPoll(scenarioData) {
+	injectShallowScenarios(scenarioData);
+	Revote.scenarioIndex(0);
+	await flushLoad();
+	return Revote.scenario();
+}
+
+async function freshScenario() {
+	const scenarioData = structuredClone(pristine);
+	scenarioData.filename = 'congresoCantabria-2023-07.yaml';
+	scenarioData.candidatures.sort(function(a, b) { return b.votes - a.votes; });
+	return injectPoll(scenarioData);
 }
 
 function candidatureIndex(poll, id) {
@@ -33,8 +55,22 @@ function optionIndex(poll, id) {
 }
 describe("Revote", () =>{
 
-    test('transfer keeps the total of votes and yields the expected seats', () => {
-        const poll = freshScenario();
+    test('scenario list is available before any data is loaded', () => {
+        injectShallowScenarios({ filename: 'congresoCantabria-2023-07.yaml' });
+        expect(Revote.scenarios.map(s => s.id)).toEqual(['congresoCantabria-2023-07']);
+        expect(Revote.scenarios[0].data).toBeUndefined();
+    });
+
+    test('scenario data loads on demand after selection', async () => {
+        injectShallowScenarios({ ...structuredClone(pristine), filename: 'congresoCantabria-2023-07.yaml' });
+        Revote.scenarioIndex(0);
+        expect(Revote.scenario()).toBeUndefined();
+        await flushLoad();
+        expect(Revote.scenario()).toBeDefined();
+    });
+
+    test('transfer keeps the total of votes and yields the expected seats', async () => {
+        const poll = await freshScenario();
         Revote.transfer(poll, candidatureIndex(poll, 'PSOE'), optionIndex(poll, 'SUMAR'), 30000);
         const seats = Object.fromEntries(poll.candidatures.map(c => [c.id, c.dhondtseats]));
         expect(seats).toEqual({
@@ -44,8 +80,8 @@ describe("Revote", () =>{
         expect(poll.candidatures.reduce((sum, c) => sum + c.votes, 0)).toBe(346888);
     });
 
-    test('threshold stays stable across recomputes after a transfer to abstention', () => {
-        const poll = freshScenario();
+    test('threshold stays stable across recomputes after a transfer to abstention', async () => {
+        const poll = await freshScenario();
         const pp = candidatureIndex(poll, 'PP');
         const abstention = optionIndex(poll, 'abstention');
         Revote.transfer(poll, pp, abstention, 10000);
@@ -54,15 +90,15 @@ describe("Revote", () =>{
         expect(poll.threshold).toBe(before);
     });
 
-    test('transfer updates nextPrice', () => {
-        const poll = freshScenario();
+    test('transfer updates nextPrice', async () => {
+        const poll = await freshScenario();
         Revote.transfer(poll, candidatureIndex(poll, 'PSOE'), optionIndex(poll, 'SUMAR'), 30000);
         const expected = Math.max(...poll.candidatures.map(c => c.votes / (c.seats + 1)));
         expect(poll.nextPrice).toBe(expected);
     });
 
-    test('nextPrice ignores votes of candidatures below the threshold', () => {
-        const poll = injectPoll({
+    test('nextPrice ignores votes of candidatures below the threshold', async () => {
+        const poll = await injectPoll({
             filename: 'synthetic.yaml',
             seats: 5,
             threshold_percent: 25,
@@ -78,8 +114,8 @@ describe("Revote", () =>{
         expect(poll.nextPrice).toBe(1000 / 6);
     });
 
-    test('remainderFactor averages only candidatures above the marginality factor', () => {
-        const poll = injectPoll({
+    test('remainderFactor averages only candidatures above the marginality factor', async () => {
+        const poll = await injectPoll({
             filename: 'synthetic.yaml',
             seats: 1,
             threshold_percent: 20,

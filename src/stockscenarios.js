@@ -54,9 +54,8 @@ export function validateShallowScenarios(shallowScenarios) {
 
 export function buildShallowScenarios(lazyLoads) {
     const shallowScenarios = Object.entries(lazyLoads)
-        .map(([path, promise]) => ({
-            ...parseScenarioFilename(path),
-            path,
+        .map(([filename, promise]) => ({
+            ...parseScenarioFilename(filename),
             promise,
         }))
         .sort(compareScenarios)
