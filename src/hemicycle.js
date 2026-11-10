@@ -29,7 +29,7 @@ Hemicycle.oncreate = function(vn) {
 	var bbox = {width: 600, height: 300};
 	var r = Math.min(bbox.width/2, bbox.height);
 
-	var options = Revote.scenario().options;
+	var options = Revote.scenario()?.options ?? [];
 	var pie = d3.pie()
 		.startAngle(-Math.PI/2)
 		.endAngle(Math.PI/2)
@@ -58,7 +58,7 @@ Hemicycle.oncreate = function(vn) {
 
 	this.updateSizes = function() {
 		//console.log('updateSizes', vn.attrs.label);
-		var options = Revote.scenario().options;
+		var options = Revote.scenario()?.options ?? [];
 		var pie = d3.pie()
 			.startAngle(-Math.PI/2)
 			.endAngle(Math.PI/2)

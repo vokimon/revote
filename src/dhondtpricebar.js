@@ -18,7 +18,7 @@ DHondtPriceBar.view = function(vn) {
 	var parentWidth = vn.dom?vn.dom.getParent().scrollWidth:400;
 	return m('.dhondtbars',m('svg', {
 		width: parentWidth,
-		height: this.margin.top + this.margin.bottom + this.barwidth*poll.options.length,
+		height: this.margin.top + this.margin.bottom + this.barwidth*(poll?.options.length ?? 0),
 		//height: parentHeight,
 		//'viewBox': '0 0 '+width+' '+height,
 		//'preserveAspectRatio': 'xMidYMid meet'
@@ -49,10 +49,12 @@ DHondtPriceBar.oncreate = function(vn) {
 
 	var svg = d3.select(vn.dom).select('svg');
 
-	var maxSeats = Math.max.apply(null, poll.candidatures
+	var maxSeats = Math.max.apply(null, poll?.candidatures
 		.map(function(c) { return c.seats; })
 	);
-	var shownVotes = poll.census/2;
+	var shownVotes = (poll?.census??1000000) / 2;
+	var seatPrice = poll?.seatPrice??100000
+	var threshold = poll?.threshold ?? 0.03
 
 	var chart = svg.append('g')
 		.attr('class', 'chart')
@@ -61,10 +63,10 @@ DHondtPriceBar.oncreate = function(vn) {
 
 	var optionsScale = d3.scaleBand()
 		.range([0, height])
-		.domain(poll.options
+		.domain(poll?.options
 			//.sort(function(a,b) {return b.votes-a.votes;})
-			.map(function(o) {return o.id;})
-			)
+			.map(function(o) {return o.id;}) ?? []
+		)
 		;
 	var optionAxis = d3.axisLeft()
 		.scale(optionsScale)
@@ -96,7 +98,7 @@ DHondtPriceBar.oncreate = function(vn) {
 
 	var seatScale = d3.scaleLinear()
 		.range([0,width])
-		.domain([0,shownVotes/poll.seatPrice])
+		.domain([0,shownVotes/seatPrice])
 		;
     var seatGrid = d3.axisTop()
         .scale(seatScale)
@@ -124,8 +126,8 @@ DHondtPriceBar.oncreate = function(vn) {
 		.attr('class', 'threshold')
 		.attr('y1',0)
 		.attr('y2',height)
-		.attr('x1',voteScale(poll.threshold))
-		.attr('x2',voteScale(poll.threshold))
+		.attr('x1',voteScale(threshold))
+		.attr('x2',voteScale(threshold))
 		;
 
 	function voteLabel(cssclass, label, yoffset, nvotes) {
@@ -170,15 +172,16 @@ DHondtPriceBar.oncreate = function(vn) {
 		}
 		return group;
 	}
-	var thresholdLabel = voteLabel('threshold', _("Threshold: "), thresholdLabelOffset, poll.threshold);
-	var priceLabel = voteLabel('price', _("Seat price: "), priceLabelOffset, poll.seatPrice);
+	var thresholdLabel = voteLabel('threshold', _("Threshold: "), thresholdLabelOffset, threshold);
+	var priceLabel = voteLabel('price', _("Seat price: "), priceLabelOffset, seatPrice);
 
 	this.updateData=function() {
 		var poll = Revote.scenario();
+		if (poll === undefined) return
 
 		var width = vn.dom.scrollWidth - margin.left -margin.right;
 		var height = vn.dom.scrollHeight - margin.top - margin.bottom;
-		var shownVotes = poll.census/2;
+		var shownVotes = (poll?.census??1000000) / 2;
 		var maxSeats = Math.max.apply(null, poll.candidatures
 			.map(function(c) { return c.seats; })
 		);
