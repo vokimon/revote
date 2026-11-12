@@ -3,25 +3,26 @@ import { parseScenarioFilename, compareScenarios } from '../src/stockscenarios.j
 
 describe('parseScenarioFilename', () => {
     test('invalid pattern returns just id', () => {
-        expect(parseScenarioFilename('archivo.yaml'))
+        expect(parseScenarioFilename('theory-minprice.yaml'))
             .toEqual({
-                id: 'archivo',
-                filename: 'archivo.yaml',
+                id: 'theory-minprice',
+                filename: 'theory-minprice.yaml',
             });
     });
 
     test('extracts metadata from a valid filename', () => {
-        expect(parseScenarioFilename('congresoCantabria-2023-07.yaml'))
+        expect(parseScenarioFilename('2023-07-23-Cantabria-congreso.yaml'))
             .toMatchObject({
                 election: 'congreso',
                 province: 'Cantabria',
                 year: 2023,
                 month: 7,
+                extra: null,
             });
     });
 
     test('ignores dirs', () => {
-        expect(parseScenarioFilename('whatever/path/congresoCantabria-2023-07.yaml'))
+        expect(parseScenarioFilename('whatever/path/2023-07-23-Cantabria-congreso.yaml'))
             .toMatchObject({
                 election: 'congreso',
                 province: 'Cantabria',
@@ -31,7 +32,7 @@ describe('parseScenarioFilename', () => {
     });
 
     test('supports parlament', () => {
-        expect(parseScenarioFilename('parlamentCantabria-2023-07.yaml'))
+        expect(parseScenarioFilename('2023-07-23-Cantabria-parlament.yaml'))
             .toMatchObject({
                 election: 'parlament', // this changes
                 province: 'Cantabria',
@@ -40,13 +41,10 @@ describe('parseScenarioFilename', () => {
             });
     });
 
-    test('extracts metadata from a valid filename', () => {
-        expect(parseScenarioFilename('congresoCantabria-2023.yaml'))
+    test('extracts the trailing extra', () => {
+        expect(parseScenarioFilename('2023-07-23-Cantabria-congreso-partial-scrutiny.yaml'))
             .toMatchObject({
-                election: 'congreso',
-                province: 'Cantabria',
-                year: 2023,
-                month: null,
+                extra: 'partial-scrutiny',
             });
     });
 

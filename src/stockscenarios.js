@@ -6,12 +6,13 @@ const electionPattern = elections.join('|');
 export function parseScenarioFilename(path) {
     const filename = path.split('/').pop();
     const filenamePattern = new RegExp(
-        `^(${electionPattern})(.+)-(\\d{4})(?:-(\\d{2}))?\\.yaml$`
+        `^(\\d{4}-\\d{2}-\\d{2})-([^-]+)-(${electionPattern})(?:-(.+))?\\.yaml$`
     );
     const match = filename.match(filenamePattern)
 
     if (match) {
-        const [, election, province, year, month] = match;
+        const [, date, province, election, extra] = match;
+        const [year, month] = date.split('-');
 
         return {
             id: filename.slice(0, -5),
@@ -19,7 +20,8 @@ export function parseScenarioFilename(path) {
             election,
             province,
             year: Number(year),
-            month: month == undefined? null : Number(month),
+            month: Number(month),
+            extra: extra ?? null,
         };
     }
 

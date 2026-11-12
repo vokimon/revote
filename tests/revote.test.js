@@ -1,5 +1,5 @@
 import { describe, test, expect, vi } from 'vitest';
-import pristineData from '../src/data/congresoCantabria-2023-07.yaml';
+import pristineData from '../src/data/2023-07-23-Cantabria-congreso.yaml';
 import { parseScenarioFilename } from '../src/stockscenarios.js';
 import tasks from '../src/tasks.js';
 
@@ -41,7 +41,7 @@ async function injectPoll(scenarioData) {
 
 async function freshScenario() {
 	const scenarioData = structuredClone(pristine);
-	scenarioData.filename = 'congresoCantabria-2023-07.yaml';
+	scenarioData.filename = '2023-07-23-Cantabria-congreso.yaml';
 	scenarioData.candidatures.sort(function(a, b) { return b.votes - a.votes; });
 	return injectPoll(scenarioData);
 }
@@ -56,13 +56,13 @@ function optionIndex(poll, id) {
 describe("Revote", () =>{
 
     test('scenario list is available before any data is loaded', () => {
-        injectShallowScenarios({ filename: 'congresoCantabria-2023-07.yaml' });
-        expect(Revote.scenarios.map(s => s.id)).toEqual(['congresoCantabria-2023-07']);
+        injectShallowScenarios({ filename: '2023-07-23-Cantabria-congreso.yaml' });
+        expect(Revote.scenarios.map(s => s.id)).toEqual(['2023-07-23-Cantabria-congreso']);
         expect(Revote.scenarios[0].data).toBeUndefined();
     });
 
     test('scenario data loads on demand after selection', async () => {
-        injectShallowScenarios({ ...structuredClone(pristine), filename: 'congresoCantabria-2023-07.yaml' });
+        injectShallowScenarios({ ...structuredClone(pristine), filename: '2023-07-23-Cantabria-congreso.yaml' });
         Revote.scenarioIndex(0);
         expect(Revote.scenario()).toBeUndefined();
         await flushLoad();
