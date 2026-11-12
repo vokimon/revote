@@ -17,6 +17,7 @@ describe('parseScenarioFilename', () => {
                 province: 'Cantabria',
                 year: 2023,
                 month: 7,
+                day: 23,
                 extra: null,
             });
     });
@@ -28,6 +29,7 @@ describe('parseScenarioFilename', () => {
                 province: 'Cantabria',
                 year: 2023,
                 month: 7,
+                day: 23,
             });
     });
 
@@ -38,6 +40,7 @@ describe('parseScenarioFilename', () => {
                 province: 'Cantabria',
                 year: 2023,
                 month: 7,
+                day: 23,
             });
     });
 

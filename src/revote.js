@@ -271,7 +271,7 @@ Revote.setScenario = function(index) {
 	Revote._scenarioIndex = index
 	let scenario = Revote.scenarios[Revote._scenarioIndex]
 	var name = scenario.id
-	console.log({scenario})
+	//console.log({scenario})
 	if (name!==location.hash.slice(1))
 		location.hash='#'+name;
 	if (scenario.data !== undefined) return

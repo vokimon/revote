@@ -12,7 +12,7 @@ export function parseScenarioFilename(path) {
 
     if (match) {
         const [, date, province, election, extra] = match;
-        const [year, month] = date.split('-');
+        const [year, month, day] = date.split('-');
 
         return {
             id: filename.slice(0, -5),
@@ -21,6 +21,7 @@ export function parseScenarioFilename(path) {
             province,
             year: Number(year),
             month: Number(month),
+            day: Number(day),
             extra: extra ?? null,
         };
     }
