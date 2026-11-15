@@ -38,15 +38,7 @@ Hemicycle.oncreate = function(vn) {
 	var r = Math.min(bbox.width/2, bbox.height);
 
 	var props = getProps(vn);
-	var options = props.options;
-	var pie = d3.pie()
-		.startAngle(-Math.PI/2)
-		.endAngle(Math.PI/2)
-		.value(function (d) {
-			return d[props.attribute || 'seats'] || 0;
-		})
-		(options)
-		;
+
 	var arcs = d3.arc()
 		.innerRadius(r/3)
 		.outerRadius(r)
