@@ -35,7 +35,6 @@ Hemicycle.oncreate = function(vn) {
 	//console.log("Creating");
 	var bbox = vn.dom.getBoundingClientRect();
 	var bbox = {width: 600, height: 300};
-	var r = Math.min(bbox.width/2, bbox.height);
 
 	var props = getProps(vn);
 
