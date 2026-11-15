@@ -22,7 +22,8 @@ Hemicycle.view = function(vn) {
 };
 Hemicycle.oninit = function(vn) {
 	vn.state.unsubscribe = Revote.subscribe(function() {
-		vn.state.updateSizes && vn.state.updateSizes();
+		var props = getProps(vn);
+		vn.state.hemicycle.update(props);
 	})
 };
 Hemicycle.onupdate = function(vn) {
@@ -31,14 +32,7 @@ Hemicycle.onupdate = function(vn) {
 Hemicycle.oncreate = function(vn) {
 	//console.log("Creating");
 	var props = getProps(vn);
-
 	vn.state.hemicycle = new HemicycleD3(vn.dom, props);
-
-	vn.state.updateSizes = function() {
-		vn.state.hemicycle.update(getProps(vn));
-	}
-
-	vn.state.updateSizes();
 };
 Hemicycle.onremove = function(vn) {
 	vn.state.unsubscribe?.();
@@ -77,6 +71,7 @@ class HemicycleD3 {
 			.attr('font-size', '120%')
 			.text(props.label)
 			;
+		this.update(props)
 	}
 
 	update(props) {
