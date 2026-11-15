@@ -9,6 +9,14 @@ var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
 var Hemicycle = {};
+
+function getProps(vn) {
+	return {
+		...vn.attrs,
+		options: Revote.scenario()?.options ?? []
+	};
+}
+
 Hemicycle.view = function(vn) {
 	return m('svg.hemicycle', {
 		'viewBox': '0 0 600 300',
@@ -29,7 +37,8 @@ Hemicycle.oncreate = function(vn) {
 	var bbox = {width: 600, height: 300};
 	var r = Math.min(bbox.width/2, bbox.height);
 
-	var options = Revote.scenario()?.options ?? [];
+	var props = getProps(vn);
+	var options = props.options;
 	var pie = d3.pie()
 		.startAngle(-Math.PI/2)
 		.endAngle(Math.PI/2)
@@ -58,7 +67,8 @@ Hemicycle.oncreate = function(vn) {
 
 	vn.state.updateSizes = function() {
 		//console.log('updateSizes', vn.attrs.label);
-		var options = Revote.scenario()?.options ?? [];
+		var props = getProps(vn);
+		var options = props.options;
 		var pie = d3.pie()
 			.startAngle(-Math.PI/2)
 			.endAngle(Math.PI/2)
