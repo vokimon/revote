@@ -56,7 +56,7 @@ Hemicycle.oncreate = function(vn) {
 		.text(vn.attrs.label)
 		;
 
-	this.updateSizes = function() {
+	vn.state.updateSizes = function() {
 		//console.log('updateSizes', vn.attrs.label);
 		var options = Revote.scenario()?.options ?? [];
 		var pie = d3.pie()
@@ -163,7 +163,7 @@ Hemicycle.oncreate = function(vn) {
 			;
 		labels.exit().remove();
 	}
-	this.updateSizes();
+	vn.state.updateSizes();
 
 };
 

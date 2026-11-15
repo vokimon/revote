@@ -8,6 +8,9 @@
 - [ ] Stack: Decouple revote from mithril (redraw as last subscriber)
 - [ ] Stack: Decouple hash management from revote (location.hash read/write, window.onhashchange, window/location shims + async import in tests)
 - [ ] Stack: Migrate to React/Mantine
+- [ ] Hemicycle sector transitions
+  - [ ] Hemicycle: Fix: Continuity of non-vote option transitions
+  - [ ] Hemicycle: Sequence transitions, first size and then reordering
 - [ ] Async loading stock scenarios
   - [ ] Navigate by scenario index (revote + chooser read the filename index)
   - [ ] Sort abstract scenarios (no province) last
