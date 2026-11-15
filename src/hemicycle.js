@@ -8,9 +8,6 @@ import Revote from './revote.js';
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
-const WIDTH = 600;
-const HEIGHT = 300;
-
 var Hemicycle = {};
 
 function getProps(vn) {
@@ -21,10 +18,7 @@ function getProps(vn) {
 }
 
 Hemicycle.view = function(vn) {
-	return m('svg.hemicycle', {
-		'viewBox': `0 0 ${WIDTH} ${HEIGHT}`,
-		'preserveAspectRatio': 'xMidYMid meet'
-	});
+	return m('.hemicycle');
 };
 Hemicycle.oninit = function(vn) {
 	Revote.subscribe(function() {
@@ -50,19 +44,26 @@ Hemicycle.oncreate = function(vn) {
 
 class HemicycleD3 {
 	constructor(element, props) {
+		const WIDTH = 600;
+		const HEIGHT = 300;
 		const INNER_RADIUS_RATIO = 1/3;
 		const LABEL_OFFSET_X = 0;
 		const LABEL_OFFSET_Y = -20;
 
 		var bbox = {width: WIDTH, height: HEIGHT};
 		var r = Math.min(bbox.width/2, bbox.height);
+		var svg = d3.select(element)
+			.append('svg')
+				.attr('viewBox', `0 0 ${WIDTH} ${HEIGHT}`)
+				.attr('preserveAspectRatio', 'xMidYMid meet')
+			;
+		this.chart = svg
+			.append('g')
+				.attr('transform', 'translate('+bbox.width/2+' '+bbox.height+')')
+			;
 		this.arcs = d3.arc()
 			.innerRadius(r*INNER_RADIUS_RATIO)
 			.outerRadius(r)
-			;
-		this.chart = d3.select(element)
-			.append('g')
-				.attr('transform', 'translate('+bbox.width/2+' '+bbox.height+')')
 			;
 		this.chart.append('text')
 			.attr('x', LABEL_OFFSET_X)
