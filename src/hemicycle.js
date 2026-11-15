@@ -21,7 +21,7 @@ Hemicycle.view = function(vn) {
 	return m('.hemicycle');
 };
 Hemicycle.oninit = function(vn) {
-	Revote.subscribe(function() {
+	vn.state.unsubscribe = Revote.subscribe(function() {
 		vn.state.updateSizes && vn.state.updateSizes();
 	})
 };
@@ -39,8 +39,12 @@ Hemicycle.oncreate = function(vn) {
 	}
 
 	vn.state.updateSizes();
-
 };
+Hemicycle.onremove = function(vn) {
+	vn.state.unsubscribe?.();
+	vn.state.hemicycle?.destroy();
+	vn.state.hemicycle = null;
+}
 
 class HemicycleD3 {
 	constructor(element, props) {
@@ -52,12 +56,12 @@ class HemicycleD3 {
 
 		var bbox = {width: WIDTH, height: HEIGHT};
 		var r = Math.min(bbox.width/2, bbox.height);
-		var svg = d3.select(element)
+		this.svg = d3.select(element)
 			.append('svg')
 				.attr('viewBox', `0 0 ${WIDTH} ${HEIGHT}`)
 				.attr('preserveAspectRatio', 'xMidYMid meet')
 			;
-		this.chart = svg
+		this.chart = this.svg
 			.append('g')
 				.attr('transform', 'translate('+bbox.width/2+' '+bbox.height+')')
 			;
@@ -182,6 +186,11 @@ class HemicycleD3 {
 				})
 			;
 		labels.exit().remove();
+	}
+
+	destroy() {
+		this.svg.interrupt();
+		this.svg.remove();
 	}
 }
 
