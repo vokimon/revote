@@ -71,116 +71,113 @@ class HemicycleD3 {
 	}
 
 	update(props) {
-		updateHemicycle(this.chart, this.arcs, props);
-	}
-}
-
-function updateHemicycle(chart, arcs, props) {
-	//console.log('updateSizes', props.label);
-	var options = props.options;
-	var pie = d3.pie()
-		.startAngle(-Math.PI/2)
-		.endAngle(Math.PI/2)
-		.value(function (d) {
-			if (!props.shownovote && d.nocandidature)
-				return 0;
-			return d[props.attribute || 'seats'] || 0;
-		})
-		(options)
-		;
-	function selectOrigin(d,i) {
-		if (!props.onoptionclicked) return
-		props.onoptionclicked(i);
-		d3.event.preventDefault();
-		m.redraw();
-	}
-	function selectTarget(d,i) {
-		if (!props.onoptioncontext) return
-		props.onoptioncontext(i);
-		d3.event.preventDefault();
-		m.redraw();
-	}
-	var sectors = chart.selectAll('path.sector').data(pie);
-	sectors.select('title')
-		.text(function(d,i) {
-			return Revote.optionDescription(i);
-		})
-		;
-	sectors
-		//.each(function(d) { console.log('updating:', d.data.id); })
-		.transition()
-			.duration(1000)
-			.attr('d', arcs)
-			.attr('fill', function(d,i) {
-				return Revote.color(d.data.id);
+		//console.log('updateSizes', props.label);
+		var options = props.options;
+		var arcs = this.arcs
+		var pie = d3.pie()
+			.startAngle(-Math.PI/2)
+			.endAngle(Math.PI/2)
+			.value(function (d) {
+				if (!props.shownovote && d.nocandidature)
+					return 0;
+				return d[props.attribute || 'seats'] || 0;
 			})
-		;
-	sectors
-		.enter()
-		//.each(function(d) { console.log('adding:', d.data.id); })
-		.append('path')
-			.classed('sector', true)
-			.attr('d', arcs)
-			.attr('stroke', 'white')
-			.attr('fill', function(d,i) {
-				return Revote.color(d.data.id);
-			})
-			.each(function(d) {
-				this._current = d;
-			})
-			.on('click', selectOrigin)
-			.on('contextmenu', selectTarget)
-		.append('title')
+			(options)
+			;
+		function selectOrigin(d,i) {
+			if (!props.onoptionclicked) return
+			props.onoptionclicked(i);
+			d3.event.preventDefault();
+			m.redraw();
+		}
+		function selectTarget(d,i) {
+			if (!props.onoptioncontext) return
+			props.onoptioncontext(i);
+			d3.event.preventDefault();
+			m.redraw();
+		}
+		var sectors = this.chart.selectAll('path.sector').data(pie);
+		sectors.select('title')
 			.text(function(d,i) {
 				return Revote.optionDescription(i);
 			})
-		;
-	sectors.exit()
-		//.each(function(d) { console.log('removing:', d.data.id); })
-		.remove();
+			;
+		sectors
+			//.each(function(d) { console.log('updating:', d.data.id); })
+			.transition()
+				.duration(1000)
+				.attr('d', arcs)
+				.attr('fill', function(d,i) {
+					return Revote.color(d.data.id);
+				})
+			;
+		sectors
+			.enter()
+			//.each(function(d) { console.log('adding:', d.data.id); })
+			.append('path')
+				.classed('sector', true)
+				.attr('d', arcs)
+				.attr('stroke', 'white')
+				.attr('fill', function(d,i) {
+					return Revote.color(d.data.id);
+				})
+				.each(function(d) {
+					this._current = d;
+				})
+				.on('click', selectOrigin)
+				.on('contextmenu', selectTarget)
+			.append('title')
+				.text(function(d,i) {
+					return Revote.optionDescription(i);
+				})
+			;
+		sectors.exit()
+			//.each(function(d) { console.log('removing:', d.data.id); })
+			.remove();
 
-	var labels = chart.selectAll('text.sectorlabel').data(pie);
+		var labels = this.chart.selectAll('text.sectorlabel').data(pie);
 
-	function placeLabel(sectorlabel, d) {
-		sectorlabel
-			.attr('transform', function(d) {
-				return 'translate('+arcs.centroid(d)+')';
-			})
-			.attr('visibility', function(d,i) {
-				return d.endAngle-d.startAngle<2*Math.PI/180?'hidden':'';
-			})
-			.text(function(d,i) {
-				return (
-					d.data.nocandidature===true?d.data.name:d.data.id)+
-					"\n"+percent((d.endAngle-d.startAngle),Math.PI);
-			})
-		;
-	}
-	labels.select('title')
-		.text(function(d,i) {
-			return Revote.optionDescription(i);
-		})
-		;
-	labels
-		.transition()
-			.duration(1000)
-			.call(placeLabel)
-		;
-	labels.enter()
-		.append("text")
-			.attr("class", 'sectorlabel')
-			.attr('text-anchor', 'middle')
-			.call(placeLabel)
-			.attr("fill", "white")
-			.attr("stroke", "#777")
-			.attr('font-weight', 'bold')
-			.attr('font-size', '160%')
-		.append('title')
+		function placeLabel(sectorlabel, d) {
+			sectorlabel
+				.attr('transform', function(d) {
+					return 'translate('+arcs.centroid(d)+')';
+				})
+				.attr('visibility', function(d,i) {
+					return d.endAngle-d.startAngle<2*Math.PI/180?'hidden':'';
+				})
+				.text(function(d,i) {
+					return (
+						d.data.nocandidature===true?d.data.name:d.data.id)+
+						"\n"+percent((d.endAngle-d.startAngle),Math.PI);
+				})
+			;
+		}
+		labels.select('title')
 			.text(function(d,i) {
 				return Revote.optionDescription(i);
 			})
-		;
-	labels.exit().remove();
+			;
+		labels
+			.transition()
+				.duration(1000)
+				.call(placeLabel)
+			;
+		labels.enter()
+			.append("text")
+				.attr("class", 'sectorlabel')
+				.attr('text-anchor', 'middle')
+				.call(placeLabel)
+				.attr("fill", "white")
+				.attr("stroke", "#777")
+				.attr('font-weight', 'bold')
+				.attr('font-size', '160%')
+			.append('title')
+				.text(function(d,i) {
+					return Revote.optionDescription(i);
+				})
+			;
+		labels.exit().remove();
+	}
 }
 
 export default Hemicycle;
