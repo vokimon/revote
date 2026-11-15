@@ -87,13 +87,11 @@ class HemicycleD3 {
 			if (!props.onoptionclicked) return
 			props.onoptionclicked(i);
 			d3.event.preventDefault();
-			m.redraw();
 		}
 		function selectTarget(d,i) {
 			if (!props.onoptioncontext) return
 			props.onoptioncontext(i);
 			d3.event.preventDefault();
-			m.redraw();
 		}
 		var sectors = this.chart.selectAll('path.sector').data(pie);
 		sectors.select('title')

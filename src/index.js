@@ -35,9 +35,11 @@ var App = {
 	view: function(vn) {
 		function selectOrigin(optionIdx) {
 			TransferWidget.from=optionIdx;
+			m.redraw();
 		};
 		function selectTarget(optionIdx) {
 			TransferWidget.to=optionIdx;
+			m.redraw();
 		};
 		return m('.app.mdc-typography', [
 			m('.topbar', [
@@ -91,22 +93,14 @@ var App = {
 					App.currentView===0? m(DHondtPriceBar, {
 						optionA: TransferWidget.from,
 						optionB: TransferWidget.to,
-						onoptionclicked: function(optionIdx) {
-							TransferWidget.from=optionIdx;
-						},
-						onoptioncontext: function(optionIdx) {
-							TransferWidget.to=optionIdx;
-						},
+						onoptionclicked: selectOrigin,
+						onoptioncontext: selectTarget,
 					}):
 					App.currentView===1 ? m(DHondtQuotients, {
 						optionA: TransferWidget.from,
 						optionB: TransferWidget.to,
-						onoptionclicked: function(optionIdx) {
-							TransferWidget.from=optionIdx;
-						},
-						onoptioncontext: function(optionIdx) {
-							TransferWidget.to=optionIdx;
-						},
+						onoptionclicked: selectOrigin,
+						onoptioncontext: selectTarget,
 					}):
 					App.currentView===2 ? m(Description):
 					m(''),

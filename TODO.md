@@ -8,6 +8,13 @@
 - [ ] Stack: Decouple revote from mithril (redraw as last subscriber)
 - [ ] Stack: Decouple hash management from revote (location.hash read/write, window.onhashchange, window/location shims + async import in tests)
 - [ ] Stack: Migrate to React/Mantine
+- [x] Hemicycle D3 extract:
+  - [x] Avoid using `this` binding in lifecycle methods (explicit use vn.state)
+  - [x] Isolate mithril only attrs access in a getProps function
+  - [x] Extract d3 update into a function
+  - [x] Extract d3 init into a function
+  - [x] Add HemicycleD3 middle man (used in HemicycleMithril, delegates to the functions
+  - [x] Inline extracted function into HemicycleD3
 - [ ] Hemicycle sector transitions
   - [ ] Hemicycle: Fix: Continuity of non-vote option transitions
   - [ ] Hemicycle: Sequence transitions, first size and then reordering

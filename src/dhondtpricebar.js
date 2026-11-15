@@ -264,14 +264,12 @@ DHondtPriceBar.oncreate = function(vn) {
 					vn.attrs.onoptionclicked &&
 						vn.attrs.onoptionclicked(i);
 					d3.event.preventDefault();
-					m.redraw();
 				})
 				.on('contextmenu', function(d,i) {
 					//console.log("Selected target:", poll.options[i].id);
 					vn.attrs.onoptioncontext &&
 						vn.attrs.onoptioncontext(i);
 					d3.event.preventDefault();
-					m.redraw();
 				})
 				.on("mouseover", function(d,i) {
 					tooltip.transition()
