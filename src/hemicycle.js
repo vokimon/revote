@@ -56,28 +56,23 @@ class HemicycleD3 {
 			.innerRadius(r/3)
 			.outerRadius(r)
 			;
-		this.chart = createHemicycle(element, bbox, props);
+		this.chart = d3.select(element)
+			.append('g')
+				.attr('transform', 'translate('+bbox.width/2+' '+bbox.height+')')
+			;
+		this.chart.append('text')
+			.attr('x', 0)
+			.attr('y', -20)
+			.attr('text-anchor', 'middle')
+			.attr('font-weight', 'bold')
+			.attr('font-size', '120%')
+			.text(props.label)
+			;
 	}
 
 	update(props) {
 		updateHemicycle(this.chart, this.arcs, props);
 	}
-}
-
-function createHemicycle(element, bbox, props) {
-	var chart = d3.select(element)
-		.append('g')
-			.attr('transform', 'translate('+bbox.width/2+' '+bbox.height+')')
-		;
-	chart.append('text')
-		.attr('x', 0)
-		.attr('y', -20)
-		.attr('text-anchor', 'middle')
-		.attr('font-weight', 'bold')
-		.attr('font-size', '120%')
-		.text(props.label)
-		;
-	return chart
 }
 
 function updateHemicycle(chart, arcs, props) {
