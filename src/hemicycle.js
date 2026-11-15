@@ -43,7 +43,7 @@ Hemicycle.oncreate = function(vn) {
 		.startAngle(-Math.PI/2)
 		.endAngle(Math.PI/2)
 		.value(function (d) {
-			return d[vn.attrs.attribute || 'seats'] || 0;
+			return d[props.attribute || 'seats'] || 0;
 		})
 		(options)
 		;
@@ -62,32 +62,32 @@ Hemicycle.oncreate = function(vn) {
 		.attr('text-anchor', 'middle')
 		.attr('font-weight', 'bold')
 		.attr('font-size', '120%')
-		.text(vn.attrs.label)
+		.text(props.label)
 		;
 
 	vn.state.updateSizes = function() {
-		//console.log('updateSizes', vn.attrs.label);
+		//console.log('updateSizes', props.label);
 		var props = getProps(vn);
 		var options = props.options;
 		var pie = d3.pie()
 			.startAngle(-Math.PI/2)
 			.endAngle(Math.PI/2)
 			.value(function (d) {
-				if (!vn.attrs.shownovote && d.nocandidature)
+				if (!props.shownovote && d.nocandidature)
 					return 0;
-				return d[vn.attrs.attribute || 'seats'] || 0;
+				return d[props.attribute || 'seats'] || 0;
 			})
 			(options)
 			;
 		function selectOrigin(d,i) {
-			if (!vn.attrs.onoptionclicked) return
-			vn.attrs.onoptionclicked(i);
+			if (!props.onoptionclicked) return
+			props.onoptionclicked(i);
 			d3.event.preventDefault();
 			m.redraw();
 		}
 		function selectTarget(d,i) {
-			if (!vn.attrs.onoptioncontext) return
-			vn.attrs.onoptioncontext(i);
+			if (!props.onoptioncontext) return
+			props.onoptioncontext(i);
 			d3.event.preventDefault();
 			m.redraw();
 		}
