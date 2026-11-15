@@ -39,19 +39,30 @@ Hemicycle.oncreate = function(vn) {
 
 	var props = getProps(vn);
 
-	var arcs = d3.arc()
-		.innerRadius(r/3)
-		.outerRadius(r)
-		;
-
-	vn.state.chart = createHemicycle(vn.dom, bbox, props)
+	vn.state.hemicycle = new HemicycleD3(vn.dom, bbox, props);
 
 	vn.state.updateSizes = function() {
-		updateHemicycle(vn.state.chart, arcs, getProps(vn));
+		vn.state.hemicycle.update(getProps(vn));
 	}
+
 	vn.state.updateSizes();
 
 };
+
+class HemicycleD3 {
+	constructor(element, bbox, props) {
+		var r = Math.min(bbox.width/2, bbox.height);
+		this.arcs = d3.arc()
+			.innerRadius(r/3)
+			.outerRadius(r)
+			;
+		this.chart = createHemicycle(element, bbox, props);
+	}
+
+	update(props) {
+		updateHemicycle(this.chart, this.arcs, props);
+	}
+}
 
 function createHemicycle(element, bbox, props) {
 	var chart = d3.select(element)
