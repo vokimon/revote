@@ -8,6 +8,9 @@ import Revote from './revote.js';
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
+const WIDTH = 600;
+const HEIGHT = 300;
+
 var Hemicycle = {};
 
 function getProps(vn) {
@@ -19,7 +22,7 @@ function getProps(vn) {
 
 Hemicycle.view = function(vn) {
 	return m('svg.hemicycle', {
-		'viewBox': '0 0 600 300',
+		'viewBox': `0 0 ${WIDTH} ${HEIGHT}`,
 		'preserveAspectRatio': 'xMidYMid meet'
 	});
 };
@@ -33,12 +36,9 @@ Hemicycle.onupdate = function(vn) {
 };
 Hemicycle.oncreate = function(vn) {
 	//console.log("Creating");
-	var bbox = vn.dom.getBoundingClientRect();
-	var bbox = {width: 600, height: 300};
-
 	var props = getProps(vn);
 
-	vn.state.hemicycle = new HemicycleD3(vn.dom, bbox, props);
+	vn.state.hemicycle = new HemicycleD3(vn.dom, props);
 
 	vn.state.updateSizes = function() {
 		vn.state.hemicycle.update(getProps(vn));
@@ -49,10 +49,15 @@ Hemicycle.oncreate = function(vn) {
 };
 
 class HemicycleD3 {
-	constructor(element, bbox, props) {
+	constructor(element, props) {
+		const INNER_RADIUS_RATIO = 1/3;
+		const LABEL_OFFSET_X = 0;
+		const LABEL_OFFSET_Y = -20;
+
+		var bbox = {width: WIDTH, height: HEIGHT};
 		var r = Math.min(bbox.width/2, bbox.height);
 		this.arcs = d3.arc()
-			.innerRadius(r/3)
+			.innerRadius(r*INNER_RADIUS_RATIO)
 			.outerRadius(r)
 			;
 		this.chart = d3.select(element)
@@ -60,8 +65,8 @@ class HemicycleD3 {
 				.attr('transform', 'translate('+bbox.width/2+' '+bbox.height+')')
 			;
 		this.chart.append('text')
-			.attr('x', 0)
-			.attr('y', -20)
+			.attr('x', LABEL_OFFSET_X)
+			.attr('y', LABEL_OFFSET_Y)
 			.attr('text-anchor', 'middle')
 			.attr('font-weight', 'bold')
 			.attr('font-size', '120%')
@@ -71,6 +76,8 @@ class HemicycleD3 {
 
 	update(props) {
 		//console.log('updateSizes', props.label);
+		const TRANSITION_DURATION = 1000;
+		const MIN_LABEL_ANGLE = 2 * Math.PI / 180;
 		var options = props.options;
 		var arcs = this.arcs
 		var pie = d3.pie()
@@ -102,7 +109,7 @@ class HemicycleD3 {
 		sectors
 			//.each(function(d) { console.log('updating:', d.data.id); })
 			.transition()
-				.duration(1000)
+				.duration(TRANSITION_DURATION)
 				.attr('d', arcs)
 				.attr('fill', function(d,i) {
 					return Revote.color(d.data.id);
@@ -140,7 +147,7 @@ class HemicycleD3 {
 					return 'translate('+arcs.centroid(d)+')';
 				})
 				.attr('visibility', function(d,i) {
-					return d.endAngle-d.startAngle<2*Math.PI/180?'hidden':'';
+					return d.endAngle-d.startAngle<MIN_LABEL_ANGLE?'hidden':'';
 				})
 				.text(function(d,i) {
 					return (
@@ -156,7 +163,7 @@ class HemicycleD3 {
 			;
 		labels
 			.transition()
-				.duration(1000)
+				.duration(TRANSITION_DURATION)
 				.call(placeLabel)
 			;
 		labels.enter()
