@@ -44,18 +44,7 @@ Hemicycle.oncreate = function(vn) {
 		.outerRadius(r)
 		;
 
-	vn.state.chart = d3.select(vn.dom)
-		.append('g')
-			.attr('transform', 'translate('+bbox.width/2+' '+bbox.height+')')
-		;
-	vn.state.chart.append('text')
-		.attr('x', 0)
-		.attr('y', -20)
-		.attr('text-anchor', 'middle')
-		.attr('font-weight', 'bold')
-		.attr('font-size', '120%')
-		.text(props.label)
-		;
+	vn.state.chart = createHemicycle(vn.dom, bbox, props)
 
 	vn.state.updateSizes = function() {
 		updateHemicycle(vn.state.chart, arcs, getProps(vn));
@@ -63,6 +52,23 @@ Hemicycle.oncreate = function(vn) {
 	vn.state.updateSizes();
 
 };
+
+function createHemicycle(element, bbox, props) {
+	var chart = d3.select(element)
+		.append('g')
+			.attr('transform', 'translate('+bbox.width/2+' '+bbox.height+')')
+		;
+	chart.append('text')
+		.attr('x', 0)
+		.attr('y', -20)
+		.attr('text-anchor', 'middle')
+		.attr('font-weight', 'bold')
+		.attr('font-size', '120%')
+		.text(props.label)
+		;
+	return chart
+}
+
 function updateHemicycle(chart, arcs, props) {
 	//console.log('updateSizes', props.label);
 	var options = props.options;
