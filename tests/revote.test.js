@@ -133,4 +133,35 @@ describe("Revote", () =>{
         });
         expect(poll.remainderFactor).toBe((75 + 75 +  40) / 100 / 4);
     });
+
+    describe('optionIdentity', () => {
+        test('identifies equivalent candidatures', () => {
+            expect(Revote.optionIdentity({id: 'CiU'}))
+                .toBe(Revote.optionIdentity({id: 'PDPC'}));
+        });
+
+        test('identifies equivalent parties', () => {
+            expect(Revote.optionIdentity({id: 'ERC'}))
+                .toBe(Revote.optionIdentity({id: 'ESQUERRA'}));
+        });
+
+        test('uses normalized names for ungrouped options', () => {
+            expect(Revote.optionIdentity({
+                id: 'unknown-1',
+                name: 'Partido X'
+            })).toBe('name:partido x');
+
+            expect(Revote.optionIdentity({
+                id: 'unknown-2',
+                name: ' partido   x '
+            })).toBe('name:partido x');
+        });
+
+        test('keeps non-vote options independent', () => {
+            expect(Revote.optionIdentity({
+                id: 'abstention',
+                nocandidature: true
+            })).toBe('nonvote:abstention');
+        });
+    });
 });

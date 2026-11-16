@@ -109,6 +109,24 @@ function generateOptions(poll, shownovote) {
 	return options;
 }
 
+Revote.optionIdentity = function(option) {
+	if (option.nocandidature)
+		return `nonvote:${option.id}`;
+
+	const group = optionGroups[option.id];
+
+	if (group)
+		return `group:${group}`;
+
+	const name = (option.name || option.id)
+		.normalize('NFKC')
+		.trim()
+		.toLowerCase()
+		.replace(/\s+/g, ' ');
+
+	return `name:${name}`;
+};
+
 function _recompute(poll) {
 	poll.participation = poll.census - poll.abstention;
 	hamilton(poll);
@@ -172,6 +190,7 @@ Revote.transfer = function(scenario, fromOption, toOption, nvotes) {
 	m.redraw();
 };
 
+var optionGroups = {}
 var loadFixedColors = function() {
 	var colors = [];
 	var options = [];
@@ -179,6 +198,7 @@ var loadFixedColors = function() {
 		colorgroups[color].map(function(option) {
 			colors.push(color);
 			options.push(option);
+			optionGroups[option] = color;
 		});
 	});
 	var preallocatedColors = d3.scaleOrdinal(colors);
