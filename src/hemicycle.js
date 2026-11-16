@@ -80,7 +80,16 @@ class HemicycleD3 {
 			//.each(function(d) { console.log('updating:', d.data.id); })
 			.transition()
 				.duration(TRANSITION_DURATION)
-				.attr('d', arcs)
+				.attrTween('d', function(target) {
+					const interpolate = d3.interpolate(
+						this._current,
+						target
+					);
+					return t => {
+						this._current = interpolate(t);
+						return arcs(this._current);
+					};
+				})
 				.attr('fill', function(d,i) {
 					return Revote.color(d.data.id);
 				})
@@ -95,6 +104,9 @@ class HemicycleD3 {
 			.append('path')
 				.classed('sector-shape', true)
 				.attr('d', arcs)
+				.each(function(d) {
+					this._current = d;
+				})
 				.attr('stroke', 'white')
 				.attr('fill', function(d,i) {
 					return Revote.color(d.data.id);
