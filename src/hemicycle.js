@@ -1,12 +1,10 @@
 'use strict';
 
 import m from 'mithril';
-import _ from './translate';
 import * as d3 from 'd3';
 import Revote from './revote.js';
 
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
-var votes = function(v) { return d3.format(',.0f')(v).replace(/,/gi,'.');};
 
 var Hemicycle = {};
 
