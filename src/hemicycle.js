@@ -21,16 +21,17 @@ Hemicycle.view = function(vn) {
 	return m('.hemicycle');
 };
 Hemicycle.oninit = function(vn) {
-	vn.state.unsubscribe = Revote.subscribe(function() {
+	vn.state.update = function() {
 		var props = getProps(vn);
-		vn.state.hemicycle.update(props);
-	})
+		if (!props.options.length) return // Transient
+		vn.state.hemicycle?.update(props);
+	}
+	vn.state.unsubscribe = Revote.subscribe(vn.state.update);
 };
 Hemicycle.onupdate = function(vn) {
-	//console.log("Updating");
+	vn.state.update()
 };
 Hemicycle.oncreate = function(vn) {
-	//console.log("Creating");
 	var props = getProps(vn);
 	vn.state.hemicycle = new HemicycleD3(vn.dom, props);
 };
