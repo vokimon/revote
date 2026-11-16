@@ -67,7 +67,7 @@ class HemicycleD3 {
 			d3.event.preventDefault();
 		}
 		var sectors = this.chart.selectAll('g.sector').data(pie);
-		sectors
+		sectors.select('path.sector-shape')
 			.on('click', selectOrigin)
 			.on('contextmenu', selectTarget)
 			;
@@ -90,6 +90,8 @@ class HemicycleD3 {
 			//.each(function(d) { console.log('adding:', d.data.id); })
 			.append('g')
 				.classed('sector', true)
+				.on('click', selectOrigin)
+				.on('contextmenu', selectTarget)
 			.append('path')
 				.classed('sector-shape', true)
 				.attr('d', arcs)
