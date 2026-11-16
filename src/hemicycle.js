@@ -130,9 +130,6 @@ class HemicycleD3 {
 				.attr('fill', function(d,i) {
 					return Revote.color(d.data.id);
 				})
-				.each(function(d) {
-					this._current = d;
-				})
 			.append('title')
 				.text(function(d,i) {
 					return Revote.optionDescription(i);
