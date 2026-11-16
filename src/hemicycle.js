@@ -66,17 +66,17 @@ class HemicycleD3 {
 			props.onoptioncontext(i);
 			d3.event.preventDefault();
 		}
-		var sectors = this.chart.selectAll('path.sector').data(pie);
+		var sectors = this.chart.selectAll('g.sector').data(pie);
 		sectors
 			.on('click', selectOrigin)
 			.on('contextmenu', selectTarget)
 			;
-		sectors.select('title')
+		sectors.select('path.sector-shape').select('title')
 			.text(function(d,i) {
 				return Revote.optionDescription(i);
 			})
 			;
-		sectors
+		sectors.select('path.sector-shape')
 			//.each(function(d) { console.log('updating:', d.data.id); })
 			.transition()
 				.duration(TRANSITION_DURATION)
@@ -88,8 +88,10 @@ class HemicycleD3 {
 		sectors
 			.enter()
 			//.each(function(d) { console.log('adding:', d.data.id); })
-			.append('path')
+			.append('g')
 				.classed('sector', true)
+			.append('path')
+				.classed('sector-shape', true)
 				.attr('d', arcs)
 				.attr('stroke', 'white')
 				.attr('fill', function(d,i) {
