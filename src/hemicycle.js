@@ -6,39 +6,6 @@ import Revote from './revote.js';
 
 var percent = function(some, all) { return d3.format('.2%')(some/all);};
 
-var Hemicycle = {};
-
-function getProps(vn) {
-	return {
-		...vn.attrs,
-		options: Revote.scenario()?.options ?? []
-	};
-}
-
-Hemicycle.view = function(vn) {
-	return m('.hemicycle');
-};
-Hemicycle.oninit = function(vn) {
-	vn.state.update = function() {
-		var props = getProps(vn);
-		if (!props.options.length) return // Transient
-		vn.state.hemicycle?.update(props);
-	}
-	vn.state.unsubscribe = Revote.subscribe(vn.state.update);
-};
-Hemicycle.onupdate = function(vn) {
-	vn.state.update()
-};
-Hemicycle.oncreate = function(vn) {
-	var props = getProps(vn);
-	vn.state.hemicycle = new HemicycleD3(vn.dom, props);
-};
-Hemicycle.onremove = function(vn) {
-	vn.state.unsubscribe?.();
-	vn.state.hemicycle?.destroy();
-	vn.state.hemicycle = null;
-}
-
 class HemicycleD3 {
 	constructor(element, props) {
 		const WIDTH = 600;
@@ -186,6 +153,40 @@ class HemicycleD3 {
 		this.svg.remove();
 	}
 }
+
+var Hemicycle = {};
+
+function getProps(vn) {
+	return {
+		...vn.attrs,
+		options: Revote.scenario()?.options ?? []
+	};
+}
+
+Hemicycle.view = function(vn) {
+	return m('.hemicycle');
+};
+Hemicycle.oninit = function(vn) {
+	vn.state.update = function() {
+		var props = getProps(vn);
+		if (!props.options.length) return // Transient
+		vn.state.hemicycle?.update(props);
+	}
+	vn.state.unsubscribe = Revote.subscribe(vn.state.update);
+};
+Hemicycle.onupdate = function(vn) {
+	vn.state.update()
+};
+Hemicycle.oncreate = function(vn) {
+	var props = getProps(vn);
+	vn.state.hemicycle = new HemicycleD3(vn.dom, props);
+};
+Hemicycle.onremove = function(vn) {
+	vn.state.unsubscribe?.();
+	vn.state.hemicycle?.destroy();
+	vn.state.hemicycle = null;
+}
+
 
 export default Hemicycle;
 
