@@ -102,6 +102,10 @@ class HemicycleD3 {
 			d3.event.preventDefault();
 		}
 		var sectors = this.chart.selectAll('path.sector').data(pie);
+		sectors
+			.on('click', selectOrigin)
+			.on('contextmenu', selectTarget)
+			;
 		sectors.select('title')
 			.text(function(d,i) {
 				return Revote.optionDescription(i);
@@ -129,8 +133,6 @@ class HemicycleD3 {
 				.each(function(d) {
 					this._current = d;
 				})
-				.on('click', selectOrigin)
-				.on('contextmenu', selectTarget)
 			.append('title')
 				.text(function(d,i) {
 					return Revote.optionDescription(i);
