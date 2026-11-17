@@ -66,7 +66,9 @@ class HemicycleD3 {
 			props.onoptioncontext(i);
 			d3.event.preventDefault();
 		}
-		var sectors = this.chart.selectAll('g.sector').data(pie);
+		var sectors = this.chart.selectAll('g.sector')
+			.data(pie, d => Revote.optionIdentity(d.data))
+			;
 		sectors.select('path.sector-shape')
 			.on('click', selectOrigin)
 			.on('contextmenu', selectTarget)
@@ -120,7 +122,9 @@ class HemicycleD3 {
 			//.each(function(d) { console.log('removing:', d.data.id); })
 			.remove();
 
-		var labels = this.chart.selectAll('text.sectorlabel').data(pie);
+		var labels = this.chart.selectAll('text.sectorlabel')
+			.data(pie, d => Revote.optionIdentity(d.data))
+			;
 
 		function placeLabel(sectorlabel, d) {
 			sectorlabel
