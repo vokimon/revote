@@ -16,6 +16,8 @@ class HemicycleD3 {
 
 		var bbox = {width: WIDTH, height: HEIGHT};
 		var r = Math.min(bbox.width/2, bbox.height);
+		this.currentOrder = [];
+
 		this.svg = d3.select(element)
 			.append('svg')
 				.attr('viewBox', `0 0 ${WIDTH} ${HEIGHT}`)
@@ -47,7 +49,8 @@ class HemicycleD3 {
 		var options = props.options;
 		var arcs = this.arcs
 
-		var identity = d => Revote.optionIdentity(d.data);
+		var identity = d => Revote.optionIdentity(d);
+		var sectorIdentity = s => identity(s.data)
 		var value = d => {
 			if (!props.shownovote && d.nocandidature)
 				return 0;
@@ -66,13 +69,14 @@ class HemicycleD3 {
 		}
 
 		var pie = d3.pie()
+			.sort(null)
 			.startAngle(-Math.PI/2)
 			.endAngle(Math.PI/2)
 			.value(value)
 			(options)
 			;
 		var sectors = this.chart.selectAll('g.sector')
-			.data(pie, identity)
+			.data(pie, sectorIdentity)
 			;
 		sectors.select('path.sector-shape')
 			.on('click', selectOrigin)
@@ -127,8 +131,10 @@ class HemicycleD3 {
 			//.each(function(d) { console.log('removing:', d.data.id); })
 			.remove();
 
+		this.currentOrder = options.map(identity);
+
 		var labels = this.chart.selectAll('text.sectorlabel')
-			.data(pie, identity)
+			.data(pie, sectorIdentity)
 			;
 
 		function placeLabel(sectorlabel, d) {
