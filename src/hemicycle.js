@@ -46,16 +46,14 @@ class HemicycleD3 {
 		const MIN_LABEL_ANGLE = 2 * Math.PI / 180;
 		var options = props.options;
 		var arcs = this.arcs
-		var pie = d3.pie()
-			.startAngle(-Math.PI/2)
-			.endAngle(Math.PI/2)
-			.value(function (d) {
-				if (!props.shownovote && d.nocandidature)
-					return 0;
-				return d[props.attribute || 'seats'] || 0;
-			})
-			(options)
-			;
+
+		var identity = d => Revote.optionIdentity(d.data);
+		var value = d => {
+			if (!props.shownovote && d.nocandidature)
+				return 0;
+			return d[props.attribute || 'seats'] || 0;
+		};
+
 		function selectOrigin(d,i) {
 			if (!props.onoptionclicked) return
 			props.onoptionclicked(i);
@@ -66,8 +64,15 @@ class HemicycleD3 {
 			props.onoptioncontext(i);
 			d3.event.preventDefault();
 		}
+
+		var pie = d3.pie()
+			.startAngle(-Math.PI/2)
+			.endAngle(Math.PI/2)
+			.value(value)
+			(options)
+			;
 		var sectors = this.chart.selectAll('g.sector')
-			.data(pie, d => Revote.optionIdentity(d.data))
+			.data(pie, identity)
 			;
 		sectors.select('path.sector-shape')
 			.on('click', selectOrigin)
@@ -123,7 +128,7 @@ class HemicycleD3 {
 			.remove();
 
 		var labels = this.chart.selectAll('text.sectorlabel')
-			.data(pie, d => Revote.optionIdentity(d.data))
+			.data(pie, identity)
 			;
 
 		function placeLabel(sectorlabel, d) {
