@@ -47,6 +47,7 @@ class HemicycleD3 {
 		const TRANSITION_DURATION = 1000;
 		const MIN_LABEL_ANGLE = 2 * Math.PI / 180;
 		var options = props.options;
+		if (!options.length) return;
 		var arcs = this.arcs
 
 		var identity = d => Revote.optionIdentity(d);
